@@ -18,6 +18,9 @@
   eg:
 
   INSTALLED_APPS = [
+  
       'apps.<new_app>',
+
       'apps.main',
+      
       ...
