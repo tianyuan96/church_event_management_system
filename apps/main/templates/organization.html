@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+<div class="container-fluid" style="background-color:white;">
+  <!-- navbar-->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>    
+      </ul>
+    </div>  
+  </nav>
+  
+  <!-- a large my org-->
+  <div class="jumbotron jumbotron-fluid" style="background-color:LightSeaGreen;">
+    <div class="container-fluid">
+      <h1>Church</h1>      
+      <p>we can put discription here,if we need</p>
+      <p>it could be a good idea if we can show photos of event here</p>
+    </div>
+  </div>
+
+
+  <!--home page--> 
+  <div class="row jumbotron-fluid">
+    <div class="container-fluid d-none d-md-block col-2 " style="background-color:LightCyan;">
+      <h2>Futures</h2>
+    	<!-- content at the left -->
+    	<div class="jumbotron-fluid" >
+          <div class="container">     
+            <p>
+              some other event organisor
+            </p>
+          </div>
+		  </div>
+    </div>
+    <!-- content at the middle -->
+    <div class="col container-fluid" style="background-color:white;">
+  		<div class="jumbotron-fluid" style="background-color:LightCyan;">
+            <div class="container-fluid">
+              <div class="mb-5 container-fluid bg-info"  >
+                <h1>Event in the church</h1> 
+              </div>
+              <!-- event card-->
+              <div class="row d-flex justify-content-around">
+                  <div class="card mb-5" style="width: 18rem;">
+                    <img class="card-img-top" src="https://www.w3schools.com/w3images/nature.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Event1</h5>
+                      <p class="card-text">this is a very funny event</p>
+                      <a href="#" class="btn btn-primary">join</a>
+                    </div>              
+                  </div>
+
+
+                  <div class="card mb-5" style="width: 18rem;">
+                    <img class="card-img-top" src="https://www.w3schools.com/w3images/nature.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Event2</h5>
+                      <p class="card-text">this is a very funny event</p>
+                      <a href="#" class="btn btn-primary">join</a>
+                    </div>              
+                  </div>
+
+              </div>
+            </div>
+  		</div>
+    </div>
+
+    <!-- content at the right -->    
+    <div class="container-fluid d-none d-md-block col-2 " style="background-color:LightCyan;">
+      <h2>options</h2>
+
+    	<div class="container-fluid" >
+        <div class="container">     
+          <p>
+            my event
+          </p>
+          <p>
+            create new event
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+
+</body>
+</html>
