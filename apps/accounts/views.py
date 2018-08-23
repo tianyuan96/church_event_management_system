@@ -32,7 +32,6 @@ class RegisterAccountView(generic.View):
     def post(self, request, *args, **kwargs):
 
         form = self.form_class(request.POST)
-        print("POST REQUSET RECEIVED")
         if form.is_valid():
 
             user = form.save(commit=False)
@@ -46,8 +45,6 @@ class RegisterAccountView(generic.View):
 
             if user is not None: # if the user was successfully authed
                 if user.is_active:  # The user has not been banned
-                    print("user was authed")
                     login(request, user)
                     return redirect(self.success_url)
-            print("USER WAS NOT AUTHED")
         return render(request, self.template_name, {'form': form })
