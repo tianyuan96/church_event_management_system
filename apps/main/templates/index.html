@@ -1,19 +1,64 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %}Home{% endblock %} {% block content %}
+<div class="container mt-3">
 
-{% block title %}Home{% endblock %}
+  <h1>Church Event Management</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nunc libero, ultricies eget tortor sit amet, gravida
+    aliquet mauris. Integer rhoncus feugiat erat in cursus. Integer eu nulla sit amet diam hendrerit viverra. Proin consectetur
+    imperdiet risus ac ullamcorper. Nullam vel vulputate tortor. Aenean pulvinar quam vitae efficitur commodo. Fusce et ornare
+    nisi, a elementum nibh. Cras nec lorem mattis justo cursus auctor.</p>
 
-{% block content %}
-  {% if user.is_authenticated %}
-    <a href="/accounts/logout">Logout</a><br>
-  {% else %}
-    <a href="/accounts/login">Login</a><br>
-    <a href="/accounts/register">Register</a>
-  {% endif %}
+  <hr>
 
-  {% if user.is_authenticated %}
-    <p>Hello {{ user.username }}</p>
-  {% else %}
-    <p>Hello World</p>
-  {% endif %}
+  <h2>What's on</h2>
+  <br>
+  <h3>This Week</h3>
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <hr>
+  <h3>Later</h3>
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card">
+        <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 {% endblock %}

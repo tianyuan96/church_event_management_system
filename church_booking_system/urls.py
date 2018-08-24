@@ -23,6 +23,7 @@ from apps.main import views as main_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', main_views.HomeView.as_view(), name='home'),
+    path('choose-meal', main_views.ChooseMealView.as_view(), name='choose_meal'),
     path('accounts/', include('apps.accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),  # URLs for registration and login, logout and password reset
 ]

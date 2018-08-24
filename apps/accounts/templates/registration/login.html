@@ -1,41 +1,77 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content %}
 
-{% block title %}Login{% endblock %}
+<div class="container mt-3">
 
-{% block content %}
-
-{% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-{% if next %}
-  {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-  {% else %}
-    <p>Please login to see this page.</p>
+  {% if form.errors %}
+  <div class="alert alert-warning">
+    <p>Your username and password didn't match. Please try again.</p>
+  </div>
   {% endif %}
-{% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
+  <!-- -->
+  {% if next %}
+  <!-- -->
+  {% if user.is_authenticated %}
+  <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+  <!-- -->
+  {% else %}
+  <p>Please login to see this page.</p>
+  <!-- -->
+  {% endif %}
+  <!-- -->
+  {% endif %}
 
-<div>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</div>
-<div>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
+
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}" />
+    <div class="row">
+      <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3">
+        <div class="card mb-3">
+          <h3 class="card-header text-center bg-primary text-white">Login</h3>
+          <div class="card-body pb-0">
+
+            <div class="form-group">
+              {{ form.username.label_tag }}
+              <br> {{ form.username }}
+              <!-- <input class="form-control" name="username"> -->
+            </div>
+            <div class="form-group">
+              {{ form.password.label_tag }}
+              <br> {{ form.password }}
+              <!-- <input type="password" class="form-control" name="password"> -->
+            </div>
+            <div class="form-group">
+              <button class="btn btn-block btn-primary" type="submit">Login</button>
+              <a class="btn-link" href="{% url 'password_reset' %}">Lost password?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
 </div>
 
-<div>
-  <input type="submit" value="login" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</div>
+
+<!-- <form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+  <div>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+  </div>
+  <div>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+  </div>
+
+  <div>
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </div>
 </form>
 
 {# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+<p><a href="{% url 'password_reset' %}">Lost password?</a></p> -->
 
 {% endblock %}
