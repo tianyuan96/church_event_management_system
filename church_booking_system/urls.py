@@ -23,6 +23,6 @@ urlpatterns = [
     path(r'', main_views.HomeView.as_view(), name='home'),
     path('accounts/users/', include('apps.user_accounts.urls')),
     path('accounts/organisations/', include('apps.org_accounts.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),  # URLs for registration and login, logout and password reset
+    path('choose-meal', main_views.ChooseMealView.as_view(), name='choose_meal'),
 
 ]

@@ -21,3 +21,13 @@ class RegisterOrganisationForm(UserCreationForm):
     class Meta:
         model = get_user_model()
         fields = ('organisation', 'email', 'password1', 'password2', )
+
+
+class LoginOrganisationForm(forms.Form):
+
+    email = forms.EmailField(max_length=254, help_text='Required. Please use a valid email address.')
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'password', )

@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 #Email as username validation
-AUTH_USER_MODEL = "org_accounts.ExtendedUser"
+AUTH_USER_MODEL = "accounts.ExtendedUser"
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # user_name is not used, if not None, migration will report errors
 ACCOUNT_USERNAME_REQUIRED = False

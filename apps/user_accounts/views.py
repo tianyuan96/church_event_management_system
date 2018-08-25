@@ -2,7 +2,7 @@ from .forms import RegisterUserForm, LoginUserForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -11,7 +11,7 @@ class UserProfileView(generic.TemplateView):
     template_name = "registration/profile.html"
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {'user': request.user, 'title': "BLAH"})
+        return render(request, self.template_name, {'user': request.user, 'title': request.user.email})
 
 class RegisterUserView(generic.View):
 
@@ -46,6 +46,24 @@ class RegisterUserView(generic.View):
                     login(request, user)
                     return redirect(self.success_url)
         return render(request, self.template_name, {'form': form })
+
+class ResetUserView(generic.View):
+
+    success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+
+        print("TODO: password reset not implemented yet")
+        return render(request, self.success_url)
+
+class LogoutUserView(generic.View):
+
+    success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        print("DKSFJLDKSJFLSK")
+        response = logout(request)
+        return redirect(self.success_url)
 
 class LoginUserView(generic.View):
 
