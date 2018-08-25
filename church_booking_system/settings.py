@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'apps.main',
     'apps.user_accounts',
     'apps.org_accounts',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,6 +60,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             'templates/',
+            'apps/main/templates/,'
             'apps/user_accounts/templates/,'
             'apps/org_accounts/templates/,'
         ],

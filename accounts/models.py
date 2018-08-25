@@ -20,6 +20,9 @@ class UserAccountManager(BaseUserManager):
     def get_by_natural_key(self, email_):
         return self.get(email=email_)
 
-class ExtendedUser(AbstractBaseUser):
 
-    
+class ExtendedUser(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(('email address'), blank=False, max_length=255, unique=True)
+
+    USERNAME_FIELD = 'email'
+    objects = UserAccountManager()

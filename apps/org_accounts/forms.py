@@ -30,4 +30,4 @@ class LoginOrganisationForm(forms.Form):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password', )
+        fields = ('email', )
