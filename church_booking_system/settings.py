@@ -28,6 +28,14 @@ DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
+# Email server settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'jingchengtest@gmail.com'
+EMAIL_HOST_PASSWORD = 'LJCtest1107'
+EMAIL_PORT = 587
+
+
 # Application definition
 
 INSTALLED_APPS = [
