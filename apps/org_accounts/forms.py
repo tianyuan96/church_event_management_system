@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-# from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+
 
 
 states = [
@@ -14,12 +14,22 @@ states = [
 ]
 
 class RegisterOrganisationForm(UserCreationForm):
-    organisation = forms.CharField(max_length=50, required=True)
-    email = forms.EmailField(max_length=254, required=True, help_text='Required. Please use a valid email address.')
-    # state = forms.OptionsField(choices=states)
+
+    organisation = forms.CharField()
+
+    def username_taken(self):
+
+        email = self.data['email']
+        try:
+            User._default_manager.get(username=email)
+        except User.DoesNotExist:
+            return False, ''
+
+        return True, 'That email is already registered'
+
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ('organisation', 'email', 'password1', 'password2', )
 
 
@@ -29,5 +39,5 @@ class LoginOrganisationForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ('email', )

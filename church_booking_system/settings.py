@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'apps.main',
     'apps.user_accounts',
     'apps.org_accounts',
-    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -107,16 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-#Email as username validation
-AUTH_USER_MODEL = "accounts.ExtendedUser"
-
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None  # user_name is not used, if not None, migration will report errors
-ACCOUNT_USERNAME_REQUIRED = False
-#Enforce uniqueness of e-mail addresses.
-ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_AUTHENTICATION_METHOD = "email"
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

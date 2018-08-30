@@ -33,20 +33,29 @@ class RegisterOrganisationView(generic.View):
         form = self.form_class(request.POST)
         if form.is_valid():
 
+            taken, error = form.username_taken()
+            if taken:
+                return render(request, self.template_name, {'form': form, 'error': error, })
+
             user = form.save(commit=False)
-            email = form.cleaned_data['email']
+            username = form.cleaned_data['email']
             password = form.cleaned_data['password1']
+
             user.set_password(password)
+            user.username = username
             user.save()
 
             # Auto log the user in
-            user = authenticate(email=email, password=password)
+            user = authenticate(username=username, password=password)
 
             if user is not None: # if the user was successfully authed
                 if user.is_active:  # The user has not been banned
                     login(request, user)
+                    print("SUCCESSFULLY CREATED ORGANISATION")
                     return redirect(self.success_url)
-        return render(request, self.template_name, {'form': form })
+
+        return render(request, self.template_name, {'form': form, })
+
 
 
 class LoginOrganisationView(generic.View):

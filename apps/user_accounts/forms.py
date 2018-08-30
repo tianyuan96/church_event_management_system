@@ -3,18 +3,24 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 # from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-
+from django.contrib.auth.models import User
 
 class RegisterUserForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    # username = forms.CharField(max_length=30, required=True)
-    email = forms.EmailField(max_length=254, help_text='Required. Please use a valid email address.')
+
+
+    def username_taken(self):
+
+        email = self.data['email']
+        try:
+            User._default_manager.get(username=email)
+        except User.DoesNotExist:
+            return False, ''
+
+        return True, 'That email is already registered'
 
     class Meta:
-        model = get_user_model()
-        fields = ('first_name', 'last_name', 'email', 'password1', 'password2', )
-
+        model = User
+        fields = ('email', 'password1', 'password2', )
 
 class LoginUserForm(forms.Form):
 
@@ -23,4 +29,4 @@ class LoginUserForm(forms.Form):
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'password', )
+        fields = ('username', 'password', )

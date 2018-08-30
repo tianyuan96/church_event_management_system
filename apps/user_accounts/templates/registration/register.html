@@ -23,7 +23,9 @@
             {% for error in field.errors %}
               <p style="color: red">{{ error }}</p>
             {% endfor %}
+
           {% endfor %}
+          <p style="color: red">{{ error }}</p> <!-- This error is specifically for taken usernames, please don't delete it -->
           <br>
           <input class="btn btn-block btn-success mb-4" type="submit" value="Register">
           </form>
