@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block title %}Choose My Meal{% endblock %} {% block content %}
+<div class="container mt-3">
+
+    <h1>What will you offer for the event</h1>
+
+    <br>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Name of the dish</label>
+                        <input class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="text-right">
+        <a class="btn btn-primary" href="#" style="border-radius:50%; height:40px; position: relative; top: -16px;">
+            <i class="fas fa-plus" style="position: relative;top: 2px;"></i>
+        </a>
+    </div>
+    <br>
+    <br>
+    <button class="btn btn-outline-primary btn-block">Create dish option</button>
+</div>
+{% endblock %}

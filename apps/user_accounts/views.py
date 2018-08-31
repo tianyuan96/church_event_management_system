@@ -122,12 +122,14 @@ class LoginUserView(generic.View):
 
             username = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            user = authenticate(email=email, password=password)
+            user = authenticate(username=username, password=password)
 
             if user is not None:
                 if user.is_active:
                     login(request, user)
                     return redirect(self.success_url)
+            else:
+                print("Invalid Login, should redirect to error page")
 
         self.context['form'] = form
         return render(request, self.template_name, self.context)

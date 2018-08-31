@@ -26,7 +26,16 @@ urlpatterns = [
     path(r'', main_views.HomeView.as_view(), name='home'),
     path('accounts/users/', include('apps.user_accounts.urls')),
     path('accounts/organisations/', include('apps.org_accounts.urls')),
+
+    path('sitemap', main_views.SitemapView.as_view(), name='sitemap'),
     path('choose-meal', main_views.ChooseMealView.as_view(), name='choose_meal'),
+    path('choose-meal-success', main_views.ChooseMealSuccessView.as_view(), name='choose_meal_success'),
+    path('event-detail', main_views.EventDetailView.as_view(), name='event_detail'),
+    path('event-planner', main_views.EventPlannerView.as_view(), name='event_planner'),
+    path('create-event', main_views.CreateEventView.as_view(), name='create_event'),
+    path('cater', main_views.CaterView.as_view(), name='cater'),
+    path('event-offer', main_views.EventOfferView.as_view(), name='event_offer'),
+
     url(r'^user_confirm/(?P<confirmation_code>.*)/$', UserConfirmView.as_view(), name="user_confirm"),
 
 ]

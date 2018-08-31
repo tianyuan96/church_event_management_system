@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Choose My Meal{% endblock %} 
+
+
+{% block content %}
+<div class="container mt-3">
+
+    <h1>Choose My Meal</h1>
+    <br>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3 text-center">
+            <div class="">
+                <i class="far fa-smile" style="font-size:160px"></i>
+                <h1>Success !</h1>
+            </div>
+
+            <p>Your choice is {Pizza}</p>
+            <p>You can change choice before the host close the survey.</p>
+        </div>
+    </div>
+    <div class="text-right">
+        <a class="btn btn-primary" href="#">Cool</a>
+    </div>
+
+
+</div>
+{% endblock %}
