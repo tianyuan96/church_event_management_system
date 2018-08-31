@@ -2,7 +2,11 @@ from .forms import RegisterUserForm, LoginUserForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
+from . import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
 
@@ -18,8 +22,9 @@ class RegisterUserView(generic.View):
     form_class = RegisterUserForm
     title = "Register"
     template_name = 'registration/register.html'
-    success_url = reverse_lazy('user_profile')
-
+    #success_url = reverse_lazy('user_profile')
+    success_url = reverse_lazy('successfully_registered')
+    profile_url = reverse_lazy('user_profile')
     # Display the register account page
     def get(self, request, *args, **kwargs):
 
@@ -46,14 +51,35 @@ class RegisterUserView(generic.View):
 
             # Auto log the user in
             user = authenticate(username=username, password=password)
-
+            code = hash(username)
+            models.Confirmations.objects.create(user=user, confirmation_code=code)
+            user_to_confirm = models.Confirmations.objects.get(user=user)
             if user is not None: # if the user was successfully authed
                 if user.is_active:  # The user has not been banned
                     login(request, user)
-                    print("SUCCESSFULLY CREATED USER")
-                    return redirect(self.success_url)
+                    if user_to_confirm.has_confirmed is False:
+
+
+
+                        subject = 'Please activate your account at ChurchEvent'
+                        message = 'Welcome to ChurchEvent!\n Please activate your account at 127.0.0.1:8000/user_confirm/{0}'.format(str(code))
+                        from_email = settings.EMAIL_HOST_USER
+                        to_list = [username]
+                        send_mail(subject, message, from_email, to_list, fail_silently=True)
+                        messages.success(request, 'Thank you, we will be in touch')
+                        return redirect(self.success_url)
+                    else:
+                        return redirect(self.profile_url)
 
         return render(request, self.template_name, {'form': form, })
+
+class NeedActivateView(generic.View):
+
+    template_name = "registration/successfully_registered.html"
+
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
 class ResetUserView(generic.View):
 
@@ -105,3 +131,29 @@ class LoginUserView(generic.View):
 
         self.context['form'] = form
         return render(request, self.template_name, self.context)
+
+class BackHomepageView(generic.View):
+
+    success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        print("DKSFJLDKSJFLSK")
+        return redirect(self.success_url)
+
+class UserConfirmView(generic.View):
+    success_url = reverse_lazy('successfully_confirmed')
+
+    def get(self, request, confirmation_code):
+        record = models.Confirmations.objects.get(confirmation_code=confirmation_code)
+        record.has_confirmed = True
+        record.save()
+
+        return redirect(self.success_url)
+
+class HasActivatedView(generic.View):
+
+    template_name = "registration/successfully_confirmed.html"
+
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
