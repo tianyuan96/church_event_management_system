@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.edit import CreateView
 from apps.main import views as main_views
+from apps.user_accounts.views import UserConfirmView
+from django.conf.urls import url
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +27,6 @@ urlpatterns = [
     path('accounts/users/', include('apps.user_accounts.urls')),
     path('accounts/organisations/', include('apps.org_accounts.urls')),
     path('choose-meal', main_views.ChooseMealView.as_view(), name='choose_meal'),
+    url(r'^user_confirm/(?P<confirmation_code>.*)/$', UserConfirmView.as_view(), name="user_confirm"),
 
 ]
