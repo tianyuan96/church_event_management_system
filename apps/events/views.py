@@ -48,9 +48,8 @@ class CreateEventView(CreateView):
             else:
                 print(form.errors)
                 return HttpResponseRedirect(request.path_info)
-
-
-        return HttpResponseRedirect('/')
+        #if they don't have the permission, do not let them to do anything
+        return HttpResponseRedirect(request.path_info)
 
 
 
