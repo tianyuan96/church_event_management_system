@@ -39,6 +39,7 @@ EMAIL_PORT = 587
 # Application definition
 
 INSTALLED_APPS = [
+    'apps.events',
     'apps.main',
     'apps.user_accounts',
     'apps.org_accounts',

@@ -10,9 +10,21 @@
   {% endif %}
 
   {% if user.is_authenticated %}
-    <p>Hello {{ organisation.username }}</p>
+    <p>Hello {{ user.email }} </p>
   {% else %}
     <p>Hello World</p>
+  {% endif %}
+
+
+  {% if events %}
+      <h3>My Events:</h3>
+      <ul>
+      {% for event in events %}
+          <li>{{ event.name }}</li>
+      {% endfor %}
+      </ul>
+  {% else %}
+    <h1>Start by creating an event!</h1>
   {% endif %}
 
 {% endblock %}
