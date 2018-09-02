@@ -60,10 +60,9 @@ class DeleteEventView(generic.DeleteView):
     model = Event
     success_url = reverse_lazy('org_profile')
 
-    # Since this inherits from DeleteView, whatever queryset that get's returned will be deleted
 
 
-class ModifyEventView(generic.View):
+class UpdateEventView(generic.View):
 
     successful_url = reverse_lazy('successfully_modified')
 

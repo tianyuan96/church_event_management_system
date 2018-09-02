@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-  {% if organisation.is_authenticated %}
-    <a href="organisations/accounts/logout">Logout</a><br>
+  {% if user.is_authenticated %}
+    <a href="/accounts/organisations/logout">Logout</a><br>
   {% else %}
-    <a href="organisations/accounts/login">Login</a><br>
+    <a href="/accounts/organisations/login">Login</a><br>
   {% endif %}
 
   {% if user.is_authenticated %}
@@ -15,18 +15,18 @@
     <p>Hello World</p>
   {% endif %}
 
-
+  <a href="/event/create">Create an event</a>
   {% if events %}
       <h3>My Events:</h3>
       <ul>
       {% for event in events %}
           <li>
-            <a href="/event/details/{{ event.name }}">{{ event.name }}</a>
-            <form action="/event/update/{{ event.name }}" method="POST">
+            <a href="/event/details/{{ event.id }}">{{ event.name }}</a>
+            <form action="/event/update/{{ event.id }}" method="POST">
               {% csrf_token %}
               <input type="submit" value="Modify">
             </form>
-            <form action="/event/delete/{{ event.name }}" method="POST">
+            <form action="/event/delete/{{ event.id }}" method="POST">
               {% csrf_token %}
               <input type="submit" value="Delete">
             </form>
