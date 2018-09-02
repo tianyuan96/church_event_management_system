@@ -7,4 +7,10 @@ class Event(models.Model):
 
     name = models.CharField(max_length=100)
     date = models.DateField()
-    location = models.
+    location = models.CharField(max_length=100)
+
+
+class InvolvedEvent(models.Model):
+
+    eventId = models.ForeignKey(Event, on_delete=models.CASCADE)
+    participant = models.ForeignKey(Event, on_delete=models.CASCADE)

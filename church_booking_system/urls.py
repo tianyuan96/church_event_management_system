@@ -36,6 +36,7 @@ urlpatterns = [
     path('cater', main_views.CaterView.as_view(), name='cater'),
     path('event-offer', main_views.EventOfferView.as_view(), name='event_offer'),
 
+    #ath('event', )
     url(r'^user_confirm/(?P<confirmation_code>.*)/$', UserConfirmView.as_view(), name="user_confirm"),
 
 ]
