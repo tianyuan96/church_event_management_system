@@ -13,6 +13,10 @@ class EventCreationForm(forms.ModelForm):
         model = Event
         fields = '__all__'
         widgets = {
-            'name': forms.Textarea(attrs={'class':'form-control'}),
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'date': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+
         }
 

@@ -6,7 +6,8 @@ from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from .models import Event
 from django.urls import reverse_lazy
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+
 
 class EventView(generic.View):
 
@@ -21,12 +22,21 @@ class EventView(generic.View):
 class CreateEventView(CreateView):
 
     template_name = "create_event2.html"
+    orgProfile = "org_account/org_profile.html"#ganization_profile
     form_class = EventCreationForm
     title = 'Create Event'
 
      # def get(self, request, *args, **kwargs):
      #    con
      #    return render(request,self.template_name)
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            event = form.save()
+
+            return HttpResponseRedirect('/')
+
+        return render(request,"event_detail.html", {"event": form, 'errors': form.errors})
 
 
 class DeleteEventView(generic.DeleteView):
