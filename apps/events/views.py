@@ -26,15 +26,30 @@ class CreateEventView(CreateView):
     form_class = EventCreationForm
     title = 'Create Event'
 
-     # def get(self, request, *args, **kwargs):
-     #    con
-     #    return render(request,self.template_name)
+
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if user is not None:
+            if user.is_active:
+                form =  self.form_class
+                return render(request,self.template_name,{"form":form})
+        return render(request,"event_detail.html", {"event": user, 'errors': ""})
+
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            event = form.save()
+            name = form.cleaned_data['name']
+            location = form.cleaned_data['location']
+            date = form.cleaned_data['date']
+            description = form.cleaned_data['description']
 
-            return HttpResponseRedirect('/')
+            newEvent = Event(name=name, location=location,
+                             date = date,description = description,
+                             host=user)
+            newEvent.save() #save it to the database
+
+            return HttpResponseRedirect('/accounts/organisations/profile')
 
         return render(request,"event_detail.html", {"event": form, 'errors': form.errors})
 
