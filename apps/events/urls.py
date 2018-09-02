@@ -20,8 +20,6 @@ from . import views
 
 urlpatterns = [
     path('create/', views.CreateEventView.as_view()),
-    path('', views.EventView.as_view()),
+    path('delete/<int:pk>', views.DeleteEventView.as_view()),
 
 ]
-
-

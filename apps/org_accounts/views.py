@@ -4,14 +4,14 @@ from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from apps.events.models import Event
 
+class OrganisationProfileView(LoginRequiredMixin, generic.ListView):
 
-class OrganisationProfileView(LoginRequiredMixin, generic.TemplateView):
+    template_name = "registration/org_profile.html"
+    context_object_name = "events"
+    model = Event
 
-    template_name = "registration/profile.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {'organisation': request.user})
 
 # Create your views here.
 class RegisterOrganisationView(generic.View):
