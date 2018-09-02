@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path('create/', views.CreateEventView.as_view()),
     path('delete/<int:pk>', views.DeleteEventView.as_view()),
+    path('update/<int:pk>', views.UpdateEventView.as_view()),
 
 ]

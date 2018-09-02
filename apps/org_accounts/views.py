@@ -2,7 +2,7 @@ from .forms import RegisterOrganisationForm, LoginOrganisationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from apps.events.models import Event
 
@@ -11,9 +11,6 @@ class OrganisationProfileView(LoginRequiredMixin, generic.ListView):
     template_name = "registration/org_profile.html"
     context_object_name = "events"
     model = Event
-
-
-
 
 
 # Create your views here.
@@ -94,3 +91,12 @@ class LoginOrganisationView(generic.View):
 
         self.ctx['form'] = form
         return render(request, self.template_name, self.ctx)
+
+class LogoutOrganisationView(generic.View):
+
+    success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+
+        response = logout(request)
+        return redirect(self.success_url)
