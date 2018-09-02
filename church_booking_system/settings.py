@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.events',
 ]
 
 MIDDLEWARE = [
@@ -67,9 +68,11 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             'templates/',
-            'apps/main/templates/,'
-            'apps/user_accounts/templates/,'
-            'apps/org_accounts/templates/,'
+            'apps/events/templates/',
+            'apps/main/templates/',
+            'apps/user_accounts/templates/',
+            'apps/org_accounts/templates/',
+
         ],
         'APP_DIRS': True,
         'OPTIONS': {

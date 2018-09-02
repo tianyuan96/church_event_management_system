@@ -19,7 +19,8 @@ from django.views.generic.edit import CreateView
 from . import views
 
 urlpatterns = [
-    path('create/',views.CreateEventView.as_view()),
+    path('create/', views.CreateEventView.as_view()),
+    path('', views.EventView.as_view()),
 
 ]
 

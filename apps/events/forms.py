@@ -1,5 +1,18 @@
 from .models import Event
+from django import forms
 
-class EventCreationForm(forms.Form):
+class EventCreationForm(forms.ModelForm):
 
-    model = Event
+    # Fields
+    # model = Event
+    # name = forms.CharField()
+
+
+    class Meta:
+
+        model = Event
+        fields = '__all__'
+        widgets = {
+            'name': forms.Textarea(attrs={'class':'form-control'}),
+        }
+
