@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from .models import Event
 from django.urls import reverse_lazy
+from django.http import Http404
 
 class EventView(generic.View):
 
@@ -28,7 +29,14 @@ class CreateEventView(CreateView):
      #    return render(request,self.template_name)
 
 
+class DeleteEventView(generic.DeleteView):
 
+    def get_object(self, queryset=None):
+        """ Hook to ensure object is owned by request.user. """
+        obj = super(DeleteEventView, self).get_object()
+        if not obj.owner == self.request.user:
+            raise Http404
+        return obj
 
 
 
@@ -46,4 +54,3 @@ class ModifyEventView(generic.View):
         event.description = request.GET.get('description')
         event.save()
         return render(request, self.template_name, {'user': request.user, 'title': request.user.email})
-
