@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from apps.events.models import Event
 
+
 class OrganisationProfileView(LoginRequiredMixin, generic.ListView):
 
     template_name = "registration/org_profile.html"

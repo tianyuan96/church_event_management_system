@@ -24,12 +24,13 @@
             <a href="/event/details/{{ event.id }}">{{ event.name }}</a>
             <form action="/event/update/{{ event.id }}" method="POST">
               {% csrf_token %}
-              <input type="submit" value="Modify">
+              <input type="submit" value="Update">
             </form>
             <form action="/event/delete/{{ event.id }}" method="POST">
               {% csrf_token %}
               <input type="submit" value="Delete">
             </form>
+
           </li>
       {% endfor %}
       </ul>

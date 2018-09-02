@@ -1,0 +1,8 @@
+  <title>Title</title>
+    <form method="post" action="/event/update/{{ event.id }}">
+        <table>
+            {% csrf_token %}
+            {{ form }}
+        </table>
+    <input type="submit" value="Submit" />
+</form>
