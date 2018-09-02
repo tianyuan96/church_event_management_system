@@ -18,6 +18,7 @@ class EventCreationForm(forms.ModelForm):
                                            'type': 'date'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'imageFile':forms.FileInput(attrs={'class': 'custom-file-input'})
 
         }
 

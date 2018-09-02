@@ -39,10 +39,11 @@ class CreateEventView(CreateView):
     def post(self, request, *args, **kwargs):
         user = request.user
         if user is not None and user.is_staff:
-            form = self.form_class(request.POST.copy())
+            form = self.form_class(request.POST.copy(),request.FILES)
             form.data['host'] = user.id
-
+           # image = request.POST.get('event_image',False)
             if form.is_valid():
+
                 form.save() #save it to the database
                 return HttpResponseRedirect('/accounts/organisations/profile')
             else:
