@@ -7,7 +7,8 @@ class Event(models.Model):
 
     name = models.CharField(max_length = 100)
     date = models.DateField(null = True)
-    location = models.CharField(max_length = 100, default = "Some description")
+    location = models.CharField(max_length = 100, default = "Some location")
+    description = models.CharField(max_length=512,default = "Some location")
 
 
 class InvolvedEvent(models.Model):
