@@ -56,14 +56,10 @@ class CreateEventView(CreateView):
 
 class DeleteEventView(generic.DeleteView):
 
-    def get_object(self, queryset=None):
-        """ Hook to ensure object is owned by request.user. """
-        obj = super(DeleteEventView, self).get_object()
-        if not obj.owner == self.request.user:
-            raise Http404
-        return obj
+    model = Event
+    success_url = reverse_lazy('org_profile')
 
-
+    # Since this inherits from DeleteView, whatever queryset that get's returned will be deleted
 
 
 class ModifyEventView(generic.View):

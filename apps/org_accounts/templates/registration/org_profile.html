@@ -20,7 +20,17 @@
       <h3>My Events:</h3>
       <ul>
       {% for event in events %}
-          <li>{{ event.name }}</li>
+          <li>
+            <a href="/event/details/{{ event.id }}">{{ event.name }}</a>
+            <form action="/event/update/{{ event.id }}" method="POST">
+              {% csrf_token %}
+              <input type="submit" value="Modify">
+            </form>
+            <form action="/event/delete/{{ event.id }}" method="POST">
+              {% csrf_token %}
+              <input type="submit" value="Delete">
+            </form>
+          </li>
       {% endfor %}
       </ul>
   {% else %}
