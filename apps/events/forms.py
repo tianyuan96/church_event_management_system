@@ -14,7 +14,8 @@ class EventCreationForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control'}),
-            'date': forms.TextInput(attrs={'class': 'form-control'}),
+            'date': forms.TextInput(attrs={'class': 'form-control',
+                                           'type': 'date'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
 

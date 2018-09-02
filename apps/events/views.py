@@ -30,28 +30,30 @@ class CreateEventView(CreateView):
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        if user is not None:
+        if user is not None and user.is_staff:
             if user.is_active:
                 form =  self.form_class
                 return render(request,self.template_name,{"form":form})
-        return render(request,"event_detail.html", {"event": user, 'errors': ""})
+        return HttpResponseRedirect('/')
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            location = form.cleaned_data['location']
-            date = form.cleaned_data['date']
-            description = form.cleaned_data['description']
+        user = request.user
+        if user is not None and user.is_staff:
+            form = self.form_class(request.POST.copy())
+            form.data['host'] = user.id
 
-            newEvent = Event(name=name, location=location,
-                             date = date,description = description,
-                             host=user)
-            newEvent.save() #save it to the database
+            if form.is_valid():
+                form.save() #save it to the database
+                return HttpResponseRedirect('/accounts/organisations/profile')
+            else:
+                print(form.errors)
+                return HttpResponseRedirect(request.path_info)
 
-            return HttpResponseRedirect('/accounts/organisations/profile')
 
-        return render(request,"event_detail.html", {"event": form, 'errors': form.errors})
+        return HttpResponseRedirect('/')
+
+
+
 
 
 class DeleteEventView(generic.DeleteView):

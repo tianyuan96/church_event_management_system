@@ -13,6 +13,9 @@ class OrganisationProfileView(LoginRequiredMixin, generic.ListView):
     model = Event
 
 
+
+
+
 # Create your views here.
 class RegisterOrganisationView(generic.View):
 
@@ -43,6 +46,7 @@ class RegisterOrganisationView(generic.View):
 
             user.set_password(password)
             user.username = username
+            user.is_staff = True # grant staff privilege
             user.save()
 
             # Auto log the user in
