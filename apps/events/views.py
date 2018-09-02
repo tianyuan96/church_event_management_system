@@ -26,6 +26,12 @@ class CreateEventView(CreateView):
      # def get(self, request, *args, **kwargs):
      #    con
      #    return render(request,self.template_name)
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            taken, error = form.username_taken()
+            if taken:
+                return render(request, self.template_name, {'form': form, 'error': error, })
 
 
 
