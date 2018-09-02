@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Event(models.Model):
 
     name = models.CharField(max_length = 100)
-    date = models.DateField(null = True)
+    date = models.DateField(blank = True, default="1997-11-1")
     location = models.CharField(max_length = 100, default = "Some location")
     description = models.CharField(max_length=512,default = "Some location")
 
