@@ -1,4 +1,6 @@
-  <title>Title</title>
+{% extends 'base.html' %}  {% block title %}{{ title }}{% endblock %} {% block content %}
+<div class="container mt-3">
+<title>Title</title>
     <form method="post" action="/event/update/{{ event.id }}">
         <table>
             {% csrf_token %}
@@ -6,3 +8,5 @@
         </table>
     <input type="submit" value="Submit" />
 </form>
+    </div>
+{% endblock %}
