@@ -17,13 +17,13 @@
 
   
   {% if events %}
+  <div class="container mt-3">
 
+      <h1>My Host Event</h1>
+      <br>
       {% for event in events %}
       <div class="container mt-3">
 
-        <h1>My Host Event</h1>
-        <br>
-    
         <div class="row">
             <div class="col-md-4">
                 <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
@@ -37,7 +37,7 @@
             <div class="col-md-2">
                 <form action="/event/delete/{{ event.id }}" method="POST">
                   {% csrf_token %}
-                  <input class="btn btn-danger" style="height:40px; width:120px ;position: relative; top: -16px;" type="submit" value="Delete">
+                  <input class="btn btn-danger" style="height:40px; width:120px ;position: relative;" type="submit" value="Delete">
                 </form>
                 <br>
                 <br>
