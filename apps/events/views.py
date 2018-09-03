@@ -26,6 +26,31 @@ class CreateEventView(CreateView):
     form_class = EventCreationForm
     title = 'Create Event'
 
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if user is not None and user.is_staff:
+            if user.is_active:
+                form =  self.form_class
+                return render(request,self.template_name,{"form":form})
+        return HttpResponseRedirect('/')
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if user is not None and user.is_staff:
+            form = self.form_class(request.POST.copy(),request.FILES)
+            form.data['host'] = user.id
+
+            if form.is_valid():
+                form.save() #save it to the database
+                return HttpResponseRedirect('/accounts/organisations/profile')
+            else:
+                print(form.errors)
+                return HttpResponseRedirect(request.path_info)
+
+
+        return HttpResponseRedirect('/')
+
+
 
 
 

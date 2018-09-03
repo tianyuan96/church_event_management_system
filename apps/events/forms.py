@@ -35,10 +35,10 @@ class EventUpdateForm(forms.ModelForm):
         fields = '__all__'
         fields = {
             'name': forms.TextInput(attrs={'class':'form-control'}),
-           # 'date': forms.TextInput(attrs={'class': 'form-control',
-                                        #   'type': 'date'}),
+            'date': forms.TextInput(attrs={'class': 'form-control',
+                                           'type': 'date'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'imageFile':forms.FileInput(attrs={'class': 'custom-file-input'})
+            'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'}),
 
         }
