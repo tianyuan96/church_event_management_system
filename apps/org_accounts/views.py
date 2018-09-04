@@ -1,4 +1,5 @@
 from .forms import RegisterOrganisationForm, LoginOrganisationForm
+from .models import OrganisationDetails
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import render, redirect
@@ -47,6 +48,9 @@ class RegisterOrganisationView(generic.View):
             user.is_staff = True # grant staff privilege
             user.save()
 
+            # Store the orgs other details as well
+            org = OrganisationDetails(name=form.cleaned_data['organisation'], user=user)
+            org.save()
             # Auto log the user in
             user = authenticate(username=username, password=password)
 

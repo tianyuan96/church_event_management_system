@@ -52,11 +52,6 @@ class CreateEventView(CreateView):
 
 
 
-
-
-
-
-
 class DeleteEventView(generic.DeleteView):
 
     model = Event
