@@ -51,6 +51,7 @@ class RegisterOrganisationView(generic.View):
             # Store the orgs other details as well
             org = OrganisationDetails(name=form.cleaned_data['organisation'], user=user)
             org.save()
+            
             # Auto log the user in
             user = authenticate(username=username, password=password)
 
