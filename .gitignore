@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.*migrations/*
+
 # C extensions
 *.so
 
@@ -105,6 +107,11 @@ venv.bak/
 
 *.DS_Store
 
+<<<<<<< HEAD
 #pycharm
 .idea/*
 .idea
+=======
+#pycharm file
+.idea/*
+>>>>>>> createEvent

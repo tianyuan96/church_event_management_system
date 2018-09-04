@@ -15,6 +15,11 @@ class UserProfileView(generic.TemplateView):
     template_name = "registration/profile.html"
 
     def get(self, request, *args, **kwargs):
+
+        user = request.user
+        if user.is_staff:
+            return redirect("/accounts/organisations/profile")
+
         return render(request, self.template_name, {'user': request.user, 'title': request.user.email})
 
 class RegisterUserView(generic.View):

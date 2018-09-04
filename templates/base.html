@@ -21,6 +21,18 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
+		<!-- create event button -->
+		<div class="collapse navbar-collapse justify-content-head" id="navbarSupportedContent">
+			{% if user.is_staff %}
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="/event/create/">Create Event</a>
+				</li>
+			</ul>
+			{% endif%}
+		</div>
+		<!-- create event button-->
+
 		<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 			<ul class="navbar-nav">
 				{% if user.is_authenticated %}
@@ -30,9 +42,14 @@
 							Welcome {{user.email}}
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="/accounts/users/profile">My profile</a>
-							<div class="dropdown-divider"></div>
-							<a href="/accounts/users/logout">Logout</a><br>
+									<a class="dropdown-item" href="/accounts/users/profile">My profile</a>
+									<div class="dropdown-divider"></div>
+									<a href="/accounts/users/logout">Logout</a><br>
+							{% else %}
+								<a class="dropdown-item" href="/accounts/organisations/profile">My profile</a>
+								<div class="dropdown-divider"></div>
+								<a href="/accounts/organisations/logout">Logout</a><br>
+							{% endif %}
 						</div>
 					</li>
 				<!-- -->
@@ -42,11 +59,11 @@
 						Organisation Member
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="/accounts/organisation/register">Organisation Register</a>
-						<a class="dropdown-item" href="/accounts/organisation/login">Organisation Login</a>
+						<a class="dropdown-item" href="/accounts/organisations/register">Organisation Register</a>
+						<a class="dropdown-item" href="/accounts/organisations/login">Organisation Login</a>
 					</div>
 				</li>
-	
+
 				<li class="nav-item">
 					<a class="nav-link" href="/accounts/users/login">Login</a>
 				</li>
