@@ -10,4 +10,61 @@
     <h3>You don't have permission to view this page, please login <a href="/accounts/users/login">here</a></h3>
   {% endif %}
 
+
+    {% if events %}
+      <div class="container mt-3">
+
+          <h1>My Host Event</h1>
+          <br>
+          {% for event in events %}
+          <div class="container mt-3">
+
+            <div class="row">
+                <div class="col-md-4">
+                 <a href="/event/details/{{ event.id }}">
+                    {% if  event.imageFile %}
+                        <img class="img-thumbnail" src="{{ event.imageFile.url }}">
+                    {% else %}
+                        <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                    {% endif %}
+                 </a>
+                </div>
+                <div class="col-md-6">
+                    <h4><a class="text-primary" href="/event/details/{{ event.id }}">{{ event.name }}</a></h4>
+                    <p class="text-muted">11 Sep, 2018</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nunc libero, ultricies eget tortor sit amet,
+                        gravida aliquet mauris. Integer rhoncus feugiat erat in cursus.</p>
+                </div>
+                <div class="col-md-2">
+                    <form action="/event/update/{{ event.id }}" method="POST">
+                      {% csrf_token %}
+                      <a href="/event/details/{{ event.id }}" style="height:40px; width:120px ;position: relative; top: -16px;" class="btn btn-primary">Detail</a>
+                    </form>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+                    <!--join and unjoin-->
+                    <form action="/event/join/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="event" value="{{ event.id }}">
+                        {% if  event not in joinedEvent%}
+                            <input class="btn btn-primary" style="height:40px; width:120px ;position: relative; top: -16px;" type="submit" name="operation" value="Join">
+                        {% else %}
+                            <input class="btn btn-danger" style="height:40px; width:120px ;position: relative; top: -16px;" type="submit" name="operation" value="unJoin">
+                        {% endif %}
+                    </form>
+                    <!--end join and unjoin-->
+              </div>
+            </div>
+            <hr>
+          </div>
+          {% endfor %}
+    {% else %}
+        <h1>hey </h1>
+    {% endif %}
+
 {% endblock %}

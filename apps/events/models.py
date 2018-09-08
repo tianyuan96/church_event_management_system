@@ -23,3 +23,7 @@ class InvolvedEvent(models.Model):
 
     eventId = models.ForeignKey(Event, on_delete = models.CASCADE)
     participant = models.ForeignKey(User, on_delete = models.CASCADE)
+
+    @classmethod
+    def create(self):
+        pass

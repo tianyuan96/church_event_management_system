@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from .forms import EventCreationForm, EventUpdateForm
+from .forms import EventCreationForm, EventUpdateForm, Event
 from . import models
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView
@@ -9,8 +9,38 @@ from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
-class joinEvent():
-    def post(self):
+
+
+def joinEvent(user,eventId):
+    join = InvolvedEvent()
+    join.participant = user
+    join.eventId = Event.objects.get(id=eventId)
+    is_join = InvolvedEvent.objects.filter(eventId=eventId, participant=user.id).exists()
+    if not is_join:
+        join.save()
+def unJoinEnvent(user,eventId):
+    involvedEvent = InvolvedEvent.objects.filter(eventId=eventId, participant=user.id)
+    involvedEvent.all().delete()
+
+
+
+class JoinEvent(generic.View):
+    #success_url =
+
+    def post(self,request, *args, **kwargs):
+        user = request.user
+        eventId= request.POST.get("event", "")
+        operation =request.POST.get("operation", "")
+        if user is not None:
+            if user.is_active and eventId:
+                if operation == "Join":
+                    joinEvent(user,eventId)
+                elif operation == "unJoin":
+                    unJoinEnvent(user, eventId)
+                return HttpResponseRedirect("/")
+
+
+
 
 
 
@@ -23,20 +53,14 @@ class EventView(generic.View):
     template_name = "event_detail.html"
     form_class = EventCreationForm
 
-    def get(self, request, *args, **kwargs):
-
-        return render(request,self.template_name)
-
-    def post(self, request, *args, **kwargs):
-        user = request.user
-        if user is not None and user.is_staff:
-            if user.is_active:
-                join = InvolvedEvent
-                join.participant = user.id
-                join.eventId = event.id
+    def get(self, request, eventId):
+        event = Event.objects.get(id=eventId)
+        context={
+            "event" : event
+        }
+        return render(request,self.template_name,context=context)
 
 
-        return render(request,self.template_name)
 
 
 class CreateEventView(CreateView):

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from apps.events.models import Event
+from apps.events.models import Event, InvolvedEvent
 
 
 class SitemapView(generic.TemplateView):
@@ -11,15 +11,26 @@ class HomeView(generic.TemplateView):
     template_name = 'index.html'
 
     def get(self,request,*args,**kwargs):
+        user=request.user
         all_event = Event.objects.all()
+        all_joined_event = InvolvedEvent.objects.filter(participant=user.id)
         context = {
             "events": all_event,
+            "joinedEvent":[ involvedEvent.eventId for involvedEvent in all_joined_event]
         }
         return render(request,self.template_name,context=context)
 
 
 class EventDetailView(generic.TemplateView):
     template_name = 'event_detail.html'
+
+    def get(self, request, *args, **kwargs):
+
+        Event.objects.filter(id=eventId)
+        context = {
+            "events": all_event,
+        }
+        return render(request, self.template_name, context=context)
 
 
 class ChooseMealView(generic.TemplateView):

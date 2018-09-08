@@ -9,18 +9,25 @@ from django.contrib.auth import authenticate, login, logout
 from . import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
+from apps.events.models import InvolvedEvent,Event
 
-class UserProfileView(generic.TemplateView):
+class UserProfileView(generic.View):
 
     template_name = "registration/profile.html"
-
+    # context_object_name = "events"
+    # model = InvolvedEvent
     def get(self, request, *args, **kwargs):
-
         user = request.user
-        if user.is_staff:
+        if user and user.is_staff:
             return redirect("/accounts/organisations/profile")
-
-        return render(request, self.template_name, {'user': request.user, 'title': request.user.email})
+        elif user:
+            events=Event.objects.filter(involvedevent__participant =user)
+            context={'user': request.user,
+             'title': request.user.email,
+             "events": events}
+        else:
+            pass
+        return render(request, self.template_name, context=context)
 
 class RegisterUserView(generic.View):
 

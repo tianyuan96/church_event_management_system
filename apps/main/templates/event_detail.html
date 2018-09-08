@@ -6,17 +6,17 @@
     {{ errors }}
     <p class="text-muted">11 Sep, 2018</p>
     <br>
+    {% if event.imageFile %}
+        <img class="img-fluid" src="{{ event.imageFile.url }}">
+    {% else %}
+        <img class="img-fluid" src="https://www.newstatesman.com/sites/all/themes/creative-responsive-theme/images/new_statesman_events.jpg">
+    {% endif %}
 
-    <img class="img-fluid" src="https://www.newstatesman.com/sites/all/themes/creative-responsive-theme/images/new_statesman_events.jpg">
     <div class="mt-5 mb-3">
         <h3>Description</h3>
 
         <p class="text-secondary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam auctor, lacus eget pharetra imperdiet, justo nulla pharetra
-            purus, eget fringilla quam metus sit amet felis. Proin id consequat mauris, et semper leo. Donec rutrum, ex at
-            dictum luctus, ipsum dolor porta dolor, non tristique nisl massa ac nibh. Donec eget ornare sem. Phasellus eleifend
-            diam sit amet velit commodo, non scelerisque arcu cursus. Donec molestie eu ipsum et semper. Cras quis porta
-            ex. Quisque non augue laoreet, tempor lectus blandit, posuere ex. Quisque et tincidunt mauris.
+            {{ event.description}}
         </p>
 
         <p class="text-secondary">
