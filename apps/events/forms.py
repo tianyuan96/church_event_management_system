@@ -6,8 +6,6 @@ class EventCreationForm(forms.ModelForm):
     # Fields
     # model = Event
     # name = forms.CharField()
-
-
     class Meta:
 
         model = Event

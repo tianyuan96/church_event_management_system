@@ -4,10 +4,19 @@ from .forms import EventCreationForm, EventUpdateForm
 from . import models
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView
-from .models import Event
+from .models import Event,InvolvedEvent
 from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+
+class joinEvent():
+    def post(self):
+
+
+
+
+
+
 
 class EventView(generic.View):
 
@@ -15,6 +24,17 @@ class EventView(generic.View):
     form_class = EventCreationForm
 
     def get(self, request, *args, **kwargs):
+
+        return render(request,self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if user is not None and user.is_staff:
+            if user.is_active:
+                join = InvolvedEvent
+                join.participant = user.id
+                join.eventId = event.id
+
 
         return render(request,self.template_name)
 
@@ -39,7 +59,6 @@ class CreateEventView(CreateView):
         if user is not None and user.is_staff:
             form = self.form_class(request.POST.copy(),request.FILES)
             form.data['host'] = user.id
-
             if form.is_valid():
                 form.save() #save it to the database
                 return HttpResponseRedirect('/accounts/organisations/profile')
