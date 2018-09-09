@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 ]
 
 MIDDLEWARE = [
@@ -68,9 +69,11 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             'templates/',
-            'apps/main/templates/,'
-            'apps/user_accounts/templates/,'
-            'apps/org_accounts/templates/,'
+            'apps/events/templates/',
+            'apps/main/templates/',
+            'apps/user_accounts/templates/',
+            'apps/org_accounts/templates/',
+
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -79,6 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -135,3 +139,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGOUT_REDIRECT_URL = "/"
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = os.path.join(BASE_DIR,'media')+'/'

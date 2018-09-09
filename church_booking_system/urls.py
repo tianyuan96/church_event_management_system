@@ -19,7 +19,8 @@ from django.views.generic.edit import CreateView
 from apps.main import views as main_views
 from apps.user_accounts.views import UserConfirmView
 from django.conf.urls import url
-
+from django.conf.urls.static import static
+from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +37,8 @@ urlpatterns = [
     path('cater', main_views.CaterView.as_view(), name='cater'),
     path('event-offer', main_views.EventOfferView.as_view(), name='event_offer'),
 
+    path('event/',include('apps.events.urls')),
+
     url(r'^user_confirm/(?P<confirmation_code>.*)/$', UserConfirmView.as_view(), name="user_confirm"),
 
-]
+]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
