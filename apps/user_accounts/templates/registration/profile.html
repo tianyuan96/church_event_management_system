@@ -3,18 +3,12 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-  {% if user.is_authenticated %}
-    <a href="/accounts/users/logout">Logout</a><br>
-    <p>Hello {{ user.email }}</p>
-  {% else %}
-    <h3>You don't have permission to view this page, please login <a href="/accounts/users/login">here</a></h3>
-  {% endif %}
 
 
     {% if events %}
       <div class="container mt-3">
 
-          <h1>My Host Event</h1>
+          <h1>My Attend Event</h1>
           <br>
           {% for event in events %}
           <div class="container mt-3">
