@@ -41,13 +41,6 @@ class JoinEvent(generic.View):
 
 
 
-
-
-
-
-
-
-
 class EventView(generic.View):
 
     template_name = "event_detail.html"
@@ -109,6 +102,18 @@ class UpdateEventView(UpdateView):
     template_name = "event_update_form.html"
     form_class = EventUpdateForm
     success_url = reverse_lazy('org_profile')
+
+# 
+# class DiscussionView(generic.View):
+#     template_name = "event_discussion"
+#     form_class = PostCreationForm
+#
+#     def get(self, request, eventId):
+#         event = Event.objects.get(id=eventId)
+#         context={
+#             "event" : event
+#         }
+#         return render(request,self.template_name,context=context)
 
 
     """
