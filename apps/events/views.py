@@ -8,6 +8,7 @@ from .models import Event,InvolvedEvent
 from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from apps.surveys.models import Survey
 
 
 
@@ -55,8 +56,10 @@ class EventView(generic.View):
 
     def get(self, request, eventId):
         event = Event.objects.get(id=eventId)
+        surveys = Survey.objects.filter(event=eventId)
         context={
-            "event" : event
+            "event" : event,
+            "surveys": surveys
         }
         return render(request,self.template_name,context=context)
 

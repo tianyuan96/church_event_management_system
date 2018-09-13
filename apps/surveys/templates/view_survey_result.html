@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% load survey_extras %}{% block title %}Choose My Meal{% endblock %} {% block content %}
+
+    <div class="container mt-3" >
+        {% if error %}
+            <h1>{{ error }}</h1>
+        {% endif %}
+        <!-- title of the survey -->
+        <h1>{{ survey.title }}</h1>
+
+        <!-- end title of the survey-->
+
+        <br>
+                <div  id="choices_container">
+
+                    <!-- card for dishes -->
+                            {% for option in options %}
+
+                            <div class="card">
+                                <label class="btn btn-block btn-light">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                                            </div>
+                                            <!-- content area-->
+                                            <div class="col-md-8">
+
+                                                <div class="form-group">
+                                                    <h5 class="card-title">{{option.name}}</h5>
+                                                </div>
+
+                                                <div class="form-group">
+
+                                                    <h6 class="card-text">{{ summary|keyvalue:option.id}} / {{ summary|keyvalue:"total"}}</h6>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <p class="card-text">{{option.description}}</p>
+
+                                                </div>
+
+                                            </div>
+                                            <!-- end content area -->
+                                        </div>
+
+                                    </div>
+                                </label>
+                            </div>
+                            <br>
+                            {% endfor %}
+                     <!-- end card for dishes -->
+
+                </div>
+            </div>
+
+
+
+        <br>
+        <br>
+
+{% endblock %}

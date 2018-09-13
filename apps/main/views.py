@@ -54,4 +54,4 @@ class CaterView(generic.TemplateView):
 
 
 class EventOfferView(generic.TemplateView):
-    template_name = 'event_offer.html'
+    template_name = '../surveys/templates/event_offer.html'

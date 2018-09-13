@@ -38,6 +38,7 @@ urlpatterns = [
     path('event-offer', main_views.EventOfferView.as_view(), name='event_offer'),
 
     path('event/',include('apps.events.urls')),
+    path('survey/',include('apps.surveys.urls')),
 
     url(r'^user_confirm/(?P<confirmation_code>.*)/$', UserConfirmView.as_view(), name="user_confirm"),
 

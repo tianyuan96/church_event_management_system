@@ -39,6 +39,7 @@ EMAIL_PORT = 587
 # Application definition
 
 INSTALLED_APPS = [
+    'apps.surveys',
     'apps.events',
     'apps.main',
     'apps.user_accounts',
@@ -138,6 +139,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 LOGOUT_REDIRECT_URL = "/"
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = os.path.join(BASE_DIR,'media')+'/'

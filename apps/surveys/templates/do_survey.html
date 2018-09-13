@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block title %}Choose My Meal{% endblock %} {% block content %}
+
+    <div class="container mt-3" >
+        {% if error %}
+            <h1>{{ error }}</h1>
+        {% endif %}
+        <!-- title of the survey -->
+        <h1>{{ survey.title }}</h1>
+
+        <!-- end title of the survey-->
+
+        <br>
+        <form method="POST" action="/survey/submit/">
+            {% csrf_token %}
+            <div class="btn-group-toggle" data-toggle="buttons">
+                <div  id="choices_container">
+
+                    <!-- card for dishes -->
+                            {% for option in options %}
+
+                            <div class="card">
+                                <label class="btn btn-block btn-light">
+                                    <div class="card-body">
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <h5 class="card-title">{{option.name}}</h5>
+                                                </div>
+                                                <div class="form-group">
+                                                    <p class="card-text">{{option.description}}</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="radio"  name="option" style="display:none" autocomplete="off" value="{{ option.id }}">
+                                    </div>
+                                </label>
+                            </div>
+                            <br>
+                            {% endfor %}
+                     <!-- end card for dishes -->
+
+                </div>
+            </div>
+
+
+
+        <br>
+        <br>
+
+        <!-- submit survey button -->
+            <button class="btn btn-outline-primary btn-block" type="submit">Submit survey</button>
+        <!-- end submit survey button -->
+    </form>
+
+{% endblock %}
