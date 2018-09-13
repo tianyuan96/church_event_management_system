@@ -179,7 +179,7 @@ class PostCreationView(CreateView):
         if user is not None:
             if user.is_active:
                 form = self.form_class
-                posts = Post.objects.filter(eventID=eventID)
+                posts = Post.objects.filter(eventID=eventID).order_by('-date')
                 context = {
                     "event": event,
                     "form": form,
