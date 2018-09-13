@@ -31,9 +31,9 @@ class InvolvedEvent(models.Model):
 
 
 class Post(models.Model):
-    username = models.ForeignKey(User, on_delete= models.CASCADE)
+    author = models.ForeignKey(User, on_delete= models.CASCADE)
     eventID = models.ForeignKey(Event, on_delete= models.CASCADE)
-    date = models.DateField(blank=True)
+    date = models.DateTimeField(blank=True, default= "2006-10-25 14:30:59")
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
-    content = models.CharField(max_length = 256)
+    message = models.CharField(max_length = 256)
 

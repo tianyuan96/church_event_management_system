@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.views import generic
-from .forms import EventCreationForm, EventUpdateForm, Event
+from .forms import EventCreationForm, EventUpdateForm, Event, PostCreationForm
 from . import models
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView
-from .models import Event,InvolvedEvent
+from .models import Event,InvolvedEvent,Post
 from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-
+import datetime
 
 
 def joinEvent(user,eventId):
@@ -135,3 +135,65 @@ class UpdateEventView(UpdateView):
 
 
 """
+
+
+# Shows the post on the page
+class DiscussionView(CreateView):
+    template_name = "create_post.html"
+    form_class = PostCreationForm
+
+    def get(self, request, eventId):
+        event = Event.objects.get(id=eventId)
+        form=self.form_class
+        context = {
+            "event": event,
+            "form":form,
+        }
+        return render(request, self.template_name, context=context)
+
+
+# Sets up the posts in the database
+class PostCreationView(CreateView):
+    template_name = "create_post.html"
+    form_class = PostCreationForm
+    model=Post
+#    def get(self, request, *args, **kwargs):
+#        user = request.user
+#       # event = Event.objects.get(id=eventID)
+#        if user is not None:
+#            if user.is_active:
+#                form = self.form_class
+
+#                return render(request, self.template_name, {"form": form})
+ #       return HttpResponseRedirect('/')
+    def get(self, request, eventID, **kwargs):
+        user = request.user
+        #eventID = request.POST.get("event", "")
+
+        event = Event.objects.get(id=eventID)
+        if user is not None:
+            if user.is_active:
+                form = self.form_class
+                context = {
+                    "event": event,
+                    "form": form,
+                }
+                return render(request, self.template_name, context=context)
+        return HttpResponseRedirect('/')
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        eventID = request.POST.get("event", "")
+        if user is not None:
+            if user.is_active:
+                form = self.form_class(request.POST.copy(), request.FILES)
+                if form.is_valid():
+                    self.object=form.save(commit=False)
+                    self.object.author=user
+                    self.object.eventID=Event.objects.get(id=str(eventID))
+                    return HttpResponseRedirect('/events/discussion'+eventID)
+                else:
+                    print(form.errors)
+                    return HttpResponseRedirect(request.path_info)
+
+        return HttpResponseRedirect('/')

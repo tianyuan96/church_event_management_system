@@ -1,4 +1,4 @@
-from .models import Event
+from .models import Event, Post
 from django import forms
 
 class EventCreationForm(forms.ModelForm):
@@ -39,4 +39,16 @@ class EventUpdateForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'}),
 
+        }
+
+
+class PostCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = '__all__'
+        fields = {
+
+            'message': forms.Textarea(attrs={'class': 'form-control'}),
+            'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'})
         }
