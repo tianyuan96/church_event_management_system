@@ -6,6 +6,7 @@ from django.views import generic
 from .forms import CreateSurveyForm
 from .models import Survey,OptionInSurvey,SurveyParticipation,UserChoose
 from apps.events.models import Event,InvolvedEvent
+import json
 # Create your views here.
 
 
@@ -80,7 +81,8 @@ class SeeSurveyResultView(generic.View):
         context={
             "survey":survey,
             "options":options,
-            "summary":summary
+            "summary":summary,
+            "chart_data":self._construct_json_result(surveyId)
         }
         return render(request, self.template_name, context=context)
 
@@ -97,6 +99,14 @@ class SeeSurveyResultView(generic.View):
             summary[""+str(option.id)]=numChoice
         return summary
 
+    def _construct_json_result(self, surveyId):
+        result=[]
+        survey = Survey.objects.get(id=surveyId)
+        options = OptionInSurvey.objects.filter(survey=survey)
+        for option in options:
+            numChoice=UserChoose.objects.filter(choice=option).count()#get number for people who choose this option
+            result.append([option.name,numChoice])
+        return json.dumps(result)
 
 
 
