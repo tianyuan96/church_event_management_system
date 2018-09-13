@@ -41,7 +41,7 @@ class SubmitSurveyView(generic.View):
 
             userchoose=UserChoose()
             userchoose.choice=option
-            userchoose.user=self.request.user
+            userchoose.user=InvolvedEvent.objects.get(participant=request.user,eventId=survey.event)
             userchoose.save()
 
         except():

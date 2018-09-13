@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from apps.events.models import Event
+from apps.events.models import Event,InvolvedEvent
 # Create your models here.
 
 
@@ -26,5 +26,5 @@ class OptionInSurvey (models.Model):
 
 class UserChoose(models.Model):
 
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(InvolvedEvent,on_delete=models.CASCADE)
     choice = models.ForeignKey(OptionInSurvey,on_delete=models.CASCADE)
