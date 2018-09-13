@@ -27,3 +27,13 @@ class InvolvedEvent(models.Model):
     @classmethod
     def create(self):
         pass
+
+
+
+class Post(models.Model):
+    username = models.ForeignKey(User, on_delete= models.CASCADE)
+    eventID = models.ForeignKey(Event, on_delete= models.CASCADE)
+    date = models.DateField(blank=True)
+    imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
+    content = models.CharField(max_length = 256)
+
