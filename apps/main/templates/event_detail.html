@@ -18,7 +18,7 @@
         <p class="text-secondary">
             {{ event.description}}
         </p>
-
+        
         <p class="text-secondary">
             Maecenas efficitur eget urna consequat mattis. Sed egestas tortor sed lacus malesuada, quis mattis mauris consequat. Vestibulum
             ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum sodales aliquam enim.
@@ -38,31 +38,37 @@
                         <div class="card-body">
                             <div class="row">
                             <h5 class="card-title">{{ survey.title }}</h5>
+                            <br>
+
+                            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                                        <a href="/survey/do/{{ survey.id }}" class="btn btn-primary" >Do</a>
+                                        <!-- show delete button is user is a staff-->
+                                      {% if user.is_staff %}
+                                          <form method="POST" action="/survey/close/">
+                                              {% csrf_token %}
+                                              <input type="hidden" name="surveyId" value="{{ survey.id }}">
+                                              <button type="button" class="btn btn-info">Close</button>
+                                          </form>
+              
+                                         <form method="POST" action="/survey/delete/">
+                                            {% csrf_token %}
+                                            <input type="hidden"  name="surveyId" value="{{ survey.id }}">
+                                            <button type="button" class="btn btn-danger">Delete</button>
+                                          </form>
+              
+                                         <a href="/survey/result/{{ survey.id }}" class="btn btn-primary">view result</a>
+              
+              
+                                         {% endif %}
+                                    </div>
+    
                             </div>
-                            <a href="/survey/do/{{ survey.id }}" class="btn btn-primary">Do</a>
-                            <!-- show delete button is user is a staff-->
-                                {% if user.is_staff %}
-                                    <form method="POST" action="/survey/close/">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="surveyId" value="{{ survey.id }}">
-                                        <button class="btn btn-info">Close</button>
-                                    </form>
-
-                                    <form method="POST" action="/survey/delete/">
-                                        {% csrf_token %}
-                                        <input type="hidden"  name="surveyId" value="{{ survey.id }}">
-                                        <button class="btn btn-danger">Delete</button>
-                                    </form>
-
-                                    <a href="/survey/result/{{ survey.id }}" class="btn btn-primary">view result</a>
-
-
-                                {% endif %}
-                            <!-- end show delete button-->
-
+                                      <!-- end show delet-->                        
                         </div>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         {% else%}
             {% if user.is_staff %}
@@ -72,7 +78,6 @@
 
         {% endif %}
         <!-- end surveylist-->
-
         <!-- location infor -->
         <h3>Location</h3>
 
@@ -82,6 +87,8 @@
         <!-- end location infor -->
 
     </div>
+
+
 
 
 
