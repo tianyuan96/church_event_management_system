@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from .forms import EventCreationForm, EventUpdateForm, Event, PostCreationForm
+from .forms import EventCreationForm, EventUpdateForm, Event, PostCreationForm, PostUpdateForm
 from . import models
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView
@@ -103,7 +103,7 @@ class UpdateEventView(UpdateView):
     form_class = EventUpdateForm
     success_url = reverse_lazy('org_profile')
 
-# 
+#
 # class DiscussionView(generic.View):
 #     template_name = "event_discussion"
 #     form_class = PostCreationForm
@@ -156,6 +156,11 @@ class DiscussionView(CreateView):
         }
         return render(request, self.template_name, context=context)
 
+class UpdatePostView(UpdateView):
+    model = Post
+    template_name = "post_update_form.html"
+    form_class = PostUpdateForm
+    success_url = reverse_lazy('/')
 
 # Sets up the posts in the database
 class PostCreationView(CreateView):
