@@ -188,15 +188,17 @@ class PostCreationView(CreateView):
 
     def post(self, request, *args, **kwargs):
         user = request.user
-        eventID = request.POST.get("event", "")
+        eventID = kwargs.get("eventID")
         if user is not None:
             if user.is_active:
                 form = self.form_class(request.POST.copy(), request.FILES)
                 if form.is_valid():
-                    self.object=form.save(commit=False)
-                    self.object.author=user
-                    self.object.eventID=Event.objects.get(id=str(eventID))
-                    return HttpResponseRedirect('/events/discussion'+eventID)
+                    self.object = form.save(commit=False)
+                    self.object.author = user
+                    self.object.eventID = Event.objects.get(id=eventID)
+                    self.object.date = datetime.datetime.now()
+                    self.object.save()
+                    return HttpResponseRedirect('/')
                 else:
                     print(form.errors)
                     return HttpResponseRedirect(request.path_info)
