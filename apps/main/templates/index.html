@@ -24,20 +24,26 @@
               <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
             {% endif %}
          </a>
-        <div class="card-body">
-          <h5 class="card-title">{{event.name}}</h5>
-          <p class="card-text">{{event.description}}</p>
-          <a href="/event/details/{{ event.id }}" class="btn btn-primary">Detail</a>
-           <!--join event-->
-            <form action="/event/join/" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="event" value="{{ event.id }}">
-                {% if  event not in joinedEvent%}
-                    <input class="btn btn-primary" type="submit" name="operation" value="Join">
-                {% else %}
-                    <input class="btn btn-danger" type="submit" name="operation" value="unJoin">
-                {% endif %}
-            </form>
+          <div class="card-body">
+            <h5 class="card-title">{{event.name}}</h5>
+            <p class="card-text">{{event.description}}</p>
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-md-6">
+                  <a href="/event/details/{{ event.id }}" class="btn btn-primary" style="height:40px; width:120px ;position: relative;">Detail</a>
+              </div>
+            <!--join event-->
+              <div class="col-md-6 col-sm-6 col-md-6">
+              <form action="/event/join/" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="event" value="{{ event.id }}">
+                  {% if  event not in joinedEvent%}
+                      <input class="btn btn-primary" style="height:40px; width:120px ; right:-30px ;position: relative;" type="submit" name="operation" value="Join">
+                  {% else %}
+                      <input class="btn btn-danger" style="height:40px; width:120px ; right:-30px ;position: relative;"type="submit" name="operation" value="unJoin">
+                  {% endif %}
+              </form>
+              </div>
+            </div>
             <!--end join evnet-->
         </div>
       </div>
