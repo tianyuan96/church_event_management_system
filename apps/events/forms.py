@@ -20,6 +20,18 @@ class EventCreationForm(forms.ModelForm):
 
         }
 
+class PostCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Event
+        fields = '__all__'
+        fields = {
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'message': forms.Textarea(attrs={'class': 'form-control'}),
+            'imageFile':forms.FileInput(attrs={'class': 'custom-file-input'})
+        }
+
+
 class EventUpdateForm(forms.ModelForm):
 
     # Fields
