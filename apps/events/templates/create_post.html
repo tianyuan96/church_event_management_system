@@ -38,5 +38,60 @@
     </div>
     <br>
     <br>
+
+    {% if posts %}
+      <div class="container mt-3">
+
+          <h1>ALL POSTS</h1>
+          <br>
+          {% for every_post in posts %}
+          <div class="container mt-3">
+
+            <div class="row">
+                <div class="col-md-4">
+
+                {% if  every_postt.imageFile %}
+                    <img class="img-thumbnail" src="{{ every_post.imageFile.url }}">
+                {% else %}
+                    <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                {% endif %}
+
+                </div>
+                <div class="col-md-6">
+
+                    <p> {{ every_post.message }}</p>
+
+                </div>
+                <div class="col-md-2">
+                    <form action="/event/delete/{{ event.id }}" method="POST">
+                          {% csrf_token %}
+                          <input class="btn btn-danger" style="height:40px; width:120px ;position: relative;" type="submit" value="Delete">
+                        </form>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <form action="/event/update/{{ event.id }}" method="POST">
+                          {% csrf_token %}
+                          <input class="btn btn-outline-primary " style="height:40px; width:120px ;position: relative; top: -16px;" type="submit" value="Edit">
+                    </form>
+                </div>
+
+            </div>
+            <hr>
+          </div>
+          {% endfor %}
+    {% else %}
+        <h1>hey </h1>
+    {% endif %}
+
+
+
+
+
+
+
+
 </div>
 {% endblock %}

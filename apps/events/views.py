@@ -179,12 +179,17 @@ class PostCreationView(CreateView):
         if user is not None:
             if user.is_active:
                 form = self.form_class
+                posts = Post.objects.filter(eventID=eventID)
                 context = {
                     "event": event,
                     "form": form,
+                    "posts": posts
                 }
                 return render(request, self.template_name, context=context)
         return HttpResponseRedirect('/')
+
+
+
 
     def post(self, request, *args, **kwargs):
         user = request.user
