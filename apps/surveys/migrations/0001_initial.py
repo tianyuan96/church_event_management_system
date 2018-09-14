@@ -15,10 +15,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='OrganisationDetails',
+            name='FoodPreferences',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=30)),
+                ('vegetarian', models.BooleanField()),
+                ('vegan', models.BooleanField()),
+                ('nut_allergy', models.BooleanField()),
+                ('egg_allergy', models.BooleanField()),
+                ('dairy_allergy', models.BooleanField()),
+                ('soy_allergy', models.BooleanField()),
+                ('shellfish_allergy', models.BooleanField()),
+                ('fish_allergy', models.BooleanField()),
+                ('notes', models.CharField(blank=True, max_length=300)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

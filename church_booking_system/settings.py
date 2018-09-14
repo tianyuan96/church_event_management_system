@@ -40,6 +40,7 @@ EMAIL_PORT = 587
 
 INSTALLED_APPS = [
     'apps.events',
+    'apps.surveys',
     'apps.main',
     'apps.user_accounts',
     'apps.org_accounts',
@@ -49,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
 ]
 
 MIDDLEWARE = [

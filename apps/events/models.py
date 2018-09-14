@@ -15,14 +15,10 @@ class Event(models.Model):
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     host = models.ForeignKey(User, on_delete = models.CASCADE)
 
-
-
-
-
 class InvolvedEvent(models.Model):
 
-    eventId = models.ForeignKey(Event, on_delete = models.CASCADE)
-    participant = models.ForeignKey(User, on_delete = models.CASCADE)
+    eventId = models.ForeignKey(Event, on_delete=models.CASCADE)
+    participant = models.ForeignKey(User, on_delete=models.CASCADE)
 
     @classmethod
     def create(self):

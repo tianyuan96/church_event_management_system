@@ -7,27 +7,65 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from . import models
+from django.urls import reverse_lazy
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
-from apps.events.models import InvolvedEvent,Event
+from apps.events.models import InvolvedEvent, Event
+from apps.surveys.forms import FoodPreferencesForm
+from apps.surveys.models import FoodPreferences
 
-class UserProfileView(generic.View):
+
+
+class UserProfileView(generic.FormView):
 
     template_name = "registration/profile.html"
-    # context_object_name = "events"
-    # model = InvolvedEvent
-    def get(self, request, *args, **kwargs):
-        user = request.user
-        if user and user.is_staff:
-            return redirect("/accounts/organisations/profile")
-        elif user:
-            events=Event.objects.filter(involvedevent__participant =user)
-            context={'user': request.user,
-             'title': request.user.email,
-             "events": events}
+
+    page_title = "Profile"
+    form_class = FoodPreferencesForm
+    success_url = reverse_lazy('user_profile')
+
+
+    def form_valid(self, form):
+        valid = super().form_valid(form)
+
+        if not valid:
+            return redirect('user_profile')
+
+        # Check if the preferences already exist
+        print(form.fields)
+        curr_prefs = FoodPreferences.objects.update_or_create(form.fields)
+        prefs.save()
+        print('Food Prefs Saved!!!!')
+
+        return redirect('user_profile')
+
+
+    """
+        Below are attributes to be used in the template
+    """
+    def title(self):
+        return self.page_title
+
+    def form(self):
+
+        current = FoodPreferences.objects.get(user=self.request.user)
+
+        if current:
+            form = self.form_class(instance=current)
         else:
-            pass
-        return render(request, self.template_name, context=context)
+            form = self.form_class(None)
+        return form
+
+    def events(self):
+
+        # If user is not logged in, then filter() tries to get all the events an AnonymousUser gets, and then fails.
+        # I don't know why it would do that and not just return an empty list, but whatever
+        if not self.request.user.is_authenticated:
+            return []
+
+        # we want to get the Events here, not the InvolvedEvents, since we need Event data
+        return Event.objects.filter(involvedevent__participant=self.request.user)
 
 class RegisterUserView(generic.View):
 
