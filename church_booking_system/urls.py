@@ -30,7 +30,7 @@ urlpatterns = [
 
     path('sitemap', main_views.SitemapView.as_view(), name='sitemap'),
     path('choose-meal', main_views.ChooseMealView.as_view(), name='choose_meal'),
-    path('choose-meal-success', main_views.ChooseMealSuccessView.as_view(), name='choose_meal_success'),
+    path('choose-meal-success', main_views.SuccessView.as_view(), name='general_success'),
     path('event-detail', main_views.EventDetailView.as_view(), name='event_detail'),
     path('event-planner', main_views.EventPlannerView.as_view(), name='event_planner'),
     path('create-event', main_views.CreateEventView.as_view(), name='create_event'),

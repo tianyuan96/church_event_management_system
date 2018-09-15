@@ -37,8 +37,12 @@ class ChooseMealView(generic.TemplateView):
     template_name = 'choose_meal.html'
 
 
-class ChooseMealSuccessView(generic.TemplateView):
-    template_name = 'choose_meal_success.html'
+
+class SuccessView(generic.TemplateView):
+    template_name = 'suvery_response.html'
+
+    def get(self, request, context):
+        return render(request, self.template_name, context=context)
 
 
 class EventPlannerView(generic.TemplateView):

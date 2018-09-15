@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.edit import FormView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, reverse
 from django.views import generic
 from .forms import CreateSurveyForm
 from .models import Survey,OptionInSurvey,SurveyParticipation,UserChoose
@@ -28,25 +28,72 @@ class CreateSurveyView(generic.View):
 class SubmitSurveyView(generic.View):
     def post(self, request):
         optionId = self.request.POST.get("option", "")
-        try:
-            option=OptionInSurvey.objects.get(id=int(optionId))
-            survey=Survey.objects.get(id=option.survey.id)
-            print("--------------------------")
-            print(survey)
-            print(request.user)
-            surveyParticipation =SurveyParticipation()
-            surveyParticipation.survey=survey
-            surveyParticipation.participant=self.request.user
-            surveyParticipation.save()
+        user=request.user
+        context = {
+            'redirect': reverse('home'),
+        }
+        if not user.is_anonymous:
+            try:
+                option=OptionInSurvey.objects.get(id=int(optionId))
+                survey=Survey.objects.get(id=option.survey.id)
+                context["title"]= survey.title
+                context["isSuccess"] = True
 
-            userchoose=UserChoose()
-            userchoose.choice=option
-            userchoose.user=InvolvedEvent.objects.get(participant=request.user,eventId=survey.event)
-            userchoose.save()
 
-        except():
-            pass
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+                if self.isUserParticipatedEvent(user,survey.event):
+
+                    participation = InvolvedEvent.objects.get(participant=request.user, eventId=survey.event)
+                    if self.isUserParticipatedSurvey(participation,survey):
+                        # user has participated this survey before
+                        self.updateChoice(participation,survey,option)
+                        context["message"] ="successfully update your choice"
+                        return render(request, "suvery_response.html", context=context)
+                    else:
+                        #create new result record for the survey
+                        self.createNewChoiceRecord(survey,option,user,participation)
+                        context["message"]="successfully submit your choice"
+                        return render(request, "suvery_response.html", context=context)
+
+                else:
+                    #the user is not in this event
+                    context["isSuccess"]=False
+                    context["message"] = "you have not join this event yet"
+                    return render(request, "suvery_response.html", context=context)
+
+
+            except:
+                print("error")
+        else:
+            context["message"] = "you should login before submit a anything"
+            return render(request, "suvery_response.html", context=context)
+
+    def createNewChoiceRecord(self,survey,option,user,participation):
+        surveyParticipation = SurveyParticipation()
+        surveyParticipation.survey = survey
+        surveyParticipation.participant = user
+        surveyParticipation.save()
+
+        userchoose = UserChoose()
+        userchoose.choice = option
+        userchoose.participation = participation
+        userchoose.survey = survey
+        userchoose.save()
+
+    def isUserParticipatedEvent(self,user,event):
+        if InvolvedEvent.objects.filter(participant=user, eventId=event).count()>0:
+            return True
+        return False
+
+    def isUserParticipatedSurvey(self,participation,survey):
+        if SurveyParticipation.objects.filter(participant =participation,survey=survey).count()>0:
+            return True
+        return False
+
+    def updateChoice(self, participation,survey,option):
+        userchoose = UserChoose.objects.get(participation=participation,survey=survey,)
+        userchoose.choice=option
+        userchoose.save()
+
 
 class DoSurveyView(generic.View):
     template_name = 'do_survey.html'
@@ -61,6 +108,7 @@ class DoSurveyView(generic.View):
 
 
 class DeleteSurveyView(generic.View):
+
     def post(self, request):
         surveyId = self.request.POST.get("surveyId", "")
         try:
@@ -69,7 +117,20 @@ class DeleteSurveyView(generic.View):
             pass
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
+class CloseSurveyView(generic.View):
 
+    def post(self, request):
+        surveyId = self.request.POST.get("surveyId", "")
+        try:
+            survey = Survey.objects.get(id=int(surveyId))
+            if(survey.isClose):
+                survey.isClose =False
+            else:
+                survey.isClose = True
+            survey.save()
+        except():
+            pass
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 class SeeSurveyResultView(generic.View):
     template_name = 'view_survey_result.html'
@@ -95,7 +156,7 @@ class SeeSurveyResultView(generic.View):
         numTotalParticipant=InvolvedEvent.objects.filter(eventId=survey.event).count()
         summary["total"]=numTotalParticipant
         for option in options:
-            numChoice=UserChoose.objects.filter(choice=option).count()#get number for people who choose this option
+            numChoice=UserChoose.objects.filter(choice=option,survey=survey).count()#get number for people who choose this option
             summary[""+str(option.id)]=numChoice
         return summary
 
@@ -104,7 +165,7 @@ class SeeSurveyResultView(generic.View):
         survey = Survey.objects.get(id=surveyId)
         options = OptionInSurvey.objects.filter(survey=survey)
         for option in options:
-            numChoice=UserChoose.objects.filter(choice=option).count()#get number for people who choose this option
+            numChoice=UserChoose.objects.filter(choice=option,survey=survey).count()#get number for people who choose this option
             result.append([option.name,numChoice])
         return json.dumps(result)
 
@@ -156,3 +217,8 @@ class ProcessSurvey(generic.View):
 
 
 
+class SuccessView(generic.TemplateView):
+    template_name = 'suvery_response.html'
+
+    def get(self, request, context):
+        return render(request, self.template_name, context=context)

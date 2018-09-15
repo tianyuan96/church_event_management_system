@@ -15,7 +15,7 @@ class Survey (models.Model):
 class SurveyParticipation (models.Model):
 
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
-    participant = models.ForeignKey(User, on_delete=models.CASCADE)
+    participant = models.ForeignKey(InvolvedEvent, on_delete=models.CASCADE)
 
 
 class OptionInSurvey (models.Model):
@@ -26,5 +26,6 @@ class OptionInSurvey (models.Model):
 
 class UserChoose(models.Model):
 
-    user = models.ForeignKey(InvolvedEvent,on_delete=models.CASCADE)
+    participation = models.ForeignKey(InvolvedEvent,on_delete=models.CASCADE)
+    survey = models.ForeignKey(Survey,on_delete=models.CASCADE)
     choice = models.ForeignKey(OptionInSurvey,on_delete=models.CASCADE)
