@@ -28,18 +28,18 @@
             <h5 class="card-title">{{event.name}}</h5>
             <p class="card-text">{{event.description}}</p>
             <div class="row">
-              <div class="col-md-6 col-sm-6 col-md-6">
-                  <a href="/event/details/{{ event.id }}" class="btn btn-primary" style="height:40px; width:120px ;position: relative;">Detail</a>
+              <div class="col-6">
+                  <a href="/event/details/{{ event.id }}" class="btn btn-primary btn-block">Detail</a>
               </div>
             <!--join event-->
-              <div class="col-md-6 col-sm-6 col-md-6">
+              <div class="col-6">
               <form action="/event/join/" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="event" value="{{ event.id }}">
                   {% if  event not in joinedEvent%}
-                      <input class="btn btn-primary" style="height:40px; width:120px ; right:-30px ;position: relative;" type="submit" name="operation" value="Join">
+                      <input class="btn btn-primary btn-block" type="submit" name="operation" value="Join">
                   {% else %}
-                      <input class="btn btn-danger" style="height:40px; width:120px ; right:-30px ;position: relative;" type="submit" name="operation" value="unJoin">
+                      <input class="btn btn-danger btn-block" type="submit" name="operation" value="unJoin">
                   {% endif %}
               </form>
               </div>
