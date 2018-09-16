@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ title }}{% endblock %}
-
 {% block content %}
   {% if user.is_authenticated and not user.is_staff %}
 
@@ -55,7 +53,7 @@
 
     <form method="POST" action="{% url 'user_profile' %}">
       {% csrf_token %}
-      {% for field in view.form %}
+      {% for field in form %}
         {{ field.label }}{{ field }}<br>
       {% endfor %}
       <input type="submit" value="Update Preferences">

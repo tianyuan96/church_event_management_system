@@ -17,50 +17,28 @@ from apps.surveys.models import FoodPreferences
 
 
 
-class UserProfileView(generic.FormView):
+class UserProfileView(generic.UpdateView):
 
     template_name = "registration/profile.html"
-
-    page_title = "Profile"
     form_class = FoodPreferencesForm
     success_url = reverse_lazy('user_profile')
+    page_title = "Profile"
 
-
-    def form_valid(self, form):
-        valid = super().form_valid(form)
-
-        if not valid:
-            return redirect('user_profile')
-
-        # Check if the preferences already exist
-        print(form.fields)
-        curr_prefs = FoodPreferences.objects.update_or_create(form.fields)
-        prefs.save()
-        print('Food Prefs Saved!!!!')
-
-        return redirect('user_profile')
-
+    def get_object(self, queryset=None):
+        # return self.request.user.foodpreferences
+        obj, _ = FoodPreferences.objects.get_or_create(user=self.request.user)
+        return obj
 
     """
-        Below are attributes to be used in the template
+        Below are attributes that can be rendered in the template, for example {{ view.title }}
     """
     def title(self):
         return self.page_title
 
-    def form(self):
-
-        current = FoodPreferences.objects.get(user=self.request.user)
-
-        if current:
-            form = self.form_class(instance=current)
-        else:
-            form = self.form_class(None)
-        return form
-
     def events(self):
 
-        # If user is not logged in, then filter() tries to get all the events an AnonymousUser gets, and then fails.
-        # I don't know why it would do that and not just return an empty list, but whatever
+        # If user is not logged in, then filter() tries to get all the events an AnonymousUser has, and then fails.
+        # I don't know why it would do that and not just return an empty list, or None, but whatever
         if not self.request.user.is_authenticated:
             return []
 
