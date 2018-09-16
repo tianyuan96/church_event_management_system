@@ -52,39 +52,47 @@
   </div>
 
   <hr>
-  <h3>Later</h3>
-  <div class="row">
-    <div class="col-md-6 col-lg-4">
-      <div class="card">
-        <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+    {% if events_later %}
+         <h3>Later</h3>
+        <div class="row">
+        {% for event in events_later %}
+        <div class="col-md-6 col-lg-4 mb-4 mt-4">
+          <div class="card">
+            <a href="/event/details/{{ event.id }}">
+                 {% if event.imageFile %}
+                    <img class="card-img-top" src={{event.imageFile.url }} alt="Card image cap">
+                {%else%}
+                  <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+                {% endif %}
+             </a>
+              <div class="card-body">
+                <h5 class="card-title">{{event.name}}</h5>
+                <p class="card-text">{{event.description}}</p>
+                <div class="row">
+                  <div class="col-6">
+                      <a href="/event/details/{{ event.id }}" class="btn btn-primary btn-block">Detail</a>
+                  </div>
+                <!--join event-->
+                  <div class="col-6">
+                  <form action="/event/join/" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name="event" value="{{ event.id }}">
+                      {% if  event not in joinedEvent%}
+                          <input class="btn btn-primary btn-block" type="submit" name="operation" value="Join">
+                      {% else %}
+                          <input class="btn btn-danger btn-block" type="submit" name="operation" value="unJoin">
+                      {% endif %}
+                  </form>
+                  </div>
+                </div>
+                <!--end join evnet-->
+            </div>
+          </div>
         </div>
+        {% endfor %}
       </div>
-    </div>
-    <div class="col-md-6 col-lg-4">
-      <div class="card">
-        <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4">
-      <div class="card">
-        <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-  </div>
+
+    {% endif %}
 
 </div>
 {% endblock %}

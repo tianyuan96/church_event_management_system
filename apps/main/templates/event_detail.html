@@ -1,7 +1,21 @@
 {% extends 'base.html' %} {% block title %}Choose My Meal{% endblock %} {% block content %}
 <div class="container mt-3">
 
-    <a class="btn btn-primary float-right" href="#" style="position:relative; top:8px;">Join Now</a>
+
+        <!--join event-->
+
+      <form action="/event/join/" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="event" value="{{ event.id }}">
+          {% if  event not in joinedEvent%}
+              <input class="btn btn-primary float-right" type="submit" name="operation" value="Join"  style="position:relative; top:8px;">
+          {% else %}
+              <input class="btn btn-danger float-right" type="submit" name="operation" value="unJoin"  style="position:relative; top:8px;">
+          {% endif %}
+      </form>
+
+
+    <!--end join evnet-->
     <h1>{{ event.name}}</h1>
     {{ errors }}
     <p class="text-muted">11 Sep, 2018</p>

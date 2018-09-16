@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Event{% endblock %}
+
+
+{% block content %}
+<div class="container mt-3">
+
+    <h1>{{ title }}</h1>
+    <br>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3 text-center">
+            <div class="">
+                {% if isSuccess %}
+                     <i class="far fa-smile" style="font-size:160px"></i>
+                {% else %}
+                    <i class="far fa-sad-tear" style="font-size:160px"></i>
+                {% endif %}
+                <h1>Success !</h1>
+            </div>
+
+
+            <p>{{ message }}</p>
+        </div>
+    </div>
+    <div class="text-right">
+        <a class="btn btn-primary" href={{ redirect }}>Cool</a>
+    </div>
+
+
+</div>
+{% endblock %}
