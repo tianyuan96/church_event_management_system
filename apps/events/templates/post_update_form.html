@@ -5,7 +5,7 @@
         <br>
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="/event/updatepost/{{event.id}}">
+                <form method="POST" action="/event/updatepost/{{ post.id}}"/>
                     {%csrf_token%}
                     <div class="form-group row">
                         <label name="event" class="col-sm-2 col-form-label">Message</label>

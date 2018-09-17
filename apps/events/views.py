@@ -99,8 +99,11 @@ class UpdateEventView(UpdateView):
     model = Event
     #fields = ['name', 'date', 'location', 'description', 'imageFile']
     #template_name_suffix = '_update_form'
+
     template_name = "event_update_form.html"
     form_class = EventUpdateForm
+
+
     success_url = reverse_lazy('org_profile')
 
 #
@@ -148,7 +151,9 @@ class DiscussionView(CreateView):
     form_class = PostCreationForm
 
     def get(self, request, eventId):
+
         event = Event.objects.get(id=eventId)
+        print('HERE:', event)
         form=self.form_class
         context = {
             "event": event,
@@ -160,7 +165,10 @@ class UpdatePostView(UpdateView):
     model = Post
     template_name = "post_update_form.html"
     form_class = PostUpdateForm
-    success_url = reverse_lazy('/')
+    def get_success_url(self, **kwargs):
+
+
+        return reverse_lazy("event_forums", args=(self.object.eventID.id,))
 
 # Sets up the posts in the database
 class PostCreationView(CreateView):
