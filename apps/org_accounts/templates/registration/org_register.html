@@ -3,23 +3,37 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-
-  <h4>This is the registration page for organisations, not users</h4>
-  <form method="post" action="">
-  {% csrf_token %}
-  {% for field in form %}
-    <p>
-      {{ field.label }}: {{ field }}
-      {% if field.help_text %}
-        <small style="color: grey">{{ field.help_text }}</small>
-      {% endif %}
-    </p>
-    {% for error in field.errors %}
-      <p style="color: red">{{ error }}</p>
-    {% endfor %}
-  {% endfor %}
-  <br>
-  <input type="submit" value="Register">
-  </form>
+  <div class="row">
+      <div class="mt-5 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3">
+        <p class="font-italic text-secondary text-center" >Reminder: This is the registration page for organisations, not users</p>
+        <div class="card mb-3">
+          <!--Title of the form -->
+          <h3 class="card-header text-center bg-primary text-white">Organasation Sign Up</h3>
+            <div class="card-body pb-0">
+    
+              <!-- register form -->
+              <form method="post" action="">
+              {% csrf_token %}
+              {% for field in form %}
+                <p>
+                  {{ field.label }}: {{ field }}
+                  {% if field.help_text %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                  {% endif %}
+                </p>
+                {% for error in field.errors %}
+                  <p style="color: red">{{ error }}</p>
+                {% endfor %}
+    
+              {% endfor %}
+              <p style="color: red">{{ error }}</p> <!-- This error is specifically for taken usernames, please don't delete it -->
+              <br>
+              <input class="btn btn-block btn-success mb-4" type="submit" value="Register">
+              </form>
+              <!-- end of the register form-->
+            </div>
+        </div>
+      </div>
+    </div>
 
 {% endblock %}

@@ -47,8 +47,46 @@
           </div>
           {% endfor %}
     {% else %}
-      <p>You haven't joined any events :(</p>
-      <p>Why not check out what's happening at the church <a href="{% url 'home' %}">here?</a> </p>
+    <div class="container mt-3">
+        <h3>It seems you didn't join any event</h3>
+        <p class="font-italic text-secondary" >Try join some event last minutes.</p>
+        <hr>
+            <h3>Last Minutes Event</h3>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+                    <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+                    <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+                    <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
     {% endif %}
 
     <form method="POST" action="{% url 'user_profile' %}">

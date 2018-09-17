@@ -18,13 +18,21 @@ from django.urls import path, include
 from django.views.generic.edit import CreateView
 from . import views
 from django.conf.urls import url
+from apps.main.views import SuccessView
 
 urlpatterns = [
-    path('create/', views.CreateEventView.as_view()),
-    path('delete/<int:pk>', views.DeleteEventView.as_view()),
-    url(r'^update/(?P<pk>[0-9]+)$',views.UpdateEventView.as_view(), name='event-update'),
-    path('join/', views.JoinEvent.as_view()),
-    url(r'^details/(?P<eventId>[0-9]+)/$', views.EventView.as_view(),name='event-datail'),
+    url(r'create/(?P<eventId>[0-9]+)$', views.CreateSurveyView.as_view()),
+    url('create/$', views.ProcessSurvey.as_view()),
+    path('delete/', views.DeleteSurveyView.as_view()),
+    url(r'do/(?P<surveyId>[0-9]+)$', views.DoSurveyView.as_view()),
+    path('submit/', views.SubmitSurveyView.as_view()),
+    path('close_open/', views.CloseSurveyView.as_view()),
+    url(r'result/(?P<surveyId>[0-9]+)$', views.SeeSurveyResultView.as_view()),
+    path('success/',views.SuccessView.as_view(),name='survey-success')
+    #path('delete/<int:pk>', views.DeleteEventView.as_view()),
+    #url(r'^update/(?P<pk>[0-9]+)$',views.UpdateEventView.as_view(), name='event-update'),
+    #path('join/', views.JoinEvent.as_view()),
+    #url(r'^details/(?P<eventId>[0-9]+)/$', views.EventView.as_view()),
     #path('update/<int:pk>', views.UpdateEventView.as_view(), name='event-update'),
 
 ]

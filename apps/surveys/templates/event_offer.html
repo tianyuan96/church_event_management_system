@@ -1,0 +1,85 @@
+{% extends 'base.html' %} {% block title %}Create Meal Survey{% endblock %} {% block content %}
+<div class="container mt-3" >
+    <!-- title of the survey -->
+    <h1>What's the title for the survey?</h1>
+
+    {% if error %}
+        <h3 class="text-danger">{{ error }}</h3>
+    {% endif %}
+    <form method="POST" action="/survey/create/" >
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Title of the survey</label>
+                    </div>
+                    <div class="col-md-8">
+                         <input class="form-control" type="text" name="title" placeholder="Title of the event">
+                    <input type="hidden" name="event" value={{ event.id }}>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br>
+    <!-- end title of the survey-->
+
+
+    <h1>What will you offer for the event</h1>
+    <br>
+
+        <ul id="choiceList" class="list-unstyled">
+            <div  id="choices_container">
+                <!-- card for dishes -->
+                    <li>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Name of the dish</label>
+                                            <input class="form-control" type="text" name="choiceList[]" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea class="form-control" type="text" name="choiceList[]" value=""></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <br>
+                    </li>
+                 <!-- end card for dishes -->
+
+            </div>
+        </ul>
+
+
+
+
+    <!-- add dish button -->
+        <div class="text-right"  id="plus_button" >
+            <a class="btn btn-primary" href="#" style="border-radius:50%; height:40px; position: relative; top: -16px;">
+                <i class="fas fa-plus" style="position: relative;top: 2px;"></i>
+            </a>
+        </div>
+    <!-- end add dish button -->
+
+    <br>
+    <br>
+
+    <!-- submit survey button -->
+        <button class="btn btn-outline-primary btn-block" type="submit">Create survey</button>
+    <!-- end submit survey button -->
+
+        </form>
+</div>
+
+    {% load static %}
+    <script type="text/javascript"  src={% static "main/add_dish_option.js" %}></script>
+{% endblock %}

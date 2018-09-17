@@ -6,22 +6,26 @@
 {% block content %}
 <div class="container mt-3">
 
-    <h1>Choose My Meal</h1>
+    <h1>{{ title }}</h1>
     <br>
 
     <div class="row">
         <div class="col-md-6 offset-md-3 text-center">
             <div class="">
-                <i class="far fa-smile" style="font-size:160px"></i>
+                {% if isSuccess %}
+                     <i class="far fa-smile" style="font-size:160px"></i>
+                {% else %}
+                    <i class="far fa-sad-tear" style="font-size:160px"></i>
+                {% endif %}
                 <h1>Success !</h1>
             </div>
 
-            <p>Your choice is {Pizza}</p>
-            <p>You can change choice before the host close the survey.</p>
+
+            <p>{{ message }}</p>
         </div>
     </div>
     <div class="text-right">
-        <a class="btn btn-primary" href="#">Cool</a>
+        <a class="btn btn-primary" href={{ redirect }}>Cool</a>
     </div>
 
 
