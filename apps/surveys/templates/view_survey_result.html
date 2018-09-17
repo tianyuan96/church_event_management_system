@@ -52,8 +52,11 @@
         </div>
         <div class="col">
             <!-- here is the chart -->
+            {% if sumOfChoosen > 0 %}
+            <h2> Result for {{ survey.title }}</h2>
             <div id="chart_div"></div>
             <!-- end of the char -->
+            {% endif %}
         </div>
     </div>
 </div>

@@ -18,9 +18,10 @@ data.addColumn('number', 'Slices');
 data.addRows(json_data);
 
 // Set chart options
-var options = {'title': titleOfChar,
+var options = {
                'width':'100%',
                'height':500,
+                pieHole: 0.4,
             };
 
 // Instantiate and draw our chart, passing in some options.
