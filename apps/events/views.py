@@ -161,6 +161,15 @@ class DiscussionView(CreateView):
         }
         return render(request, self.template_name, context=context)
 
+class DeletePostView(generic.DeleteView):
+
+    model = Post
+    def get_success_url(self, **kwargs):
+
+
+        return reverse_lazy("event_forums", args=(self.object.eventID.id,))
+
+
 class UpdatePostView(UpdateView):
     model = Post
     template_name = "post_update_form.html"
@@ -216,7 +225,7 @@ class PostCreationView(CreateView):
                     self.object.eventID = Event.objects.get(id=eventID)
                     self.object.date = datetime.datetime.now()
                     self.object.save()
-                    return HttpResponseRedirect('/')
+                    return HttpResponseRedirect('/event/discussion/'+eventID)
                 else:
                     print(form.errors)
                     return HttpResponseRedirect(request.path_info)

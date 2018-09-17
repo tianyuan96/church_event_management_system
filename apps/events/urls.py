@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^details/(?P<eventId>[0-9]+)/$', views.EventView.as_view(), name='event_details'),
     url(r'^discussion/(?P<eventID>[0-9]+)/$', views.PostCreationView.as_view(), name='event_forums'),
     url(r'^updatepost/(?P<pk>[0-9]+)$',views.UpdatePostView.as_view(), name='post-update'),
+    path('deletepost/<int:pk>', views.DeletePostView.as_view()),
     #path('update/<int:pk>', views.UpdateEventView.as_view(), name='event-update'),
 
 ]

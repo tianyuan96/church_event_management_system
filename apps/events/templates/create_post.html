@@ -53,7 +53,7 @@
                             {% csrf_token %}
                             <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-edit"></i></button>
                         </form>
-                        <form action="/event/delete/{{ event.id }}" method="POST" class="d-inline">
+                        <form action="/event/deletepost/{{ every_post.id }}" method="POST" class="d-inline">
                             {% csrf_token %}
                             <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
                         </form>
@@ -92,6 +92,7 @@
                                     <div class="comment-msg">
                                         <span>USERNAME1:</span>
                                         <span>xxxx message</span>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
