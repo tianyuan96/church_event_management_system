@@ -1,10 +1,11 @@
 {% extends 'base.html' %} {% block title %}Create Meal Survey{% endblock %} {% block content %}
 <div class="container mt-3" >
-    {% if error %}
-        <h1>{{ error }}</h1>
-    {% endif %}
     <!-- title of the survey -->
     <h1>What's the title for the survey?</h1>
+
+    {% if error %}
+        <h3 class="text-danger">{{ error }}</h3>
+    {% endif %}
     <form method="POST" action="/survey/create/" >
         {% csrf_token %}
         <div class="card">

@@ -32,13 +32,16 @@ class JoinEvent(generic.View):
         user = request.user
         eventId= request.POST.get("event", "")
         operation =request.POST.get("operation", "")
-        if user is not None:
+        if user is not None and not user.is_anonymous:
             if user.is_active and eventId:
                 if operation == "Join":
                     joinEvent(user,eventId)
                 elif operation == "unJoin":
                     unJoinEnvent(user, eventId)
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+        else:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 

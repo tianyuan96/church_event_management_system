@@ -44,7 +44,7 @@ class ChooseMealView(generic.TemplateView):
 
 
 class SuccessView(generic.TemplateView):
-    template_name = 'suvery_response.html'
+    template_name = 'survey_response.html'
 
     def get(self, request, context):
         return render(request, self.template_name, context=context)

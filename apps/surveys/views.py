@@ -47,25 +47,25 @@ class SubmitSurveyView(generic.View):
                         # user has participated this survey before
                         self.updateChoice(participation,survey,option)
                         context["message"] ="successfully update your choice"
-                        return render(request, "suvery_response.html", context=context)
+                        return render(request, "survey_response.html", context=context)
                     else:
                         #create new result record for the survey
                         self.createNewChoiceRecord(survey,option,user,participation)
                         context["message"]="successfully submit your choice"
-                        return render(request, "suvery_response.html", context=context)
+                        return render(request, "survey_response.html", context=context)
 
                 else:
                     #the user is not in this event
                     context["isSuccess"]=False
                     context["message"] = "you have not join this event yet"
-                    return render(request, "suvery_response.html", context=context)
+                    return render(request, "survey_response.html", context=context)
 
 
             except:
                 print("error")
         else:
             context["message"] = "you should login before submit a anything"
-            return render(request, "suvery_response.html", context=context)
+            return render(request, "survey_response.html", context=context)
 
     def createNewChoiceRecord(self,survey,option,user,participation):
         surveyParticipation = SurveyParticipation()
@@ -173,6 +173,7 @@ class SeeSurveyResultView(generic.View):
 
 class ProcessSurvey(generic.View):
     template_name = 'event_offer.html'
+    success_template = 'survey_response.html'
     model = Survey
     def post(self,request):
         title = request.POST.get("title","")
@@ -183,17 +184,38 @@ class ProcessSurvey(generic.View):
         survey.owner = self.request.user
         error=""
         try:
+            survey.full_clean()
             survey.save()
-        except():
-            error = "invalid input"
+            choiceList = request.POST.getlist("choiceList[]")
+            if (self._check_valid_choice_list(choiceList)):
+                options = self._create_choice_model_list(choiceList)
+                if len(options)>0:
+                    for option in options:
+                        option.survey = survey
+                        try:
+                            option.full_clean()
+                            option.save()
+                        except:
 
-        choiceList=request.POST.getlist("choiceList[]")
-        if(self._check_valid_choice_list(choiceList)):
-            options = self._create_choice_model_list(choiceList)
-            for option in options:
-                option.survey = survey
-                option.save()
-        return render(request, self.template_name, {'error': error ,  "event":Event.objects.get(id=int(eventId)),})
+                            # not a valid option
+                            error = "please add some choice to a survey"
+                            return render(request, self.template_name,
+                                          {'error': error, "isSuccess": False, "event": Event.objects.get(
+                                              id=int(eventId)), })
+            return render(request, self.success_template, self._define_success_context(error,eventId))
+        except:
+            error = "invalid input"
+            return render(request, self.template_name, {'error': error, "isSuccess": False, "event": Event.objects.get(
+            id=int(eventId)), })
+
+    def _define_success_context(self,error,eventId):
+        return {'error': error,
+                "isSuccess": True,
+                "event": Event.objects.get(id=int(eventId)),
+                "redirect": reverse("event-datail",kwargs={"eventId": eventId}),
+                "message": "you have successfully created a survey"
+                }
+
 
 
     def _check_valid_choice_list(self,choiceList):
@@ -218,7 +240,7 @@ class ProcessSurvey(generic.View):
 
 
 class SuccessView(generic.TemplateView):
-    template_name = 'suvery_response.html'
+    template_name = 'survey_response.html'
 
     def get(self, request, context):
         return render(request, self.template_name, context=context)
