@@ -1,7 +1,10 @@
 {% extends 'base.html' %} {% load survey_extras %}{% block title %}Choose My Meal{% endblock %} {% block content %}
 {% load static %}
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"> </script>
-<script type="text/javascript">var json_data = {{ chart_data | safe }};</script>
+<script type="text/javascript">
+    var json_data = {{ chart_data | safe }};
+    var titleOfChar = "{{ survey.title | safe }}";
+</script>
 <script type="text/javascript" src={% static "main/draw_chart.js" %}>  </script>
 <div class="container mt-3">
     {% if error %}

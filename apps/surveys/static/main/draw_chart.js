@@ -18,9 +18,9 @@ data.addColumn('number', 'Slices');
 data.addRows(json_data);
 
 // Set chart options
-var options = {'title':'How Much Pizza I Ate Last Night',
+var options = {'title': titleOfChar,
                'width':'100%',
-               'height':300
+               'height':500,
             };
 
 // Instantiate and draw our chart, passing in some options.

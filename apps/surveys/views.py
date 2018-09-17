@@ -33,36 +33,34 @@ class SubmitSurveyView(generic.View):
             'redirect': reverse('home'),
         }
         if not user.is_anonymous:
-            try:
-                option=OptionInSurvey.objects.get(id=int(optionId))
-                survey=Survey.objects.get(id=option.survey.id)
-                context["title"]= survey.title
-                context["isSuccess"] = True
+           # try:
+            option=OptionInSurvey.objects.get(id=int(optionId))
+            survey=Survey.objects.get(id=option.survey.id)
+            context["title"]= survey.title
+            context["isSuccess"] = True
 
 
-                if self.isUserParticipatedEvent(user,survey.event):
+            if self.isUserParticipatedEvent(user,survey.event):
 
-                    participation = InvolvedEvent.objects.get(participant=request.user, eventId=survey.event)
-                    if self.isUserParticipatedSurvey(participation,survey):
-                        # user has participated this survey before
-                        self.updateChoice(participation,survey,option)
-                        context["message"] ="successfully update your choice"
-                        return render(request, "survey_response.html", context=context)
-                    else:
-                        #create new result record for the survey
-                        self.createNewChoiceRecord(survey,option,user,participation)
-                        context["message"]="successfully submit your choice"
-                        return render(request, "survey_response.html", context=context)
-
+                participation = InvolvedEvent.objects.get(participant=request.user, eventId=survey.event)
+                if self.isUserParticipatedSurvey(participation,survey):
+                    # user has participated this survey before
+                    self.updateChoice(participation,survey,option)
+                    context["message"] ="successfully update your choice"
+                    return render(request, "survey_response.html", context=context)
                 else:
-                    #the user is not in this event
-                    context["isSuccess"]=False
-                    context["message"] = "you have not join this event yet"
+                    #create new result record for the survey
+                    self.createNewChoiceRecord(survey,option,user,participation)
+                    context["message"]="successfully submit your choice"
                     return render(request, "survey_response.html", context=context)
 
+            else:
+                #the user is not in this event
+                context["isSuccess"]=False
+                context["message"] = "you have not join this event yet"
+                return render(request, "survey_response.html", context=context)
 
-            except:
-                print("error")
+
         else:
             context["message"] = "you should login before submit a anything"
             return render(request, "survey_response.html", context=context)
@@ -70,7 +68,7 @@ class SubmitSurveyView(generic.View):
     def createNewChoiceRecord(self,survey,option,user,participation):
         surveyParticipation = SurveyParticipation()
         surveyParticipation.survey = survey
-        surveyParticipation.participant = user
+        surveyParticipation.participant = participation
         surveyParticipation.save()
 
         userchoose = UserChoose()
