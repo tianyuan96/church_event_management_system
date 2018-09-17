@@ -137,11 +137,13 @@ class SeeSurveyResultView(generic.View):
         summary=self._construct_result(surveyId)
         survey = Survey.objects.get(id=surveyId)
         options = OptionInSurvey.objects.filter(survey=survey)
+        sumOfChoosen = 0;
         context={
             "survey":survey,
             "options":options,
             "summary":summary,
-            "chart_data":self._construct_json_result(surveyId)
+            "chart_data":self._construct_json_result(surveyId,sumOfChoosen),
+            "sumOfChoosen":sumOfChoosen
         }
         return render(request, self.template_name, context=context)
 
@@ -158,13 +160,15 @@ class SeeSurveyResultView(generic.View):
             summary[""+str(option.id)]=numChoice
         return summary
 
-    def _construct_json_result(self, surveyId):
+    def _construct_json_result(self, surveyId,sumOfChoosen):
         result=[]
         survey = Survey.objects.get(id=surveyId)
         options = OptionInSurvey.objects.filter(survey=survey)
+        sumOfChoosen = 0
         for option in options:
             numChoice=UserChoose.objects.filter(choice=option,survey=survey).count()#get number for people who choose this option
             result.append([option.name,numChoice])
+            sumOfChoosen+=numChoice
         return json.dumps(result)
 
 
