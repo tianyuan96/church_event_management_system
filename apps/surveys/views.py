@@ -7,6 +7,7 @@ from .forms import CreateSurveyForm
 from .models import Survey,OptionInSurvey,SurveyParticipation,UserChoose
 from apps.events.models import Event,InvolvedEvent
 import json
+import datetime
 # Create your views here.
 
 
@@ -97,14 +98,31 @@ class SubmitSurveyView(generic.View):
 
 class DoSurveyView(generic.View):
     template_name = 'do_survey.html'
+    success_template = 'survey_response.html'
     def get(self, request,surveyId):
-        survey=Survey.objects.get(id=surveyId)
-        options = OptionInSurvey.objects.filter(survey=survey)
-        context={
-            "survey":survey,
-            "options":options,
+        try:
+            survey=Survey.objects.get(id=surveyId)
+            event=Event.objects.get(id=survey.event.id)
+            if datetime.date.today() > event.date:
+                survey.isClose=True
+                survey.save()
+                return render(request, self.success_template, context=self.generateFailContext(request,event))
+            options = OptionInSurvey.objects.filter(survey=survey)
+            context={
+                "survey":survey,
+                "options":options,
+            }
+            return render(request, self.template_name, context=context)
+        except:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+    def generateFailContext(self,request,event):
+        return {
+            "isSuccess": False,
+            "event": event,
+            "redirect": reverse("event-datail",kwargs={"eventId",event.id}),
+            "message": "the survey has been closed",
         }
-        return render(request, self.template_name, context=context)
 
 
 class DeleteSurveyView(generic.View):

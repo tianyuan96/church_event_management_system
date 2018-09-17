@@ -14,7 +14,7 @@ class HomeView(generic.TemplateView):
     def get(self,request,*args,**kwargs):
         user=request.user
         one_week_later_time = (datetime.date.today() + datetime.timedelta(days=7))
-        all_event_within_this_week = Event.objects.filter(date__range =(datetime.date.today(),one_week_later_time))
+        all_event_within_this_week = Event.objects.filter(date__range =(datetime.date.today()- datetime.timedelta(days=7),one_week_later_time))
 
         all_event_after_this_week = Event.objects.filter(date__gte = one_week_later_time)
         all_joined_event = InvolvedEvent.objects.filter(participant=user.id)
