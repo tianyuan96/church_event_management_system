@@ -32,7 +32,7 @@ class SubmitSurveyView(generic.View):
         context = {
             'redirect': reverse('home'),
         }
-        if not user.is_anonymous:
+        if not user.is_anonymous and optionId!= "":
            # try:
             option=OptionInSurvey.objects.get(id=int(optionId))
             survey=Survey.objects.get(id=option.survey.id)
@@ -63,6 +63,8 @@ class SubmitSurveyView(generic.View):
 
         else:
             context["message"] = "you should login before submit a anything"
+            if optionId == "":
+                context["message"] = "you should choose a option before submit"
             return render(request, "survey_response.html", context=context)
 
     def createNewChoiceRecord(self,survey,option,user,participation):
