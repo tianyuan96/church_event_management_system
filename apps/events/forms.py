@@ -11,7 +11,7 @@ class EventCreationForm(forms.ModelForm):
         model = Event
         fields = '__all__'
         widgets = {
-            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
             'date': forms.TextInput(attrs={'class': 'form-control',
                                            'type': 'date'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
@@ -32,7 +32,7 @@ class EventUpdateForm(forms.ModelForm):
         model = Event
         fields = '__all__'
         fields = {
-            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
             'date': forms.TextInput(attrs={'class': 'form-control',
                                            'type': 'date'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
@@ -49,7 +49,7 @@ class PostUpdateForm(forms.ModelForm):
         fields = {
 
             'message': forms.Textarea(attrs={'class': 'form-control'}),
-            'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'})
+            'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'}),
             }
 
 class PostCreationForm(forms.ModelForm):
@@ -59,5 +59,5 @@ class PostCreationForm(forms.ModelForm):
         fields = '__all__'
         fields = {
             'message': forms.Textarea(attrs={'class': 'form-control'}),
-            'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'})
+            'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'}),
         }
