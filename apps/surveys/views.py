@@ -163,8 +163,9 @@ class SeeSurveyResultView(generic.View):
             "options":options,
             "summary":summary,
             "chart_data":self._construct_json_result(surveyId,sumOfChoosen),
-            "sumOfChoosen":sumOfChoosen
+            "sumOfChoosen":self._sum_result(surveyId)
         }
+
         return render(request, self.template_name, context=context)
 
 
@@ -184,13 +185,24 @@ class SeeSurveyResultView(generic.View):
         result=[]
         survey = Survey.objects.get(id=surveyId)
         options = OptionInSurvey.objects.filter(survey=survey)
-        sumOfChoosen = 0
         for option in options:
-            numChoice=UserChoose.objects.filter(choice=option,survey=survey).count()#get number for people who choose this option
+            numChoice = UserChoose.objects.filter(choice=option,survey=survey).count()#get number for people who choose this option
             result.append([option.name,numChoice])
-            sumOfChoosen+=numChoice
+            sumOfChoosen += numChoice
+
         return json.dumps(result)
 
+    def _sum_result(self,surveyId):
+        sumOfChoosen=0
+        survey = Survey.objects.get(id=surveyId)
+        options = OptionInSurvey.objects.filter(survey=survey)
+        for option in options:
+            numChoice = UserChoose.objects.filter(choice=option, survey=survey).count()
+            sumOfChoosen += numChoice
+        # get number for people who choose this option
+        sumOfChoosen
+
+        return sumOfChoosen
 
 
 class ProcessSurvey(generic.View):
