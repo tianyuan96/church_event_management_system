@@ -47,7 +47,6 @@ class JoinEvent(generic.View):
 class EventView(generic.FormView, core_views.BaseView):
 
     template_name = "event_detail.html"
-    form_class = EventCreationForm
     page_title = 'Create'
 
     def get(self, request, eventId):
