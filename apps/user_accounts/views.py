@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from . import models
 from django.urls import reverse_lazy
+import apps.core.views as core_views
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
@@ -15,13 +16,11 @@ from apps.events.models import InvolvedEvent, Event
 from apps.surveys.forms import FoodPreferencesForm
 from apps.surveys.models import FoodPreferences
 
-
-
-class UserProfileView(generic.UpdateView):
+class UserProfileView(LoginRequiredMixin, generic.UpdateView, core_views.BaseView):
 
     template_name = "registration/profile.html"
     form_class = FoodPreferencesForm
-    success_url = reverse_lazy('user_profile')
+    # success_url = reverse_lazy('user_profile')
     page_title = "Profile"
 
     def get_object(self, queryset=None):
@@ -30,34 +29,20 @@ class UserProfileView(generic.UpdateView):
         return obj
 
     """
-        Below are attributes that can be rendered in the template, for example {{ view.title }}
+        Below are attributes that can be rendered in the template, for example {{ view.events }}
     """
-    def title(self):
-        return self.page_title
-
     def events(self):
-
-        # If user is not logged in, then filter() tries to get all the events an AnonymousUser has, and then fails.
-        # I don't know why it would do that and not just return an empty list, or None, but whatever
-        if not self.request.user.is_authenticated:
-            return []
-
         # we want to get the Events here, not the InvolvedEvents, since we need Event data
         return Event.objects.filter(involvedevent__participant=self.request.user)
 
-class RegisterUserView(generic.View):
+class RegisterUserView(generic.FormView, core_views.BaseView):
 
     form_class = RegisterUserForm
-    title = "Register"
+    page_title = "Register"
     template_name = 'registration/register.html'
     #success_url = reverse_lazy('user_profile')
     success_url = reverse_lazy('successfully_registered')
     profile_url = reverse_lazy('user_profile')
-    # Display the register account page
-    def get(self, request, *args, **kwargs):
-
-        form = self.form_class(None)
-        return render(request, self.template_name, {'form': form, 'title': self.title})
 
     # Get the data from the registration form and register the user
     def post(self, request, *args, **kwargs):
@@ -101,17 +86,18 @@ class RegisterUserView(generic.View):
 
         return render(request, self.template_name, {'form': form, })
 
-class NeedActivateView(generic.View):
+class NeedActivateView(generic.TemplateView, core_views.BaseView):
 
     template_name = "registration/successfully_registered.html"
+    page_title = "Activation"
 
+    # def get(self, request, *args, **kwargs):
+    #     return render(request, self.template_name)
 
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
-
-class ResetUserView(generic.View):
+class ResetUserView(generic.View, core_views.BaseView):
 
     success_url = reverse_lazy('home')
+    page_title = 'Reset'
 
     def get(self, request, *args, **kwargs):
 
@@ -127,20 +113,13 @@ class LogoutUserView(generic.View):
         response = logout(request)
         return redirect(self.success_url)
 
-class LoginUserView(generic.View):
+class LoginUserView(generic.FormView, core_views.BaseView):
 
     form_class = LoginUserForm
-    page_title = "Logins"
+    page_title = "Login"
     template_name = 'registration/login.html'
     success_url = reverse_lazy('user_profile')
     context = {'title': page_title}
-
-    def get(self, request, *args, **kwargs):
-
-        form = self.form_class(None)
-        self.context['form'] = form
-        return render(request, self.template_name, self.context)
-
 
     def post(self, request, *args, **kwargs):
 
@@ -162,16 +141,11 @@ class LoginUserView(generic.View):
         self.context['form'] = form
         return render(request, self.template_name, self.context)
 
-class BackHomepageView(generic.View):
 
-    success_url = reverse_lazy('home')
+class UserConfirmView(generic.View, core_views.BaseView):
 
-    def get(self, request, *args, **kwargs):
-        print("DKSFJLDKSJFLSK")
-        return redirect(self.success_url)
-
-class UserConfirmView(generic.View):
     success_url = reverse_lazy('successfully_confirmed')
+    page_title = 'Confirmation'
 
     def get(self, request, confirmation_code):
         record = models.Confirmations.objects.get(confirmation_code=confirmation_code)
@@ -184,6 +158,14 @@ class HasActivatedView(generic.View):
 
     template_name = "registration/successfully_confirmed.html"
 
-
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
+
+# TODO: We can delete this right? From what I can tell, all it does is redirect to the homepage,
+# but we may as well just do that directly, rather than have this in the middle
+# class BackHomepageView(generic.View):
+#
+#     success_url = reverse_lazy('home')
+#
+#     def get(self, request, *args, **kwargs):
+#         return redirect(self.success_url)

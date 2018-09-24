@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block title %}Home{% endblock %} {% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
 <div class="container mt-3">
 
   <h1>Church Event Management</h1>
@@ -14,7 +16,7 @@
 
   <h3>This Week</h3>
   <div class="row">
-    {% for event in events %}
+    {% for event in view.events %}
     <div class="col-md-6 col-lg-4 mb-4 mt-4">
       <div class="card">
         <a href="/event/details/{{ event.id }}">
@@ -52,10 +54,10 @@
   </div>
 
   <hr>
-    {% if events_later %}
+    {% if view.future_events %}
          <h3>Later</h3>
         <div class="row">
-        {% for event in events_later %}
+        {% for event in view.future_events %}
         <div class="col-md-6 col-lg-4 mb-4 mt-4">
           <div class="card">
             <a href="/event/details/{{ event.id }}">

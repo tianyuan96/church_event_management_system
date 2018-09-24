@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block title %}{{ title }}{% endblock %} {% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
 <div class="container mt-3">
 
     <h1>Create Event</h1>
@@ -51,7 +53,7 @@
 
                 <br>
                 <br>
-
+                {{ form.errors }}
                 <button class="btn btn-primary btn-block">Next</button>
             </form>
         </div>

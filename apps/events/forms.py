@@ -7,10 +7,11 @@ class EventCreationForm(forms.ModelForm):
     date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control',
                                            'type': 'date'}),
                            initial=datetime.date.today)
-    # name = forms.CharField()
+
     class Meta:
         model = Event
         fields = '__all__'
+        # exclude = ('host',)
 
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control'}),

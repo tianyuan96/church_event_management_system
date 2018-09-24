@@ -6,29 +6,23 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from apps.events.models import Event
+from apps.core import views as core_views
 
-from apps.events.models import Event
-
-class OrganisationProfileView(LoginRequiredMixin, generic.ListView):
+class OrganisationProfileView(LoginRequiredMixin, generic.ListView, core_views.BaseView):
 
     template_name = "registration/org_profile.html"
     context_object_name = "events"
     model = Event
-
+    page_title = 'Profile'
 
 # Create your views here.
-class RegisterOrganisationView(generic.View):
+class RegisterOrganisationView(generic.FormView, core_views.BaseView):
 
     form_class = RegisterOrganisationForm
-    title = "Register Organisation"
+    page_title = "Register Organisation"
     template_name = 'registration/org_register.html'
     success_url = reverse_lazy('org_profile')
 
-    # Display the register account page
-    def get(self, request, *args, **kwargs):
-
-        form = self.form_class(None)
-        return render(request, self.template_name, {'form': form, 'title': self.title})
 
     # Get the data from the registration form and register the user
     def post(self, request, *args, **kwargs):
@@ -65,21 +59,13 @@ class RegisterOrganisationView(generic.View):
         return render(request, self.template_name, {'form': form, })
 
 
-
-class LoginOrganisationView(generic.View):
+# TODO: LoginOrganisationView page redirects to user_profile on failure for some reason
+class LoginOrganisationView(generic.FormView, core_views.BaseView):
 
     form_class = LoginOrganisationForm
-    page_title = "Logins"
+    page_title = "Login"
     template_name = 'registration/login.html'
     success_url = reverse_lazy('org_profile')
-
-    ctx = {'title': page_title}
-    def get(self, request, *args, **kwargs):
-
-        form = self.form_class(None)
-        self.ctx['form'] = form
-        return render(request, self.template_name, self.ctx)
-
 
     def post(self, request, *args, **kwargs):
 
@@ -96,8 +82,7 @@ class LoginOrganisationView(generic.View):
                     login(request, user)
                     return redirect(self.success_url)
 
-        self.ctx['form'] = form
-        return render(request, self.template_name, self.ctx)
+        return render(request, self.template_name)
 
 class LogoutOrganisationView(generic.View):
 

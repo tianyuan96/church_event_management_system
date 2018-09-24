@@ -15,18 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic.edit import CreateView
 from . import views
 from django.conf.urls import url
 
+
 urlpatterns = [
-    path('create/', views.CreateEventView.as_view()),
-    path('delete/<int:pk>', views.DeleteEventView.as_view()),
-    url(r'^update/(?P<pk>[0-9]+)$',views.UpdateEventView.as_view(), name='event_update'),
-    path('success', views.CreateSuccessView.as_view(), name='event_success'),
 
-    path('join/', views.JoinEvent.as_view()),
-    url(r'^details/(?P<eventId>[0-9]+)/$', views.EventView.as_view(),name='event_datail'),
-    #path('update/<int:pk>', views.UpdateEventView.as_view(), name='event-update'),
-
+    path('', views.HomeView.as_view(), name='home'),
 ]

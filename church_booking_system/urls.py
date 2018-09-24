@@ -24,22 +24,23 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'', main_views.HomeView.as_view(), name='home'),
+    path('', include('apps.main.urls'), name='home'),
     path('accounts/users/', include('apps.user_accounts.urls')),
     path('accounts/organisations/', include('apps.org_accounts.urls')),
-
     path('sitemap', main_views.SitemapView.as_view(), name='sitemap'),
-    path('choose-meal', main_views.ChooseMealView.as_view(), name='choose_meal'),
-    path('choose-meal-success', main_views.SuccessView.as_view(), name='general_success'),
-    path('event-detail', main_views.EventDetailView.as_view(), name='event_detail'),
-    path('event-planner', main_views.EventPlannerView.as_view(), name='event_planner'),
-    path('create-event', main_views.CreateEventView.as_view(), name='create_event'),
-    path('cater', main_views.CaterView.as_view(), name='cater'),
-    path('event-offer', main_views.EventOfferView.as_view(), name='event_offer'),
-
     path('event/',include('apps.events.urls')),
     path('survey/',include('apps.surveys.urls')),
 
+    # TODO: Maybe this should go in user_accounts?
     url(r'^user_confirm/(?P<confirmation_code>.*)/$', UserConfirmView.as_view(), name="user_confirm"),
+    # TODO: Maybe these should go in survey?
+    path('choose-meal', main_views.ChooseMealView.as_view(), name='choose_meal'),
+    path('choose-meal-success', main_views.SuccessView.as_view(), name='general_success'),
+    # path('event-detail', main_views.EventDetailView.as_view(), name='event_detail'),
+    # path('event-planner', main_views.EventPlannerView.as_view(), name='event_planner'),
+    # path('create-event', main_views.CreateEventView.as_view(), name='create_event'),
+    # path('cater', main_views.CaterView.as_view(), name='cater'),
+    # path('event-offer', main_views.EventOfferView.as_view(), name='event_offer'),
+
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
