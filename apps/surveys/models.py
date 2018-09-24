@@ -1,7 +1,12 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import User
 from apps.events.models import Event,InvolvedEvent
+from django.db.models.signals import post_init
 
+def get_image_path(insance, filename):
+    return os.path.join('image', str(insance.id), filename)
 # Create your models here.
 
 class FoodPreferences(models.Model):
@@ -28,6 +33,11 @@ class Survey (models.Model):
     event = models.ForeignKey(Event,on_delete=models.CASCADE)
     isClose = models.BooleanField(default=False)
 
+    @classmethod
+    def create(cls,user,event):
+        survey = cls(owner=user,event=event,title='',isClose=False)
+        return survey
+
 
 class SurveyParticipation (models.Model):
 
@@ -36,8 +46,9 @@ class SurveyParticipation (models.Model):
 
 
 class OptionInSurvey (models.Model):
-    name = models.CharField(max_length=50,default="option1")
-    description = models.CharField(max_length=100,default="option1")
+    name = models.CharField(max_length=50, default="option1")
+    description = models.CharField(max_length=100, default="option1")
+    imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     survey = models.ForeignKey(Survey,on_delete=models.CASCADE) #many options to one survey
 
 

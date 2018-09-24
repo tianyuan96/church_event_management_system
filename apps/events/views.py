@@ -29,14 +29,14 @@ class JoinEvent(generic.View):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
-    def joinEvent(user,eventId):
+    def joinEvent(self,user,eventId):
         join = InvolvedEvent()
         join.participant = user
         join.eventId = Event.objects.get(id=eventId)
         is_join = InvolvedEvent.objects.filter(eventId=eventId, participant=user.id).exists()
         if not is_join:
             join.save()
-    def unJoinEnvent(user,eventId):
+    def unJoinEnvent(self,user,eventId):
         involvedEvent = InvolvedEvent.objects.filter(eventId=eventId, participant=user.id)
         involvedEvent.all().delete()
 

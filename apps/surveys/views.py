@@ -1,30 +1,93 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.views.generic.edit import FormView
 from django.shortcuts import redirect, reverse
 from django.views import generic
-from .forms import CreateSurveyForm
+from .forms import CreateSurveyForm,CreateOptionForm
 from .models import Survey,OptionInSurvey,SurveyParticipation,UserChoose
 from apps.events.models import Event,InvolvedEvent
 import json
 import datetime
+from apps.core import views as core_views
+from django.views.generic import edit
+from django.urls import reverse_lazy
 # Create your views here.
 
 
-class CreateSurveyView(generic.View):
+class CreateSurveyView(edit.CreateView, core_views.BaseView):
     template_name = 'event_offer.html'
-    form_class = CreateSurveyForm
+    success_template = 'survey_response.html'
+    survey_form_class = CreateSurveyForm
+    option_form_class = CreateOptionForm
     model = Survey
     success_url = '/thanks/'
     title = 'Create Survey'
 
     def get(self, request,eventId):
-        event=Event.objects.get(id=eventId)
-        context={
-            "event":event,
-            "surveys":Survey.objects.all(),
+        user = request.user
+        if user is None:
+            return reverse_lazy('home')
+        if user.is_staff:
+            event=Event.objects.get(id=eventId)
+            survey = Survey.create(user, event)
+            survey.save()
+            context={
+                "event":event,
+                "surveys":Survey.objects.all(),
+                "optionForm":self.option_form_class(),
+                "survey":survey
+            }
+            return render(request, self.template_name, context=context)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if user is None:
+            return reverse_lazy('home')
+        if user.is_staff:
+            operation = request.POST.get("button", "")
+            print("the operion is ------->"+operation)
+            surveyId = request.POST.get("survey", "")
+            survey = Survey.objects.get(id=surveyId)
+            if operation == "add_option":
+                form = self.option_form_class(request.POST, request.FILES)
+                if form.is_valid():
+                    option = form.save(commit=False)
+                    if Survey.objects.filter(id= surveyId).count()>0:
+
+                        option.survey=survey
+                        option.save()
+
+                context={
+                    "options":OptionInSurvey.objects.filter(survey=survey),
+                    "optionForm": self.option_form_class(),
+                    "event": survey.event,
+                    "surveys": Survey.objects.all(),
+                    "survey": survey
+                }
+                return render(request,self.template_name,context=context)
+
+            elif operation == "create_survey":
+                title = request.POST.get("title", "")
+                survey.title=title
+                survey.save()
+                return render(request, self.success_template, context=self.generateSuccessContext(survey))
+
+
+    def generateSuccessContext(self, survey):
+        return {
+            "isSuccess": True,
+            "event": survey.event,
+            "redirect": reverse("event_datail", kwargs={"eventId":survey.event.id}),
+            "message": "You have successfully created a new survey called "+survey.title,
         }
-        return render(request, self.template_name, context=context)
+
+    def generateFailContext(self, survey):
+        return {
+            "isSuccess": False,
+            "event": survey.event,
+            "redirect": reverse("event_datail", kwargs={"eventId": survey.event.id}),
+            "message": "Create survey fail",
+        }
 
 class SubmitSurveyView(generic.View):
     def post(self, request):
@@ -120,7 +183,7 @@ class DoSurveyView(generic.View):
         return {
             "isSuccess": False,
             "event": event,
-            "redirect": reverse("event-datail",kwargs={"eventId",event.id}),
+            "redirect": reverse("event_datail",kwargs={"eventId":event.id}),
             "message": "the survey has been closed",
         }
 
@@ -246,7 +309,7 @@ class ProcessSurvey(generic.View):
         return {'error': error,
                 "isSuccess": True,
                 "event": Event.objects.get(id=int(eventId)),
-                "redirect": reverse("event-datail",kwargs={"eventId": eventId}),
+                "redirect": reverse("event_datail",kwargs={"eventId": eventId}),
                 "message": "you have successfully created a survey"
                 }
 

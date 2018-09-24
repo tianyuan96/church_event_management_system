@@ -22,7 +22,11 @@
                             <div class="card-body p-2">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                                        {% if option.imageFile %}
+                                            <img class="img-thumbnail" src={{ option.imageFile.url }}>
+                                        {% else %}
+                                            <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-6 text-left">
                                         <h5 class="card-title pt-3">{{option.name}}</h5>
