@@ -10,7 +10,7 @@
           <!--Title of the form -->
           <h3 class="card-header text-center bg-primary text-white">Organasation Sign Up</h3>
             <div class="card-body pb-0">
-    
+
               <!-- register form -->
               <form method="post" action="">
               {% csrf_token %}
@@ -24,7 +24,7 @@
                 {% for error in field.errors %}
                   <p style="color: red">{{ error }}</p>
                 {% endfor %}
-    
+
               {% endfor %}
               <p style="color: red">{{ error }}</p> <!-- This error is specifically for taken usernames, please don't delete it -->
               <br>

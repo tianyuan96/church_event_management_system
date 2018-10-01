@@ -10,7 +10,7 @@ from apps.core import views as core_views
 
 class OrganisationProfileView(LoginRequiredMixin, generic.ListView, core_views.BaseView):
 
-    template_name = "registration/org_profile.html"
+    template_name = "org_accounts/registration/profile.html"
     context_object_name = "events"
     model = Event
     page_title = 'Profile'
@@ -40,6 +40,7 @@ class RegisterOrganisationView(generic.FormView, core_views.BaseView):
 
             user.set_password(password)
             user.username = username
+            user.email = username
             user.is_staff = True # grant staff privilege
             user.save()
 
@@ -64,7 +65,7 @@ class LoginOrganisationView(generic.FormView, core_views.BaseView):
 
     form_class = LoginOrganisationForm
     page_title = "Login"
-    template_name = 'registration/login.html'
+    template_name = 'org_accounts/registration/login.html'
     success_url = reverse_lazy('org_profile')
 
     def post(self, request, *args, **kwargs):
@@ -75,13 +76,15 @@ class LoginOrganisationView(generic.FormView, core_views.BaseView):
 
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            user = authenticate(email=email, password=password)
+            user = authenticate(username=email, password=password)
 
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    print('THIS GOT TRIGGERED:', self.success_url)
                     return redirect(self.success_url)
-
+        print('USER WAS AUTHED BUT NOT LOGGED IN')
+        print('SENDING THEM TO:', self.template_name)
         return render(request, self.template_name)
 
 class LogoutOrganisationView(generic.View):
