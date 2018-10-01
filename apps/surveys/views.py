@@ -60,6 +60,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
         if user is None:
             return reverse_lazy('home')
         if user.is_staff:
+            print("asdfasfasfasfasfqsafasfasdfasdfgad")
             operation = request.POST.get("operation", "")
             print("the operion is ------->"+operation)
             surveyId = request.POST.get("survey", "")
@@ -72,14 +73,6 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
 
                         option.survey=survey
                         option.save()
-
-                # context={
-                #     "options":OptionInSurvey.objects.filter(survey=survey),
-                #     "optionForm": self.option_form_class(),
-                #     "event": survey.event,
-                #     "surveys": Survey.objects.all(),
-                #     "survey": survey
-                # }
                 context = {
                     "options": OptionInSurvey.objects.filter(survey=survey)
                 }

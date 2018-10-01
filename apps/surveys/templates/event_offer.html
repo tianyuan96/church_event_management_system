@@ -116,35 +116,14 @@
 
     {% load static %}
     <script type="text/javascript"  src={% static "main/add_dish_option.js" %}></script>
+
     <script type="text/javascript">
         var surveyId = {{ survey.id }} ;
         var eventId = {{ survey.event_id }};
-        $("#add_option").click(function (e) {
-            e.preventDefault();
+    </script>
+    {% load static %}
+    <script type="text/javascript" src = {% static "main/ajax_survey.js" %}>
 
-            //setInterval(function() {
-                $.ajax(
-                    {
-                        type:"POST",
-                        url : "/survey/create/"+surveyId+"/"+eventId+"/",
-                        data:{
-                            name:$("#option_name").val(),
-                            description:$("#option_description").val(),
-                            imageFile:$("#option_imageFile").val(),
-                            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-                            survey:surveyId,
-                            operation:"add_option",
-                        },
-                        success: function(response) {
-                            //alert(response);
-
-                            $("#choices_container").html(response);
-                        }
-                    }
-
-                );
-             //}, 10000);
-        });
 
     </script>
 
