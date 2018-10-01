@@ -15,7 +15,7 @@ class CreateSurveyForm(forms.ModelForm):
         model = Survey
         fields = ['title']
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control','id':'survey_tile'}),
         }
 
 
@@ -28,7 +28,7 @@ class CreateOptionForm(forms.ModelForm):
         # exclude =('host',)
 
         widgets = {
-            'name': forms.TextInput(attrs={'class':'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'imageFile':forms.FileInput(attrs={'class': 'custom-file-input'}),
+            'name': forms.TextInput(attrs={'class': 'form-control','id': 'option_name'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'id': 'option_description'}),
+            'imageFile':forms.FileInput(attrs={'class': 'custom-file-input', 'id': 'option_imageFile'}),
         }

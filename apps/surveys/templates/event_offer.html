@@ -6,7 +6,7 @@
     {% if error %}
         <h3 class="text-danger">{{ error }}</h3>
     {% endif %}
-    <form method="POST" action="/survey/create/"  enctype="multipart/form-data" >
+    <form method="POST" action="/survey/create/{{ survey.event_id }}/{{ survey.id }}/"  enctype="multipart/form-data" id="survey_form">
         {% csrf_token %}
         <div class="card">
             <div class="card-body">
@@ -33,35 +33,8 @@
     <!-- exist dish-->
     <div  id="choices_container">
         <!-- card for dishes -->
-            {% for option in options %}
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                {% if option.imageFile %}
-                                    <img class="img-thumbnail" src={{ option.imageFile.url }}>
-                                {% else %}
-                                    <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
-                                {% endif %}
-                            </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <label>Name of the dish</label>
-                                    <p>{{ option.name }}</p>
-                                </div>
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <p>{{ option.description }}</p>
-                                    <input type="hidden" type="text" name="choiceList[]" value={{ choice.id }}/>
-                                </div>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-                <br>
-            {% endfor %}
-
+    </div>
          <!-- end card for dishes -->
         <!-- end exist dish for survey-->
 
@@ -71,7 +44,7 @@
     <h1>What will you offer for the event</h1>
     <br>
 
-        <div  id="choices_container">
+        <div  >
             <!-- card for dishes -->
                     <div class="card">
                         <div class="card-body">
@@ -108,15 +81,16 @@
                                 <i class="fas fa-plus" style="position: relative;top: 2px;"></i>
 
                             </a>-->
-                             <button class="btn btn-outline-primary btn-block" type="submit"  name="button" value="add_option">add option</button>
+                             <button id="add_option" class="btn btn-outline-primary btn-block" type="submit"  name="button" value="add_option">add option</button>
                         </div>
 
                     </div>
                     <br>
-            </form>
+
              <!-- end card for dishes -->
 
         </div>
+    </form>
     <!--end add dish panel-->
 
 
@@ -136,11 +110,42 @@
         <button class="btn btn-outline-primary btn-block" type="submit" name="button" value="create_survey" >Create survey</button>
     <!-- end submit survey button -->
 
-    </form>
 
 
 </div>
 
     {% load static %}
     <script type="text/javascript"  src={% static "main/add_dish_option.js" %}></script>
+    <script type="text/javascript">
+        var surveyId = {{ survey.id }} ;
+        var eventId = {{ survey.event_id }};
+        $("#add_option").click(function (e) {
+            e.preventDefault();
+
+            //setInterval(function() {
+                $.ajax(
+                    {
+                        type:"POST",
+                        url : "/survey/create/"+surveyId+"/"+eventId+"/",
+                        data:{
+                            name:$("#option_name").val(),
+                            description:$("#option_description").val(),
+                            imageFile:$("#option_imageFile").val(),
+                            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                            survey:surveyId,
+                            operation:"add_option",
+                        },
+                        success: function(response) {
+                            alert(response);
+
+                            $("#choices_container").html(response);
+                        }
+                    }
+
+                );
+             //}, 10000);
+        });
+
+    </script>
+
 {% endblock %}

@@ -1,0 +1,28 @@
+{% for option in options %}
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    {% if option.imageFile %}
+                        <img class="img-thumbnail" src={{ option.imageFile.url }}>
+                    {% else %}
+                        <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Name of the dish</label>
+                        <p>{{ option.name }}</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <p>{{ option.description }}</p>
+                        <input type="hidden" type="text" name="choiceList[]" value={{ choice.id }}/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+{% endfor %}

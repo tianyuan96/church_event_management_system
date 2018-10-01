@@ -21,8 +21,8 @@ from django.conf.urls import url
 from apps.main.views import SuccessView
 
 urlpatterns = [
-    url(r'create/(?P<eventId>[0-9]+)$', views.CreateSurveyView.as_view()),
-    url('create/$', views.CreateSurveyView.as_view()),
+    url(r'create/(?P<eventId>[0-9]+)/(?P<surveyId>[0-9]+)/$', views.CreateSurveyView.as_view(),name="add_option_for_survey"),
+    url('create/(?P<eventId>[0-9]+)$', views.EmptySurveyGenerator.as_view()),
     path('delete/', views.DeleteSurveyView.as_view()),
     url(r'do/(?P<surveyId>[0-9]+)$', views.DoSurveyView.as_view()),
     path('submit/', views.SubmitSurveyView.as_view()),

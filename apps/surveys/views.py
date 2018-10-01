@@ -14,23 +14,37 @@ from django.urls import reverse_lazy
 # Create your views here.
 
 
+class EmptySurveyGenerator(generic.View):
+    def get(self,request,eventId):
+        user = request.user
+        if user is None:
+            return reverse_lazy('home')
+        if user.is_staff:
+            event = Event.objects.get(id=eventId)
+            survey = Survey.create(user, event)
+            survey.save()
+            return HttpResponseRedirect(
+                reverse('add_option_for_survey',kwargs={"eventId":int(eventId),"surveyId":int(survey.id)}))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
 class CreateSurveyView(edit.CreateView, core_views.BaseView):
     template_name = 'event_offer.html'
     success_template = 'survey_response.html'
+    choice_card_template='choice_card.html'
     survey_form_class = CreateSurveyForm
     option_form_class = CreateOptionForm
     model = Survey
     success_url = '/thanks/'
     title = 'Create Survey'
 
-    def get(self, request,eventId):
+    def get(self, request, *args, **kwargs):
+        eventId=kwargs["eventId"]
+        survey=Survey.objects.get(id=int(kwargs["surveyId"]))
         user = request.user
         if user is None:
             return reverse_lazy('home')
         if user.is_staff:
             event=Event.objects.get(id=eventId)
-            survey = Survey.create(user, event)
-            survey.save()
             context={
                 "event":event,
                 "surveys":Survey.objects.all(),
@@ -39,12 +53,14 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
             }
             return render(request, self.template_name, context=context)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
     def post(self, request, *args, **kwargs):
         user = request.user
         if user is None:
             return reverse_lazy('home')
         if user.is_staff:
-            operation = request.POST.get("button", "")
+            operation = request.POST.get("operation", "")
             print("the operion is ------->"+operation)
             surveyId = request.POST.get("survey", "")
             survey = Survey.objects.get(id=surveyId)
@@ -57,14 +73,17 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                         option.survey=survey
                         option.save()
 
-                context={
-                    "options":OptionInSurvey.objects.filter(survey=survey),
-                    "optionForm": self.option_form_class(),
-                    "event": survey.event,
-                    "surveys": Survey.objects.all(),
-                    "survey": survey
+                # context={
+                #     "options":OptionInSurvey.objects.filter(survey=survey),
+                #     "optionForm": self.option_form_class(),
+                #     "event": survey.event,
+                #     "surveys": Survey.objects.all(),
+                #     "survey": survey
+                # }
+                context = {
+                    "options": OptionInSurvey.objects.filter(survey=survey)
                 }
-                return render(request,self.template_name,context=context)
+                return render(request,self.choice_card_template,context=context)
 
             elif operation == "create_survey":
                 title = request.POST.get("title", "")
