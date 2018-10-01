@@ -21,23 +21,22 @@ class UserProfileView(LoginRequiredMixin, generic.UpdateView, core_views.BaseVie
 
     template_name = "user_accounts/registration/profile.html"
     form_class = FoodPreferencesForm
-    # success_url = reverse_lazy('user_profile')
+    success_url = reverse_lazy('user_profile')
     page_title = "Profile"
 
-    profile_url = reverse_lazy('user_profile')
-    logout_url = reverse_lazy('user_logout')
-
     def get_object(self, queryset=None):
-        # return self.request.user.foodpreferences
         obj, _ = FoodPreferences.objects.get_or_create(user=self.request.user)
         return obj
 
     """
         Below are attributes that can be rendered in the template, for example {{ view.events }}
     """
-    def events(self):
+    def attending(self):
         # we want to get the Events here, not the InvolvedEvents, since we need Event data
         return Event.objects.filter(involvedevent__participant=self.request.user)
+
+    def events(self):
+        return Event.objects.all()
 
 class RegisterUserView(generic.FormView, core_views.BaseView):
 
