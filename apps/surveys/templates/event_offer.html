@@ -6,7 +6,7 @@
     {% if error %}
         <h3 class="text-danger">{{ error }}</h3>
     {% endif %}
-    <form method="POST" action="/survey/create/" >
+    <form method="POST" action="/survey/create/"  enctype="multipart/form-data" >
         {% csrf_token %}
         <div class="card">
             <div class="card-body">
@@ -17,67 +17,128 @@
                     <div class="col-md-8">
                          <input class="form-control" type="text" name="title" placeholder="Title of the event">
                     <input type="hidden" name="event" value={{ event.id }}>
+                        <input type="hidden" name="survey" value={{ survey.id }}>
+
                     </div>
                 </div>
             </div>
         </div>
+
     <br>
+
+
+
+
     <!-- end title of the survey-->
+    <!-- exist dish-->
+    <div  id="choices_container">
+        <!-- card for dishes -->
+            {% for option in options %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                {% if option.imageFile %}
+                                    <img class="img-thumbnail" src={{ option.imageFile.url }}>
+                                {% else %}
+                                    <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label>Name of the dish</label>
+                                    <p>{{ option.name }}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <p>{{ option.description }}</p>
+                                    <input type="hidden" type="text" name="choiceList[]" value={{ choice.id }}/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+
+         <!-- end card for dishes -->
+        <!-- end exist dish for survey-->
 
 
+
+    <!-- add dish penel-->
     <h1>What will you offer for the event</h1>
     <br>
 
-        <ul id="choiceList" class="list-unstyled">
-            <div  id="choices_container">
-                <!-- card for dishes -->
-                    <li>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <label>Name of the dish</label>
-                                            <input class="form-control" type="text" name="choiceList[]" value=""/>
+        <div  id="choices_container">
+            <!-- card for dishes -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                                    <!-- add image -->
+                                        <div class="custom-file">
+                                            {{optionForm.imageFile}}
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Description</label>
-                                            <textarea class="form-control" type="text" name="choiceList[]" value=""></textarea>
-                                        </div>
-                                    </div>
+                                    <!-- end add image-->
                                 </div>
 
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label>Name of the dish</label>
+                                       {{optionForm.name}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        {{optionForm.description}}
+                                         {{optionForm.survey}}
+                                    </div>
+                                    <input type="hidden" name="survey" value={{ survey.id }}>
+                                </div>
                             </div>
+
                         </div>
-                        <br>
-                    </li>
-                 <!-- end card for dishes -->
-
-            </div>
-        </ul>
 
 
+                        <div class="text-right btn btn-block" >
+                            <!--<a class="btn btn-primary" href="#" style="border-radius:50%; height:40px; position: relative; top: -16px;">
+                                <i class="fas fa-plus" style="position: relative;top: 2px;"></i>
+
+                            </a>-->
+                             <button class="btn btn-outline-primary btn-block" type="submit"  name="button" value="add_option">add option</button>
+                        </div>
+
+                    </div>
+                    <br>
+            </form>
+             <!-- end card for dishes -->
+
+        </div>
+    <!--end add dish panel-->
 
 
-    <!-- add dish button -->
+
+    <!-- add dish button
         <div class="text-right"  id="plus_button" >
             <a class="btn btn-primary" href="#" style="border-radius:50%; height:40px; position: relative; top: -16px;">
                 <i class="fas fa-plus" style="position: relative;top: 2px;"></i>
             </a>
         </div>
-    <!-- end add dish button -->
+  end add dish button -->
 
     <br>
     <br>
 
     <!-- submit survey button -->
-        <button class="btn btn-outline-primary btn-block" type="submit">Create survey</button>
+        <button class="btn btn-outline-primary btn-block" type="submit" name="button" value="create_survey" >Create survey</button>
     <!-- end submit survey button -->
 
-        </form>
+    </form>
+
+
 </div>
 
     {% load static %}

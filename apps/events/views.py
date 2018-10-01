@@ -30,14 +30,14 @@ class JoinEvent(generic.View):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
-    def joinEvent(user,eventId):
+    def joinEvent(self,user,eventId):
         join = InvolvedEvent()
         join.participant = user
         join.eventId = Event.objects.get(id=eventId)
         is_join = InvolvedEvent.objects.filter(eventId=eventId, participant=user.id).exists()
         if not is_join:
             join.save()
-    def unJoinEnvent(user,eventId):
+    def unJoinEnvent(self,user,eventId):
         involvedEvent = InvolvedEvent.objects.filter(eventId=eventId, participant=user.id)
         involvedEvent.all().delete()
 
@@ -48,7 +48,6 @@ class JoinEvent(generic.View):
 class EventView(generic.FormView, core_views.BaseView):
 
     template_name = "event_detail.html"
-    form_class = EventCreationForm
     page_title = 'Create'
 
     def get(self, request, eventId):

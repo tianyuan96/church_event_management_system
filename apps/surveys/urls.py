@@ -22,7 +22,7 @@ from apps.main.views import SuccessView
 
 urlpatterns = [
     url(r'create/(?P<eventId>[0-9]+)$', views.CreateSurveyView.as_view()),
-    url('create/$', views.ProcessSurvey.as_view()),
+    url('create/$', views.CreateSurveyView.as_view()),
     path('delete/', views.DeleteSurveyView.as_view()),
     url(r'do/(?P<surveyId>[0-9]+)$', views.DoSurveyView.as_view()),
     path('submit/', views.SubmitSurveyView.as_view()),
