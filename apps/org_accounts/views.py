@@ -18,8 +18,6 @@ class OrganisationProfileView(LoginRequiredMixin, generic.ListView, core_views.B
     model = Event
     page_title = 'Profile'
 
-    profile_url = reverse_lazy('org_profile')
-    logout_url = reverse_lazy('org_logout')
     login_url = '/accounts/organisations/login/'
 
 # Create your views here.

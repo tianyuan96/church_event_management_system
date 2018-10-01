@@ -1,6 +1,7 @@
 from .models import Event
 from django import forms
 import datetime
+
 class EventCreationForm(forms.ModelForm):
 
     # Fields
@@ -10,7 +11,7 @@ class EventCreationForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = '__all__'
+        fields = ['name', 'location', 'description', 'imageFile', 'host']
         # exclude = ('host',)
 
         widgets = {

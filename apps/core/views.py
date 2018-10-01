@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.views import generic
 from django.conf import settings
+from django.urls import reverse_lazy
 
 
 class BaseView():
     page_title = "Title"
-    profile_url = ''
-    logout_url = ''
+
 
     def title(self):
         return self.page_title
@@ -15,7 +15,19 @@ class BaseView():
         return settings.PROJECT_NAME
 
     def profile_page(self):
-        return self.profile_url
+
+        user = self.request.user
+
+        if user.is_staff:
+            return reverse_lazy('org_profile')
+        else:
+            return reverse_lazy('user_profile')
 
     def logout_page(self):
-        return self.logout_url
+
+        user = self.request.user
+
+        if user.is_staff:
+            return reverse_lazy('org_logout')
+        else:
+            return reverse_lazy('user_logout')

@@ -6,6 +6,7 @@ import datetime
 
 
 class HomeView(generic.TemplateView, core_views.BaseView):
+
     template_name = 'index.html'
     page_title = "Home"
 
