@@ -3,18 +3,6 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-  {% if user.is_authenticated %}
-
-  {% else %}
-    <a href="/accounts/organisations/login">Login</a><br>
-  {% endif %}
-
-  {% if user.is_authenticated %}
-
-  {% else %}
-    <p>Hello World</p>
-  {% endif %}
-
 
   {% if events %}
   <div class="container mt-3">
@@ -86,7 +74,8 @@
         </div>
 
   {% else %}
-    <h1>Start by creating an event!</h1>
+  <a class="nav-link" href="/event/create/">Start by creating an event!</a>
+
   {% endif %}
 
 {% endblock %}

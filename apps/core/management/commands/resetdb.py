@@ -55,9 +55,18 @@ class Command(BaseCommand):
         u.is_staff = True
         u.save()
 
+        # Create a staff user
         email = 'a@a.com'
         u = User(username=email, email=email)
         u.set_password('password')
         u.is_superuser = False
         u.is_staff = True
+        u.save()
+
+        # Create a attendee user
+        email = 'b@b.com'
+        u = User(username=email, email=email)
+        u.set_password('password')
+        u.is_superuser = False
+        u.is_staff = False
         u.save()

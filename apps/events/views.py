@@ -5,6 +5,7 @@ from . import models
 from django.shortcuts import render, redirect
 from django.views.generic import edit
 from .models import Event,InvolvedEvent
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
@@ -64,12 +65,15 @@ class EventView(generic.FormView, core_views.BaseView):
         }
         return render(request,self.template_name,context=context)
 
-class CreateEventView(edit.CreateView, core_views.BaseView):
+class CreateEventView(LoginRequiredMixin, edit.CreateView, core_views.BaseView):
 
     template_name = "create_event2.html"
     form_class = EventCreationForm
     page_title = 'Create Event'
     success_url = 'event_success.html' # TODO: Link this with the previous success page. Where is it?
+    profile_url = reverse_lazy('org_profile')
+    logout_url = reverse_lazy('org_logout')
+    login_url = '/accounts/organisations/login/'  # If the user isn't logged in, they will be redirected here (see: LoginRequiredMixin)
 
     def post(self, request, *args, **kwargs):
         user = request.user

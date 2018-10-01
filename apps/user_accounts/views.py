@@ -16,12 +16,16 @@ from apps.events.models import InvolvedEvent, Event
 from apps.surveys.forms import FoodPreferencesForm
 from apps.surveys.models import FoodPreferences
 
+
 class UserProfileView(LoginRequiredMixin, generic.UpdateView, core_views.BaseView):
 
-    template_name = "registration/profile.html"
+    template_name = "user_accounts/registration/profile.html"
     form_class = FoodPreferencesForm
     # success_url = reverse_lazy('user_profile')
     page_title = "Profile"
+
+    profile_url = reverse_lazy('user_profile')
+    logout_url = reverse_lazy('user_logout')
 
     def get_object(self, queryset=None):
         # return self.request.user.foodpreferences
@@ -39,7 +43,7 @@ class RegisterUserView(generic.FormView, core_views.BaseView):
 
     form_class = RegisterUserForm
     page_title = "Register"
-    template_name = 'registration/register.html'
+    template_name = 'user_accounts/registration/register.html'
     #success_url = reverse_lazy('user_profile')
     success_url = reverse_lazy('successfully_registered')
     profile_url = reverse_lazy('user_profile')
@@ -88,7 +92,7 @@ class RegisterUserView(generic.FormView, core_views.BaseView):
 
 class NeedActivateView(generic.TemplateView, core_views.BaseView):
 
-    template_name = "registration/successfully_registered.html"
+    template_name = "user_accounts/registration/successfully_registered.html"
     page_title = "Activation"
 
     # def get(self, request, *args, **kwargs):
@@ -117,9 +121,8 @@ class LoginUserView(generic.FormView, core_views.BaseView):
 
     form_class = LoginUserForm
     page_title = "Login"
-    template_name = 'registration/login.html'
+    template_name = 'user_accounts/registration/login.html'
     success_url = reverse_lazy('user_profile')
-    context = {'title': page_title}
 
     def post(self, request, *args, **kwargs):
 
@@ -132,14 +135,15 @@ class LoginUserView(generic.FormView, core_views.BaseView):
             user = authenticate(username=username, password=password)
 
             if user is not None:
-                if user.is_active:
+                if user.is_active and not user.is_staff and not user.is_superuser:
                     login(request, user)
                     return redirect(self.success_url)
+                else:
+                    form.errors[""] = " You aren't allowed to log in here"
             else:
-                print("Invalid Login, should redirect to error page")
+                form.errors['password'] = "Invalid Login, should redirect to error page"
 
-        self.context['form'] = form
-        return render(request, self.template_name, self.context)
+        return render(request, self.template_name, { 'form': form, })
 
 
 class UserConfirmView(generic.View, core_views.BaseView):
@@ -156,7 +160,7 @@ class UserConfirmView(generic.View, core_views.BaseView):
 
 class HasActivatedView(generic.View):
 
-    template_name = "registration/successfully_confirmed.html"
+    template_name = "user_accounts/registration/successfully_confirmed.html"
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
