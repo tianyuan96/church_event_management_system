@@ -13,65 +13,8 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-info">
-		<a class="navbar-brand" href="/">My Church</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-		 aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
 
-		<!-- create event button -->
-		<div class="collapse navbar-collapse justify-content-head" id="navbarSupportedContent">
-			{% if user.is_staff %}
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="/event/create/">Create Event</a>
-				</li>
-			</ul>
-			{% endif%}
-		</div>
-		<!-- create event button-->
-
-		<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-			<ul class="navbar-nav">
-				{% if user.is_authenticated %}
-				<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-						 aria-expanded="false">
-							Welcome {{user.email}}
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="/accounts/users/profile">My profile</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="/accounts/users/logout">Logout</a>
-						</div>
-					</li>
-				<!-- -->
-				{% else %}
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Organisation Member
-					</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="/accounts/organisations/register">Organisation Register</a>
-						<a class="dropdown-item" href="/accounts/organisations/login">Organisation Login</a>
-					</div>
-				</li>
-
-				<li class="nav-item">
-					<a class="nav-link" href="/accounts/users/login">Login</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/accounts/users/register">Register</a>
-				</li>
-
-				{% endif %}
-
-
-			</ul>
-		</div>
-	</nav>
-
+	{% include 'nav.html' %}
 
 	{% block content %} {% endblock %}
 </body>

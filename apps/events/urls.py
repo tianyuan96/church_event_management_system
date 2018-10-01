@@ -26,7 +26,7 @@ urlpatterns = [
     path('success', views.CreateSuccessView.as_view(), name='event_success'),
 
     path('join/', views.JoinEvent.as_view()),
-    url(r'^details/(?P<eventId>[0-9]+)/$', views.EventView.as_view(),name='event_datail'),
+    path('details/<int:pk>', views.EventDetailView.as_view(),name='event_detail'),
     #path('update/<int:pk>', views.UpdateEventView.as_view(), name='event-update'),
 
 ]

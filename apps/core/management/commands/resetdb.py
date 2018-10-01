@@ -1,6 +1,8 @@
 import os
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
+from django.core.management import call_command
+from django.contrib.auth.models import User
 
 class Command(BaseCommand):
     help = 'Shortcut for running the development server'
@@ -44,3 +46,27 @@ class Command(BaseCommand):
                 print('Removed:', f)
             except FileNotFoundError:
                 pass
+
+        # Set up admin user again
+        call_command('m')
+        u = User(username='admin')
+        u.set_password('password')
+        u.is_superuser = True
+        u.is_staff = True
+        u.save()
+
+        # Create a staff user
+        email = 'a@a.com'
+        u = User(username=email, email=email)
+        u.set_password('password')
+        u.is_superuser = False
+        u.is_staff = True
+        u.save()
+
+        # Create a attendee user
+        email = 'b@b.com'
+        u = User(username=email, email=email)
+        u.set_password('password')
+        u.is_superuser = False
+        u.is_staff = False
+        u.save()
