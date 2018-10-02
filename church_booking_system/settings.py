@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
 
 ]
 
@@ -147,3 +148,15 @@ STATICFILES_DIRS = (
 LOGOUT_REDIRECT_URL = "/"
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = os.path.join(BASE_DIR,'media')+'/'
+STATIC_ROOT = os.path.join(BASE_DIR,'asset')
+CKEDITOR_BASEPATH = os.path.join(BASE_DIR,'asset'+"/ckeditor/ckeditor")
+
+#setting for ck editor
+CKEDITOR_CONFIGS = {
+       'default': {
+           'toolbar': 'Full',
+           'height': 400,
+           'width': 900,
+           'removePlugins': 'stylesheetparser',
+       },
+   }

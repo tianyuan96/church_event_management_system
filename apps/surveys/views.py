@@ -229,6 +229,7 @@ class SeeSurveyResultView(generic.View):
     template_name = 'view_survey_result.html'
 
     def get(self, request,surveyId):
+        print(surveyId)
         summary=self._construct_result(surveyId)
         survey = Survey.objects.get(id=surveyId)
         options = OptionInSurvey.objects.filter(survey=survey)
@@ -249,7 +250,7 @@ class SeeSurveyResultView(generic.View):
         summary=dict()
         survey = Survey.objects.get(id=surveyId)
         options = OptionInSurvey.objects.filter(survey=survey)
-        numTotalParticipant=InvolvedEvent.objects.filter(eventId=survey.event).count()
+        numTotalParticipant=InvolvedEvent.objects.filter(event=survey.event).count()
         summary["total"]=numTotalParticipant
         for option in options:
             numChoice=UserChoose.objects.filter(choice=option,survey=survey).count()#get number for people who choose this option

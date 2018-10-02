@@ -3,6 +3,7 @@ import os
 from django.db import models
 from django.contrib.auth.models import User
 from apps.events.models import Event,InvolvedEvent
+from ckeditor.fields import RichTextField
 from django.db.models.signals import post_init
 
 def get_image_path(insance, filename):
@@ -47,7 +48,7 @@ class SurveyParticipation (models.Model):
 
 class OptionInSurvey (models.Model):
     name = models.CharField(max_length=50, default="option1")
-    description = models.CharField(max_length=100, default="option1")
+    description = RichTextField(max_length=100, default="option1")
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     survey = models.ForeignKey(Survey,on_delete=models.CASCADE) #many options to one survey
 

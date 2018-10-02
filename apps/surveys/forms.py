@@ -1,5 +1,6 @@
 from django import forms
 from .models import Survey, FoodPreferences,OptionInSurvey
+from ckeditor.widgets import CKEditorWidget
 
 class FoodPreferencesForm(forms.ModelForm):
 
@@ -26,9 +27,10 @@ class CreateOptionForm(forms.ModelForm):
         model = OptionInSurvey
         fields = ['name','description','imageFile']
         # exclude =('host',)
+        description = forms.CharField()
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control','id': 'option_name'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'id': 'option_description'}),
+            'description': CKEditorWidget(attrs={'class': 'form-control', 'id': 'option_description'}),
             'imageFile':forms.FileInput(attrs={'class': 'custom-file-input', 'id': 'option_imageFile'}),
         }
