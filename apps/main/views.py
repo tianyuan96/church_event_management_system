@@ -14,6 +14,7 @@ class HomeView(generic.TemplateView, core_views.BaseView):
         today = datetime.date.today()
         next_week = datetime.date.today() + datetime.timedelta(days=7)
         events = Event.objects.filter(date__range=(today, next_week))
+
         return events
 
     def future_events(self):
@@ -24,7 +25,8 @@ class HomeView(generic.TemplateView, core_views.BaseView):
     def attending(self):
         user = self.request.user
         attending = InvolvedEvent.objects.filter(participant=user.id)
-        return attending
+        return [involvedEvent.event.id for involvedEvent in attending]
+
 
 
 class SitemapView(generic.TemplateView, core_views.BaseView):

@@ -11,7 +11,7 @@ class EventCreationForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ['name', 'location', 'description', 'imageFile', 'host']
+        fields = ['name', 'location', 'description', 'imageFile', 'host','date',]
         # exclude = ('host',)
 
         widgets = {

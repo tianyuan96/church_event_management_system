@@ -38,7 +38,7 @@
               <form action="/event/join/" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="event" value="{{ event.id }}">
-                  {% if  event not in joinedEvent%}
+                  {% if  event.id not in view.attending%}
                       <input class="btn btn-primary btn-block" type="submit" name="operation" value="Join">
                   {% else %}
                       <input class="btn btn-danger btn-block" type="submit" name="operation" value="unJoin">
