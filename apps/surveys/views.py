@@ -44,12 +44,10 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
         if user is None:
             return reverse_lazy('home')
         if user.is_staff:
-            event=Event.objects.get(id=eventId)
             context={
-                "event":event,
-                "surveys":Survey.objects.all(),
                 "optionForm":self.option_form_class(),
-                "survey":survey
+                "survey":survey,
+                "options":OptionInSurvey.objects.filter(survey=survey)
             }
             return render(request, self.template_name, context=context)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
@@ -60,9 +58,8 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
         if user is None:
             return reverse_lazy('home')
         if user.is_staff:
-            print("asdfasfasfasfasfqsafasfasdfasdfgad")
             operation = request.POST.get("operation", "")
-            print("the operion is ------->"+operation)
+            print("operation is ",operation)
             surveyId = request.POST.get("survey", "")
             survey = Survey.objects.get(id=surveyId)
             if operation == "add_option":
@@ -79,17 +76,28 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                 return render(request,self.choice_card_template,context=context)
 
             elif operation == "create_survey":
-                title = request.POST.get("title", "")
-                survey.title=title
-                survey.save()
-                return render(request, self.success_template, context=self.generateSuccessContext(survey))
+                form = self.survey_form_class(request.POST)
+                print("creating survey")
+                if form.is_valid():
+                    survey.title=request.POST.get("title", "")
+                    survey.isFinalized=True
+                    survey.save()
+                    return render(request, self.success_template, context=self.generateSuccessContext(survey))
+                form.errors["title"] = ' input cannot be null'
+                context = {
+                    "surveyForm":form,
+                    "optionForm": self.option_form_class(),
+                    "survey": survey,
+                    "options": OptionInSurvey.objects.filter(survey=survey)
+                }
+                return render(request, self.template_name, context=context)
 
 
     def generateSuccessContext(self, survey):
         return {
             "isSuccess": True,
             "event": survey.event,
-            "redirect": reverse("event_datail", kwargs={"eventId":survey.event.id}),
+            "redirect": reverse("event_detail", kwargs={"pk":survey.event.id}),
             "message": "You have successfully created a new survey called "+survey.title,
         }
 
@@ -97,7 +105,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
         return {
             "isSuccess": False,
             "event": survey.event,
-            "redirect": reverse("event_datail", kwargs={"eventId": survey.event.id}),
+            "redirect": reverse("event_detail", kwargs={"pk": survey.event.id}),
             "message": "Create survey fail",
         }
 
@@ -195,7 +203,7 @@ class DoSurveyView(generic.View):
         return {
             "isSuccess": False,
             "event": event,
-            "redirect": reverse("event_datail",kwargs={"eventId":event.id}),
+            "redirect": reverse("event_detail",kwargs={"pk":event.id}),
             "message": "the survey has been closed",
         }
 
@@ -322,7 +330,7 @@ class ProcessSurvey(generic.View):
         return {'error': error,
                 "isSuccess": True,
                 "event": Event.objects.get(id=int(eventId)),
-                "redirect": reverse("event_datail",kwargs={"eventId": eventId}),
+                "redirect": reverse("event_detail",kwargs={"pk": eventId}),
                 "message": "you have successfully created a survey"
                 }
 

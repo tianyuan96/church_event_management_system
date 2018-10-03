@@ -79,38 +79,46 @@
                 
             <ul class="list-group">
                 {% for survey in view.surveys %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ survey.title }}
-                    <div class="d-flex">
-                        {% if survey.isClose %}
-                            <a class="btn btn-primary mr-2 disabled" href="/survey/do/{{ survey.id }}">&nbsp;&nbsp;&nbsp;Do&nbsp;&nbsp;&nbsp;</a>
-                        {% else %}
-                            <a class="btn btn-primary mr-2 " href="/survey/do/{{ survey.id }}" >&nbsp;&nbsp;&nbsp;Do&nbsp;&nbsp;&nbsp;</a>
-                        {% endif %}
+                    {% if  not user.is_staff and not survey.isFinalized %}
+                    {% else %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ survey.title }}
+                            <div class="d-flex">
+                                {% if survey.isClose %}
+                                    <a class="btn btn-primary mr-2 disabled" href="/survey/do/{{ survey.id }}">&nbsp;&nbsp;&nbsp;Do&nbsp;&nbsp;&nbsp;</a>
+                                {% else %}
+                                    <a class="btn btn-primary mr-2 " href="/survey/do/{{ survey.id }}" >&nbsp;&nbsp;&nbsp;Do&nbsp;&nbsp;&nbsp;</a>
+                                {% endif %}
 
-                        {% if user.is_staff %}
+                                {% if user.is_staff %}
 
-                        <form method="POST" action="/survey/close_open/">
-                            {% csrf_token %}
-                            <input type="hidden" name="surveyId" value="{{ survey.id }}">
-                            {%   if not survey.isClose %}
-                                <button type="submit" class="btn btn-info mr-2">Close</button>
-                            {% else %}
-                                <button type="submit" class="btn btn-info mr-2">Open</button>
+                                    <form method="POST" action="/survey/close_open/">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="surveyId" value="{{ survey.id }}">
+                                        {%   if not survey.isClose %}
+                                            <button type="submit" class="btn btn-info mr-2">Close</button>
+                                        {% else %}
+                                            <button type="submit" class="btn btn-info mr-2">Open</button>
 
-                            {% endif %}
-                        </form>
+                                        {% endif %}
+                                    </form>
 
-                        <form method="POST" action="/survey/delete/">
-                            {% csrf_token %}
-                            <input type="hidden" name="surveyId" value="{{ survey.id }}">
-                            <button type="submit" class="btn btn-danger mr-2">Delete</button>
-                        </form>
+                                    <form method="POST" action="/survey/delete/">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="surveyId" value="{{ survey.id }}">
+                                        <button type="submit" class="btn btn-danger mr-2">Delete</button>
+                                    </form>
 
-                        <a href="/survey/result/{{ survey.id }}" class="btn btn-info mr-2">View result</a>
-                        {% endif %}
-                    </div>
-                </li>
+                                    <a href="/survey/result/{{ survey.id }}" class="btn btn-info mr-2">View result</a>
+                                    {% if not survey.isFinalized  %}
+                                        <a href="{% url 'add_option_for_survey' event.id survey.id%}"  class="btn btn-info mr-2">
+                                            Edit Survey
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
 

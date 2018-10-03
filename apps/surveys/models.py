@@ -33,6 +33,7 @@ class Survey (models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event,on_delete=models.CASCADE)
     isClose = models.BooleanField(default=False)
+    isFinalized = models.BooleanField(default=False)
 
     @classmethod
     def create(cls,user,event):

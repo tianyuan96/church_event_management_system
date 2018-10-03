@@ -15,7 +15,13 @@
                         <label>Title of the survey</label>
                     </div>
                     <div class="col-md-8">
-                         <input class="form-control" type="text" name="title" placeholder="Title of the event">
+
+                            <input class="form-control" type="text" name="title" placeholder="Title of the event">
+                            {% if  surveyForm.errors %}
+                                <div class="alert alert-warning">
+                                {{ surveyForm.errors }}
+                                </div>
+                            {% endif %}
                     <input type="hidden" name="event" value={{ event.id }}>
                         <input type="hidden" name="survey" value={{ survey.id }}>
 
@@ -33,6 +39,7 @@
     <!-- exist dish-->
     <div  id="choices_container">
         <!-- card for dishes -->
+        {% include 'choice_card.html'  with options=options %}
 
     </div>
          <!-- end card for dishes -->
@@ -96,6 +103,16 @@
              <!-- end card for dishes -->
 
         </div>
+
+
+    <br>
+    <br>
+
+
+    <!-- submit survey button -->
+        <button class="btn btn-outline-primary btn-block" type="submit" name="operation" value="create_survey" >Publish survey</button>
+    <!-- end submit survey button -->
+
     </form>
     <!--end add dish panel-->
 
@@ -109,12 +126,6 @@
         </div>
   end add dish button -->
 
-    <br>
-    <br>
-
-    <!-- submit survey button -->
-        <button class="btn btn-outline-primary btn-block" type="submit" name="button" value="create_survey" >Create survey</button>
-    <!-- end submit survey button -->
 
 
 

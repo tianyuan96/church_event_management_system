@@ -16,8 +16,17 @@ class CreateSurveyForm(forms.ModelForm):
         model = Survey
         fields = ['title']
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control','id':'survey_tile'}),
+            'title': forms.TextInput(attrs={'class': 'form-control',
+                                            'id':'survey_tile',
+                                            'place holder' : 'Title of the event'})
         }
+
+    def clean_title(self):
+        title = self.cleaned_data["title"]
+        if title == "":
+            raise forms.ValidationError("the title can not be empty")
+        else:
+            return title
 
 
 class CreateOptionForm(forms.ModelForm):
