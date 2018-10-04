@@ -107,11 +107,9 @@ venv.bak/
 
 *.DS_Store
 
-<<<<<<< HEAD
 #pycharm
 .idea/*
 .idea
-=======
-#pycharm file
-.idea/*
->>>>>>> createEvent
+
+#imagefolder
+/media/image/*
