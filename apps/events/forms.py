@@ -1,6 +1,7 @@
 from .models import Event
 from django import forms
 import datetime
+from ckeditor.widgets import CKEditorWidget
 
 class EventCreationForm(forms.ModelForm):
 
@@ -34,7 +35,7 @@ class EventUpdateForm(forms.ModelForm):
         fields = {
             'name': forms.TextInput(attrs={'class':'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'description': CKEditorWidget(attrs={'class': 'form-control'}),
             'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'}),
 
         }

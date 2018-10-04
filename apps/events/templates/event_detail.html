@@ -44,28 +44,9 @@
             <!-- detail for the event -->
             <h3>Description</h3>
 
-            <p class="text-secondary">
-                {{ event.description}}
-            </p>
-
-            <p class="text-secondary">
-                Maecenas efficitur eget urna consequat mattis. Sed egestas tortor sed lacus malesuada, quis mattis
-                mauris
-                consequat. Vestibulum
-                ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum sodales aliquam
-                enim.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget porta elit. Pellentesque est velit,
-                condimentum
-                dictum purus ut, ullamcorper pellentesque felis. In sed sodales dolor, quis iaculis libero. Phasellus
-                pulvinar
-                at orci et suscipit. Phasellus tincidunt eros nec eros posuere, sed fringilla sem bibendum. Nulla
-                vehicula
-                iaculis
-                turpis ornare vehicula. Mauris eleifend vehicula tristique. Mauris nibh mi, elementum vel purus in,
-                dictum
-                eleifend
-                ante. Vivamus dignissim sollicitudin orci, id aliquam libero dignissim sit amet.
-            </p>
+            <div class="text-secondary">
+                {{ event.description|safe}}
+            </div>
 
             <!-- all the surveys go here -->
             {% if view.surveys %}

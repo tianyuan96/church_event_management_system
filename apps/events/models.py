@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 import os
 # Create your models here.
 
@@ -11,7 +12,7 @@ class Event(models.Model):
     name = models.CharField(max_length = 100)
     date = models.DateField(blank = True, default="1997-11-1")
     location = models.CharField(max_length = 100, default = "Some location")
-    description = models.CharField(max_length=512,default = "Some location")
+    description = RichTextField(max_length=512,default = "")
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     host = models.ForeignKey(User, on_delete = models.CASCADE)
 
