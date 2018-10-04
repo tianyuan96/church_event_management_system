@@ -112,4 +112,4 @@ venv.bak/
 .idea
 
 #imagefolder
-.media/image/*
+.media/image/None*
