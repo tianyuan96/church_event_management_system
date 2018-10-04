@@ -19,7 +19,7 @@
     {% for event in view.events %}
     <div class="col-md-6 col-lg-4 mb-4 mt-4">
       <div class="card">
-        <a href="/event/details/{{ event.id }}">
+        <a href="{% url 'event_detail' pk=event.id  %} ">
              {% if event.imageFile %}
                 <img class="card-img-top" src={{event.imageFile.url }} alt="Card image cap">
             {%else%}

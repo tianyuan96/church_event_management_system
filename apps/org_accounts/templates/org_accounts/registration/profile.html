@@ -14,13 +14,18 @@
 
         <div class="row">
             <div class="col-md-4">
-                <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+            <a href="{% url 'event_detail' pk=event.id  %} ">
+                {% if event.imageFile%}
+                    <img class="img-thumbnail" src="{{ event.imageFile.url }}">
+                {% else %}
+                    <img class="img-thumbnail" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg">
+                {% endif %}
+            </a>
             </div>
             <div class="col-md-6">
                 <h4><a class="text-primary" href="/event/details/{{ event.id }}">{{ event.name }}</a></h4>
-                <p class="text-muted">11 Sep, 2018</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nunc libero, ultricies eget tortor sit amet,
-                    gravida aliquet mauris. Integer rhoncus feugiat erat in cursus.</p>
+                <p class="text-muted">{{ event.date }}</p>
+                <p>{{ event.location }}</p>
             </div>
             <div class="col-md-2">
                 <form action="/event/delete/{{ event.id }}" method="POST">

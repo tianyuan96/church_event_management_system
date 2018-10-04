@@ -41,7 +41,7 @@
                                     {{ summary|keyvalue:option.id}} / {{ summary|keyvalue:"total"}}
                                 </h3>
                                 <h5 class="card-title pt-3">{{option.name}}</h5>
-                                <p class="card-text text-muted">{{option.description}}</p>
+                                <div class="card-text text-muted">{{option.description|safe}}</div>
 
                             </div>
                             <!-- end content area -->

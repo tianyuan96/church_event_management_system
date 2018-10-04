@@ -134,7 +134,7 @@ class SubmitSurveyView(generic.View):
 
             if self.isUserParticipatedEvent(user,survey.event):
 
-                participation = InvolvedEvent.objects.get(participant=request.user, eventId=survey.event)
+                participation = InvolvedEvent.objects.get(participant=request.user, event=survey.event)
                 if self.isUserParticipatedSurvey(participation,survey):
                     # user has participated this survey before
                     self.updateChoice(participation,survey,option)
@@ -172,7 +172,7 @@ class SubmitSurveyView(generic.View):
         userchoose.save()
 
     def isUserParticipatedEvent(self,user,event):
-        if InvolvedEvent.objects.filter(participant=user, eventId=event).count()>0:
+        if InvolvedEvent.objects.filter(participant=user, event=event).count()>0:
             return True
         return False
 

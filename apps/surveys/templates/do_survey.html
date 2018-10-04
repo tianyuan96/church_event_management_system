@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="col-md-6 text-left">
                                         <h5 class="card-title pt-3">{{option.name}}</h5>
-                                        <p class="card-text text-muted">{{option.description}}</p>
+                                        <div class="card-text text-muted">{{option.description|safe}}</div>
                                     </div>
                                 </div>
                                 <input type="radio" name="option" style="display:none" autocomplete="off" value="{{ option.id }}">
