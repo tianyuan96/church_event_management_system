@@ -17,9 +17,9 @@
                     <div class="col-md-8">
 
                             <input class="form-control" type="text" name="title" placeholder="Title of the event">
-                            {% if  surveyForm.errors %}
+                            {% if  surveyForm.title.errors %}
                                 <div class="alert alert-warning">
-                                {{ surveyForm.errors }}
+                                {{ surveyForm.title.errors }}
                                 </div>
                             {% endif %}
                     <input type="hidden" name="event" value={{ event.id }}>
@@ -39,78 +39,20 @@
     <!-- exist dish-->
     <div  id="choices_container">
         <!-- card for dishes -->
-        {% include 'choice_card.html'  with options=options %}
+        {% include 'choice_card.html'  with options=options optionForm=optionForm survey=survey%}
 
-    </div>
+
          <!-- end card for dishes -->
         <!-- end exist dish for survey-->
 
-
-
-    <!-- add dish penel-->
-    <h1>What will you offer for the event</h1>
-    <br>
-
-        <div  >
-            <!-- card for dishes -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
-                                    <!-- add image -->
-                                        <div class="custom-file">
-                                            {{optionForm.imageFile}}
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                        </div>
-                                    <!-- end add image-->
-                                </div>
-
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label>Name of the dish</label>
-                                       {{optionForm.name}}
-                                    </div>
-                                    <div class="form-group">
-                                        <div><label>Description</label></div>
-                                        <div  class="col-md-7">
-                                        {% load static %}
-                                            <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-                                            <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-
-                                            {{optionForm.description}}
-                                             {{optionForm.survey}}
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="survey" value={{ survey.id }}>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="text-right btn btn-block" >
-                            <!--<a class="btn btn-primary" href="#" style="border-radius:50%; height:40px; position: relative; top: -16px;">
-                                <i class="fas fa-plus" style="position: relative;top: 2px;"></i>
-
-                            </a>-->
-                             <button id="add_option" class="btn btn-outline-primary btn-block" type="submit"  name="button" value="add_option">add option</button>
-                        </div>
-
-                    </div>
-                    <br>
-
-             <!-- end card for dishes -->
-
-        </div>
-
+    </div>
 
     <br>
     <br>
 
 
     <!-- submit survey button -->
-        <button class="btn btn-outline-primary btn-block" type="submit" name="operation" value="create_survey" >Publish survey</button>
+        <button class="btn btn-outline-primary btn-block" type="submit" name="operation" value="create_survey" >Public survey</button>
     <!-- end submit survey button -->
 
     </form>
@@ -118,30 +60,8 @@
 
 
 
-    <!-- add dish button
-        <div class="text-right"  id="plus_button" >
-            <a class="btn btn-primary" href="#" style="border-radius:50%; height:40px; position: relative; top: -16px;">
-                <i class="fas fa-plus" style="position: relative;top: 2px;"></i>
-            </a>
-        </div>
-  end add dish button -->
-
-
-
-
 </div>
 
-    {% load static %}
-    <script type="text/javascript"  src={% static "main/add_dish_option.js" %}></script>
 
-    <script type="text/javascript">
-        var surveyId = {{ survey.id }} ;
-        var eventId = {{ survey.event_id }};
-    </script>
-    {% load static %}
-    <script type="text/javascript" src = {% static "main/ajax_survey.js" %}>
-
-
-    </script>
 
 {% endblock %}

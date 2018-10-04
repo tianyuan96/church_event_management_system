@@ -31,6 +31,14 @@ class CreateSurveyForm(forms.ModelForm):
 
 class CreateOptionForm(forms.ModelForm):
 
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        if name == "":
+            raise forms.ValidationError("the name of option can not be empty")
+        else:
+            return name
+
+
 
     class Meta:
         model = OptionInSurvey

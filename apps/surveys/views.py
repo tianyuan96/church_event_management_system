@@ -64,16 +64,25 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
             survey = Survey.objects.get(id=surveyId)
             if operation == "add_option":
                 form = self.option_form_class(request.POST, request.FILES)
+
                 if form.is_valid():
                     option = form.save(commit=False)
-                    if Survey.objects.filter(id= surveyId).count()>0:
 
+                    if Survey.objects.filter(id= surveyId).count()>0:
                         option.survey=survey
                         option.save()
+                        context = {
+                            "optionForm": self.option_form_class(),
+                            "survey": survey,
+                            "options": OptionInSurvey.objects.filter(survey=survey)
+                        }
+                        return render(request, self.choice_card_template, context=context)
                 context = {
+                    "optionForm": form,
+                    "survey": survey,
                     "options": OptionInSurvey.objects.filter(survey=survey)
                 }
-                return render(request,self.choice_card_template,context=context)
+                return render(request, self.choice_card_template, context=context)
 
             elif operation == "create_survey":
                 form = self.survey_form_class(request.POST)
@@ -83,7 +92,6 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                     survey.isFinalized=True
                     survey.save()
                     return render(request, self.success_template, context=self.generateSuccessContext(survey))
-                form.errors["title"] = ' input cannot be null'
                 context = {
                     "surveyForm":form,
                     "optionForm": self.option_form_class(),
