@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        {{ option.description |safe}}
+                        {{option.description |safe}}
                         <input type="hidden" type="text" name="choiceList[]" value={{ choice.id }}/>
                     </div>
                 </div>
@@ -60,11 +60,9 @@
                     </div>
                     <div class="form-group">
                         <div><label>Description</label></div>
-                        <div  class="col-md-7">
                         {% load static %}
-                            <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-                            <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-
+                                <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+                                <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
                             {{optionForm.description}}
                             {% if  optionForm.description.errors%}
                             <div class="alert alert-warning">
@@ -72,7 +70,7 @@
                             </div>
                             {% endif %}
 
-                        </div>
+                        
                     </div>
                     <input type="hidden" name="survey" value={{survey.id}}>
                 </div>
@@ -80,9 +78,9 @@
 
         </div>
 
-
+        
         <div class="text-right btn btn-block" >
-             <button id="add_option" class="btn btn-outline-primary btn-block" type="submit"  name="operation" value="add_option">add option</button>
+            <button id="add_option" class="btn btn-outline-primary" type="submit"  name="operation" value="add_option"><i class="fas fa-plus-circle" data-toggle="tooltip" data-delay="-2" title="Add a new option"></i></button>     
         </div>
 
     </div>
