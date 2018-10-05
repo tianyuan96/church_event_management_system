@@ -1,46 +1,65 @@
-from .forms import RegisterUserForm, LoginUserForm
 from django.urls import reverse_lazy
-from django.views import generic
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.conf import settings
-from django.contrib.auth import authenticate, login, logout
-from . import models
-from django.urls import reverse_lazy
-import apps.core.views as core_views
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.utils import IntegrityError
-from apps.events.models import InvolvedEvent, Event
-from apps.surveys.forms import FoodPreferencesForm
-from apps.surveys.models import FoodPreferences
 
+from django.views import generic
+from django.conf import settings
 
-class UserProfileView(LoginRequiredMixin, generic.UpdateView, core_views.BaseView):
+from apps.user_accounts import forms
+from apps.user_accounts import models
+from apps.events import models as event_models
+from apps.core import views as core_views
+from apps.surveys import forms as survey_forms
+from apps.surveys import models as survey_models
+
+from django.forms.models import modelformset_factory
+
+class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseView):
+
 
     template_name = "user_accounts/registration/profile.html"
-    form_class = FoodPreferencesForm
     success_url = reverse_lazy('user_profile')
     page_title = "Profile"
 
+
     def get_object(self, queryset=None):
-        obj, _ = FoodPreferences.objects.get_or_create(user=self.request.user)
+        obj, _ = survey_models.FoodPreferences.objects.get_or_create(user=self.request.user)
         return obj
 
     """
         Below are attributes that can be rendered in the template, for example {{ view.events }}
     """
     def attending(self):
-        # we want to get the Events here, not the InvolvedEvents, since we need Event data
-        return Event.objects.filter(involvedevent__participant=self.request.user)
+        # we get the Events here, not the InvolvedEvents, since we need Event data
+        return event_models.Event.objects.filter(involvedevent__participant=self.request.user)
 
     def events(self):
-        return Event.objects.all()
+        return event_models.Event.objects.all()
+
+    def update_user_form(self):
+        user = self.request.user
+        return forms.UpdateUserForm(instance=user)
+
+    def update_user_details_form(self):
+        user = self.request.user
+        return forms.UpdateUserDetailsForm(instance=user)
+
+class UpdateUserView(LoginRequiredMixin, generic.UpdateView, core_views.BaseView):
+
+    template_name = "user_accounts/registration/profile.html"
+    success_url = reverse_lazy('user_profile')
+    page_title = "Profile"
+    # form_class = forms.UpdateUserForm
 
 class RegisterUserView(generic.FormView, core_views.BaseView):
 
-    form_class = RegisterUserForm
+    form_class = forms.RegisterUserForm
     page_title = "Register"
     template_name = 'user_accounts/registration/register.html'
     #success_url = reverse_lazy('user_profile')
@@ -118,7 +137,7 @@ class LogoutUserView(generic.View):
 
 class LoginUserView(generic.FormView, core_views.BaseView):
 
-    form_class = LoginUserForm
+    form_class = forms.LoginUserForm
     page_title = "Login"
     template_name = 'user_accounts/registration/login.html'
     success_url = reverse_lazy('user_profile')

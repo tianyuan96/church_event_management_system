@@ -1,11 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
+from django.contrib.auth import forms as auth_forms
 # from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
+from apps.user_accounts import models
 from django.contrib.auth.models import User
 
-class RegisterUserForm(UserCreationForm):
+
+
+class RegisterUserForm(auth_forms.UserCreationForm):
 
 
     def username_taken(self):
@@ -22,11 +23,32 @@ class RegisterUserForm(UserCreationForm):
         model = User
         fields = ('email', 'password1', 'password2', )
 
+
+
+
 class LoginUserForm(forms.Form):
 
     email = forms.EmailField(max_length=254, help_text='Required. Please use a valid email address.')
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ('username', 'password', )
+
+class UpdateUserDetailsForm(auth_forms.UserChangeForm):
+    # email = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': 'required', }))
+
+    class Meta:
+        model = models.UserDetails
+        fields = ('display_name', )
+
+class UpdateUserForm(auth_forms.UserChangeForm):
+
+    email = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': 'required', }))
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control', 'required': 'required', }))
+    new_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control' }))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control' }))
+
+    class Meta:
+        model = User
+        fields = ('email', 'old_password', 'new_password', 'confirm_password')

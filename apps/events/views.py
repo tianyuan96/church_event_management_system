@@ -90,6 +90,7 @@ class UpdateEventView(edit.UpdateView):
     success_url = reverse_lazy('org_profile')
 
 
+
 class CreateSuccessView(generic.TemplateView, core_views.BaseView):
 
     template_name = 'event_success.html'

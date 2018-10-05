@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.management import call_command
 from django.contrib.auth.models import User
 from apps.org_accounts.models import OrganisationDetails
+from apps.user_accounts.models import UserDetails
 
 class Command(BaseCommand):
     help = 'Shortcut for running the development server'
@@ -74,3 +75,6 @@ class Command(BaseCommand):
         u.is_superuser = False
         u.is_staff = False
         u.save()
+
+        details = UserDetails(user=u, display_name='xXx 1337 h4ck3r xXx')
+        details.save()

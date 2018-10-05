@@ -29,6 +29,6 @@ urlpatterns = [
     path('join/', views.JoinEvent.as_view()),
     url(r'^discussion/(?P<eventID>[0-9]+)/$', views.PostCreationView.as_view(), name='event_forums'),
     url(r'^updatepost/(?P<pk>[0-9]+)$',views.UpdatePostView.as_view(), name='post_update'),
-    path('deletepost/<int:pk>', views.DeletePostView.as_view()),
+    path('deletepost/<int:pk>', views.DeletePostView.as_view(), name="post_delete"),
 
 ]
