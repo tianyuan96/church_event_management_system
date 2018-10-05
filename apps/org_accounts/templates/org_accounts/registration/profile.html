@@ -142,10 +142,14 @@
                   {% for event in view.events %}
                     <div class="col-md-6 col-lg-4">
                       <div class="card">
-                          <img class="card-img-top" src="{{ view.events.imageFile }}" alt="Card image cap">
+                        {% if event.imageFile %}
+                          <img class="img-fluid" src="{{ event.imageFile.url }}">
+                        {% else %}
+                          <img class="img-fluid" src="https://www.newstatesman.com/sites/all/themes/creative-responsive-theme/images/new_statesman_events.jpg">
+                        {% endif %}
                           <div class="card-body">
                           <h5 class="card-title">{{ event.name }}</h5>
-                          <p class="card-text">{{ event.description }}</p>
+                          <p class="card-text">{{ event.date}}</p>
                           <a href="/event/details/{{ event.id }}" class="btn btn-primary">Details</a>
                           </div>
                       </div>
