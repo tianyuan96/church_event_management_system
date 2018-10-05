@@ -85,6 +85,15 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                 return render(request, self.choice_card_template, context=context)
 
             elif operation == "create_survey":
+                if(OptionInSurvey.objects.filter(survey=survey).count()<1):
+                    context = {
+                        "surveyForm": self.survey_form_class(),
+                        "optionForm": self.option_form_class(),
+                        "survey": survey,
+                        "error":"More options are needed to form a survey",
+                        "options": OptionInSurvey.objects.filter(survey=survey)
+                    }
+                    return render(request, self.template_name, context=context)
                 form = self.survey_form_class(request.POST)
                 print("creating survey")
                 if form.is_valid():
