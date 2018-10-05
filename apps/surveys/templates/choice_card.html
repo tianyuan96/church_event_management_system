@@ -69,8 +69,6 @@
                             {{ optionForm.description.errors }}
                             </div>
                             {% endif %}
-
-                        
                     </div>
                     <input type="hidden" name="survey" value={{survey.id}}>
                 </div>
@@ -80,7 +78,7 @@
 
         
         <div class="text-right btn btn-block" >
-            <button id="add_option" class="btn btn-outline-primary" type="submit"  name="operation" value="add_option"><i class="fas fa-plus-circle" data-toggle="tooltip" data-delay="-2" title="Add a new option"></i></button>     
+            <button id="add_option" class="btn btn-outline-primary" type="submit"  name="operation" value="add_option" data-toggle="tooltip"  title="Add a new option"><i class="fas fa-plus-circle"></i></button>     
         </div>
 
     </div>
