@@ -71,7 +71,7 @@
                     <p> {{ every_post.message }}</p>
 
                     <div>
-                        {% if every_postt.imageFile %}
+                        {% if every_post.imageFile %}
                         <img class="img-thumbnail" src="{{ every_post.imageFile.url }}">
                         {% else %}
                         <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
@@ -81,55 +81,62 @@
                     <hr>
 
                     <div class="comment">
-                        <div class="comment-item">
-                            <div class="row">
-                                <div class="col-1">
-                                    <div class="comment-user-img">
-                                        <i class="far fa-user"></i>
-                                    </div>
-                                </div>
-                                <div class="col-11">
-                                    <div class="comment-msg">
-                                        <span>USERNAME1:</span>
-                                        <span>xxxx message</span>
+                        {% if replies %}
+                            {% for every_reply in replies %}
+                                <div class="comment-item">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <div class="comment-user-img">
+                                                <i class="far fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-11">
+                                            <div class="comment-msg">
+                                                <span>{{ every_reply.author }}</span>
+                                                <span>{{ every_reply.message }}</span>
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+{#                                <div class="comment-item">#}
+{#                                    <div class="row">#}
+{#                                        <div class="col-1">#}
+{#                                            <div class="comment-user-img">#}
+{#                                                <i class="far fa-user"></i>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                        <div class="col-11">#}
+{#                                            <div class="comment-msg">#}
+{#                                                <span>USERNAME2:</span>#}
+{#                                                <span>xxxx message asdf;lzxk asdf apsodif nalsd</span>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+                            {% endfor %}
+                        {% endif %}
+                        <form method="POST" action="/event/discussion/reply/{{ event.id}}/{{ every_post.id }}/" enctype="multipart/form-data">
+                            {%csrf_token%}
+                            <div class="comment-item">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <div class="comment-user-img">
+                                            <i class="far fa-user"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="comment-post">
+                                            <form method class="form-group">
+                                                <input class="form-control" name="message" placeholder="Press Enter to post">
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="comment-item">
-                            <div class="row">
-                                <div class="col-1">
-                                    <div class="comment-user-img">
-                                        <i class="far fa-user"></i>
-                                    </div>
-                                </div>
-                                <div class="col-11">
-                                    <div class="comment-msg">
-                                        <span>USERNAME2:</span>
-                                        <span>xxxx message asdf;lzxk asdf apsodif nalsd</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="comment-item">
-                            <div class="row">
-                                <div class="col-1">
-                                    <div class="comment-user-img">
-                                        <i class="far fa-user"></i>
-                                    </div>
-                                </div>
-                                <div class="col-11">
-                                    <div class="comment-post">
-                                        <form class="form-group">
-                                            <input class="form-control" placeholder="Press Enter to post">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
+
 
                 </div>
                 {% endfor %}

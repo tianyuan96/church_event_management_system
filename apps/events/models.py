@@ -33,3 +33,11 @@ class Post(models.Model):
     date = models.DateTimeField(blank=True, default= "2006-10-25 14:30:59")
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     message = models.CharField(max_length = 256)
+
+class Reply(models.Model):
+    author = models.ForeignKey(User, on_delete= models.CASCADE)
+    eventID = models.ForeignKey(Event, on_delete= models.CASCADE)
+    postID = models.ForeignKey(Post, on_delete=models.CASCADE)
+    date = models.DateTimeField(blank=True, default= "2006-10-25 14:30:59")\
+    #imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
+    message = models.CharField(max_length = 256)
