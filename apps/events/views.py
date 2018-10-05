@@ -97,10 +97,10 @@ class CreateSuccessView(generic.TemplateView, core_views.BaseView):
 
 
 # Shows the post on the page
-class DiscussionView(generic.CreateView):
+class DiscussionView(generic.CreateView, core_views.BaseView):
     template_name = "create_post.html"
     form_class = PostCreationForm
-
+    page_title = "TEST"
     def get(self, request, eventId):
 
         event = Event.objects.get(id=eventId)
@@ -131,11 +131,13 @@ class UpdatePostView(generic.UpdateView):
         return reverse_lazy("event_forums", args=(self.object.eventID.id,))
 
 # Sets up the posts in the database
-class PostCreationView(generic.CreateView):
+class PostCreationView(LoginRequiredMixin, generic.DetailView, core_views.BaseView):
+
     template_name = "create_post.html"
     form_class = PostCreationForm
-    model=Post
-
+    model = Event
+    context_object_name = "event"
+    page_title = "TEST 2"
 
 
 #    def get(self, request, *args, **kwargs):
@@ -149,50 +151,44 @@ class PostCreationView(generic.CreateView):
  #       return HttpResponseRedirect('/')
 
 
-    def get(self, request, eventID):
-        user = request.user
-        #eventID = request.POST.get("event", "")
+    # def event(self):
+    #     event = self.object
+    #     return event
+        # return Event.objects.get(id=self.request.GET['eventID'])
 
-        event = Event.objects.get(id=eventID)
+    def form(self):
+        return self.form_class
 
-        if user is not None:
-            if user.is_active:
-                form = self.form_class
-                reply_form = ReplyCreationForm
-                posts = Post.objects.filter(eventID=eventID).order_by('-date')
-                replies = Reply.objects.filter(eventID=eventID).order_by('date')
-                context = {
-                    "event": event,
-                    "form": form,
-                    "posts": posts,
-                    "replies": replies,
-                    "reply_form": reply_form,
+    def posts(self):
+        event = self.object
+        return Post.objects.filter(eventID=event).order_by('-date')
 
-                }
-                return render(request, self.template_name, context=context)
-        return HttpResponseRedirect('/')
+    def replies(self):
+        event = self.object
+        return Reply.objects.filter(eventID=event).order_by('date')
+
+    def reply_form(self):
+        return ReplyCreationForm
 
 
+    # def post(self, request, *args, **kwargs):
+    #     user = request.user
+    #     eventID = kwargs.get("eventID")
+    #     if user is not None:
+    #         if user.is_active:
+    #             form = self.form_class(request.POST.copy(), request.FILES)
+    #             if form.is_valid():
+    #                 self.object = form.save(commit=False)
+    #                 self.object.author = user
+    #                 self.object.eventID = Event.objects.get(id=eventID)
+    #                 self.object.date = datetime.datetime.now()
+    #                 self.object.save()
+    #                 return HttpResponseRedirect('/event/discussion/'+eventID)
+    #             else:
+    #                 print(form.errors)
+    #                 return HttpResponseRedirect(request.path_info)
 
-
-    def post(self, request, *args, **kwargs):
-        user = request.user
-        eventID = kwargs.get("eventID")
-        if user is not None:
-            if user.is_active:
-                form = self.form_class(request.POST.copy(), request.FILES)
-                if form.is_valid():
-                    self.object = form.save(commit=False)
-                    self.object.author = user
-                    self.object.eventID = Event.objects.get(id=eventID)
-                    self.object.date = datetime.datetime.now()
-                    self.object.save()
-                    return HttpResponseRedirect('/event/discussion/'+eventID)
-                else:
-                    print(form.errors)
-                    return HttpResponseRedirect(request.path_info)
-
-        return HttpResponseRedirect('/')
+    #     return HttpResponseRedirect('/')
 
 
 class ReplyCreationView(generic.CreateView):

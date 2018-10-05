@@ -3,6 +3,7 @@
 <div class="container mt-3">
 
     <h1>Post Something</h1>
+    HERE: {{ event }}
     <br>
     <div class="card">
         <div class="card-body">
@@ -13,7 +14,7 @@
                     <label name="event" class="col-sm-2 col-form-label">Write something</label>
                     <div class="col-sm-10">
                         <!--<textarea class="form-control" name="event_description"></textarea>-->
-                        {{form.message}}
+                        {{view.form.message}}
                     </div>
                 </div>
 
@@ -22,7 +23,7 @@
                     <div class="col-sm-10">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="customFile" name="event_image" multiple>
-                            <!-- {{form.imageFile}} -->
+                            <!-- {{view.form.imageFile}} -->
                             <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
                     </div>
@@ -38,14 +39,11 @@
     <br>
     <br>
 
-    {% if posts %}
+    {% if view.posts %}
     <div class="container mt-3">
-
-        <h1>ALL POSTS</h1>
-
         <div class="row">
             <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                {% for every_post in posts %}
+                {% for every_post in view.posts %}
 
                 <div class="post-item">
 
@@ -82,8 +80,8 @@
                     <hr>
 
                     <div class="comment">
-                        {% if replies %}
-                            {% for every_reply in replies %}
+                        {% if view.replies %}
+                            {% for every_reply in view.replies %}
                                 {% if every_reply.postID == every_post %}
 {#                                    every_post.id#}
 {#                                    every_reply.postID#}
@@ -117,6 +115,7 @@
     {#                                        </div>#}
     {#                                    </div>#}
     {#                                </div>#}
+                                <br>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
@@ -141,7 +140,8 @@
                         </form>
                     </div>
 
-
+                    <br>
+                    <br>
                 </div>
                 {% endfor %}
             </div>
@@ -149,7 +149,7 @@
     </div>
 
     {% else %}
-    <h1>No post yet </h1>
+    <p class="font-italic text-center text-muted">There is no post for this event right now</p>
     {% endif %}
 
     {% endblock %}
