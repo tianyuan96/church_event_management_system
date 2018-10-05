@@ -1,86 +1,179 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block head %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+    // This runs when the user clicks a button on the left navigation tabs.
+    // It remove the 'active' class from all tabs, and sets it to the tab the user just clicked.
+    // Doing this allows the button to be turned blue so the user can see which section they are in
+    function setActiveTab(clicked){
+      var items = document.getElementsByClassName('list-group-item');
+      Array.from(items).forEach(function(item){
+        item.classList.remove("active");
+      });
+      clicked.classList.add('active');
+    }
+  </script>
+{% endblock %}
 
 {% block content %}
+  {% if user.is_authenticated and user.is_staff %}
 
-  {% if events %}
-  <div class="container mt-3">
+  <br>
 
-      <h1>My Host Event</h1>
-      <br>
-      {% for event in events %}
-      <div class="container mt-3">
-
-        <div class="row">
-            <div class="col-md-4">
-            <a href="{% url 'event_detail' pk=event.id  %} ">
-                {% if event.imageFile%}
-                    <img class="img-thumbnail" src="{{ event.imageFile.url }}">
-                {% else %}
-                    <img class="img-thumbnail" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg">
-                {% endif %}
-            </a>
-            </div>
-            <div class="col-md-6">
-                <h4><a class="text-primary" href="/event/details/{{ event.id }}">{{ event.name }}</a></h4>
-                <p class="text-muted">{{ event.date }}</p>
-                <p>{{ event.location }}</p>
-            </div>
-            <div class="col-md-2">
-                <form action="/event/delete/{{ event.id }}" method="POST">
-                  {% csrf_token %}
-                  <input class="btn btn-danger" style="height:40px; width:120px ;position: relative;" type="submit" value="Delete">
-                </form>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <form action="/event/update/{{ event.id }}" method="POST">
-                  {% csrf_token %}
-                  <input class="btn btn-outline-primary " style="height:40px; width:120px ;position: relative; top: -16px;" type="submit" value="Update">
-                </form>
-          </div>
-        </div>
-        <hr>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3 ">
+	     <div style="position: fixed; width: 320px;" id="sections_bar" class="list-group ">
+          <a href="#profile_section" class="list-group-item list-group-item-action active" onclick="setActiveTab(this);">Profile</a>
+          <a href="#events_section" class="list-group-item list-group-item-action" onclick="setActiveTab(this);">Events</a>
       </div>
-      {% endfor %}
-      <br><br><br>
-      <div class="container mt-3">
+		</div>
+  	<div class="col-md-9">
 
-          <h1>My Attend Event</h1>
-          <br>
+    <!-- User Detail -->
+    <div id="profile_section" class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Profile</h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form>
+                          <div class="form-group row">
+                            <label for="email" class="col-4 col-form-label">Email</label>
+                            <div class="col-8">
+                              <input id="email" name="email" value="{{ user.username }}" class="form-control here" required="required" type="text">
+                            </div>
+                          </div>
 
-          <div class="row">
-              <div class="col-md-4">
-                  <img class="img-thumbnail" src="http://www.newseum.org/wp-content/uploads/2014/08/370x250xhostevent_landing_wedding2.jpg.pagespeed.ic.eyeFV_I2q1.jpg">
-              </div>
-              <div class="col-md-6">
-                  <h4><a class="text-primary" >Test</a></h4>
-                  <p class="text-muted">13 Sep, 2018</p>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nunc libero, ultricies eget tortor sit amet,
-                      gravida aliquet mauris. Integer rhoncus feugiat erat in cursus.</p>
-              </div>
-              <div class="col-md-2">
-                  <form action="/event/delete/{{ event.id }}" method="POST">
-                    {% csrf_token %}
-                    <input class="btn btn-danger " style="height:40px; width:120px ;position: relative; top: -16px;" type="submit" value="Withdraw">
-                  </form>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  <a class="btn btn-outline-primary " href="/event-offer" style="height:40px; width:120px ;position: relative; top: -16px;">Chnage Meal</a>
+                          <div class="form-group row">
+                            <label for="username" class="col-4 col-form-label">Display Name (for the forum)</label>
+                            <div class="col-8">
+                              <input id="display_name" name="display_name" placeholder="{{ view.user_details.name }}" class="form-control here" type="text">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="newpass" class="col-4 col-form-label">Old Password</label>
+                            <div class="col-8">
+                              <input id="newpass" name="newpass" placeholder="*******" class="form-control here" type="password">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+
+                            <label for="newpass" class="col-4 col-form-label">New Password</label>
+                            <div class="col-8">
+                              <input id="newpass" name="newpass" placeholder="*******" class="form-control here" type="password">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="newpass" class="col-4 col-form-label">Retype Password</label>
+                            <div class="col-8">
+                              <input id="newpass" name="newpass" placeholder="*******" class="form-control here" type="password">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="offset-4 col-8">
+                              <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                            </div>
+                          </div>
+                        </form>
+                </div>
             </div>
           </div>
-          <hr>
         </div>
+        <!-- End User Detail -->
+
+        <br>
+        <!-- Food Preferences -->
+
+<!--
+<div id="food_preferences_section" class="card">
+    <div class="card-body">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Food Preferences</h4>
+            <hr>
+        </div>
+    </div>
+      <form method="POST" action="{% url 'user_profile' %}" class="col-md-12">
+        <div class="row">
+          {% csrf_token %}
+          {% for field in form %}
+
+          <div class="form-group col-4">
+            <label for="email" class="col-form-label">{{ field.label }}</label>
+            {{ field }}
+          </div>
+
+          {% endfor %}
+          <input type="submit" class="btn btn-primary" value="Update Preferences">
+        </div>
+      </form>
+      {{ status }}
+    </div>
+</div>
+
+
+-->
+
+          <!-- End Food Preferences -->
+          <br>
+          <!-- Events -->
+      <div id="events_section" class="card">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-6">
+                      <h4>Events</h4>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="{% url 'event_create' %}" type="submit" class="btn btn-primary">Add an event</a>
+                  </div>
+                  <hr>
+              </div>
+              <div class="row">
+                {% if view.events %}
+                  {% for event in view.events %}
+                    <div class="col-md-6 col-lg-4">
+                      <div class="card">
+                          <img class="card-img-top" src="{{ view.events.imageFile }}" alt="Card image cap">
+                          <div class="card-body">
+                          <h5 class="card-title">{{ event.name }}</h5>
+                          <p class="card-text">{{ event.description }}</p>
+                          <a href="/event/details/{{ event.id }}" class="btn btn-primary">Details</a>
+                          </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  {% else %}
+                  <div class="col-md-6 col-lg-4">
+                      <p class="font-italic text-secondary">You have not created any upcoming events</p>
+                  </div>
+                  {% endif %}
+              </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
   {% else %}
-  <a class="nav-link" href="/event/create/">Start by creating an event!</a>
-
+    <h3>You don't have permission to view this page, please login <a href="/accounts/users/login">here</a></h3>
   {% endif %}
 
 {% endblock %}
