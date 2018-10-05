@@ -3,9 +3,7 @@
     <!-- title of the survey -->
     <h1>What's the title for the survey?</h1>
 
-    {% if error %}
-        <h3 class="text-danger">{{ error }}</h3>
-    {% endif %}
+
     <form method="POST" action="/survey/create/{{ survey.event_id }}/{{ survey.id }}/"  enctype="multipart/form-data" id="survey_form">
         {% csrf_token %}
         <div class="card">
@@ -32,8 +30,11 @@
 
     <br>
 
-
-
+    {% if error %}
+        <div class="alert alert-warning">
+            {{ error }}
+        </div>
+    {% endif %}
 
     <!-- end title of the survey-->
     <!-- exist dish-->
