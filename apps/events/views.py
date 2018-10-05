@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.views import generic
-from .forms import EventCreationForm, EventUpdateForm, Event, PostCreationForm, PostUpdateForm
+from .forms import EventCreationForm, EventUpdateForm, Event, PostCreationForm, PostUpdateForm, ReplyCreationForm
 from . import models
 from django.shortcuts import render, redirect
 from django.views.generic import edit
-from .models import Event,InvolvedEvent, Post
+from .models import Event, InvolvedEvent, Post, Reply
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseRedirect, HttpResponse
@@ -98,10 +98,10 @@ class CreateSuccessView(generic.TemplateView, core_views.BaseView):
 
 
 # Shows the post on the page
-class DiscussionView(generic.CreateView):
+class DiscussionView(generic.CreateView, core_views.BaseView):
     template_name = "create_post.html"
     form_class = PostCreationForm
-
+    page_title = "TEST"
     def get(self, request, eventId):
 
         event = Event.objects.get(id=eventId)
@@ -132,10 +132,15 @@ class UpdatePostView(generic.UpdateView):
         return reverse_lazy("event_forums", args=(self.object.eventID.id,))
 
 # Sets up the posts in the database
-class PostCreationView(generic.CreateView):
+class PostCreationView(LoginRequiredMixin, generic.DetailView, core_views.BaseView):
+
     template_name = "create_post.html"
     form_class = PostCreationForm
-    model=Post
+    model = Event
+    context_object_name = "event"
+    page_title = "TEST 2"
+
+
 #    def get(self, request, *args, **kwargs):
 #        user = request.user
 #       # event = Event.objects.get(id=eventID)
@@ -145,19 +150,75 @@ class PostCreationView(generic.CreateView):
 
 #                return render(request, self.template_name, {"form": form})
  #       return HttpResponseRedirect('/')
-    def get(self, request, eventID, **kwargs):
+
+
+    # def event(self):
+    #     event = self.object
+    #     return event
+        # return Event.objects.get(id=self.request.GET['eventID'])
+
+    def form(self):
+        return self.form_class
+
+    def posts(self):
+        event = self.object
+        return Post.objects.filter(eventID=event).order_by('-date')
+
+    def replies(self):
+        event = self.object
+        return Reply.objects.filter(eventID=event).order_by('date')
+
+    def reply_form(self):
+        return ReplyCreationForm
+
+
+    # def post(self, request, *args, **kwargs):
+    #     user = request.user
+    #     eventID = kwargs.get("eventID")
+    #     if user is not None:
+    #         if user.is_active:
+    #             form = self.form_class(request.POST.copy(), request.FILES)
+    #             if form.is_valid():
+    #                 self.object = form.save(commit=False)
+    #                 self.object.author = user
+    #                 self.object.eventID = Event.objects.get(id=eventID)
+    #                 self.object.date = datetime.datetime.now()
+    #                 self.object.save()
+    #                 return HttpResponseRedirect('/event/discussion/'+eventID)
+    #             else:
+    #                 print(form.errors)
+    #                 return HttpResponseRedirect(request.path_info)
+
+    #     return HttpResponseRedirect('/')
+
+
+class ReplyCreationView(generic.CreateView):
+    template_name = "create_post.html"
+    form_class = ReplyCreationForm
+    model = Reply
+
+
+
+
+
+    def get(self, request, eventID, postID):
         user = request.user
         #eventID = request.POST.get("event", "")
-
         event = Event.objects.get(id=eventID)
+        post = Post.objects.get(id=postID)
+        form = PostCreationForm
         if user is not None:
             if user.is_active:
-                form = self.form_class
+                reply_form = self.form_class
                 posts = Post.objects.filter(eventID=eventID).order_by('-date')
+                replies = Reply.objects.filter(eventID=eventID).order_by('date')
                 context = {
                     "event": event,
+                    "posts": posts,
                     "form": form,
-                    "posts": posts
+                    "reply_form": reply_form,
+                    "replies": replies
+
                 }
                 return render(request, self.template_name, context=context)
         return HttpResponseRedirect('/')
@@ -168,18 +229,25 @@ class PostCreationView(generic.CreateView):
     def post(self, request, *args, **kwargs):
         user = request.user
         eventID = kwargs.get("eventID")
+        postID = kwargs.get("postID")
         if user is not None:
             if user.is_active:
-                form = self.form_class(request.POST.copy(), request.FILES)
-                if form.is_valid():
-                    self.object = form.save(commit=False)
+                message = request.POST['message']
+                #form = self.form_class(request.POST.copy(), request.FILES)
+                #if form.is_valid():
+                if message is not None:
+
+                    #self.object = form.save(commit=False)
+                    self.object = Reply()
+                    self.object.message = message
                     self.object.author = user
                     self.object.eventID = Event.objects.get(id=eventID)
+                    self.object.postID = Post.objects.get(id=postID)
                     self.object.date = datetime.datetime.now()
                     self.object.save()
                     return HttpResponseRedirect('/event/discussion/'+eventID)
                 else:
-                    print(form.errors)
+
                     return HttpResponseRedirect(request.path_info)
 
         return HttpResponseRedirect('/')

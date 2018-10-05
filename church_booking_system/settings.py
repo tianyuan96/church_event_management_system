@@ -159,7 +159,7 @@ CKEDITOR_CONFIGS = {
                ["JustifyLeft","JustifyCenter","JustifyRight","Font","FontSize"],
            ],
            'removePlugins': 'stylesheetparser',
-            'width': 550,
+            'width': "100%",
             'extraPlugins': 'autogrow',
        },
    }

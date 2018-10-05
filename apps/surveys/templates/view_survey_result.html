@@ -16,6 +16,8 @@
     <!-- end title of the survey-->
 
     <br>
+    <br>
+    
 
     <div class="row">
         <div class="col-6">
@@ -57,7 +59,8 @@
         <div class="col">
             <!-- here is the chart -->
             {% if sumOfChoosen > 0 %}
-            <h2> Result for {{ survey.title }}</h2>
+            <h2 class="text-muted" ><i class="fas fa-chart-pie" style="font-size: 30px;"></i> Result for {{ survey.title }}</h2>
+            
             <div id="chart_div"></div>
             <!-- end of the char -->
             {% endif %}
