@@ -26,26 +26,21 @@
               <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
             {% endif %}
          </a>
-          <div class="card-body">
-            <h5 class="card-title">{{event.name}}</h5>
-            <p class="card-text">{{event.date}}</p>
-            <div class="row">
-              <div class="col-6">
-                  <a href="/event/details/{{ event.id }}" class="btn btn-primary btn-block">Detail</a>
-              </div>
-            <!--join event-->
-              <div class="col-6">
-              <form action="/event/join/" method="POST">
-                  {% csrf_token %}
-                  <input type="hidden" name="event" value="{{ event.id }}">
-                  {% if  event.id not in view.attending%}
-                      <input class="btn btn-primary btn-block" type="submit" name="operation" value="Join">
-                  {% else %}
-                      <input class="btn btn-danger btn-block" type="submit" name="operation" value="unJoin">
-                  {% endif %}
-              </form>
-              </div>
-            </div>
+        <div class="card-body">
+          <h5 class="card-title">{{event.name}}</h5>
+          <p class="card-text">{{event.description}}</p>
+          <a href="/event/details/{{ event.id }}" class="btn btn-primary">Detail</a>
+          <a href="/event/discussion/{{ event.id }}" class="btn btn-primary">Discussion</a>
+           <!--join event-->
+            <form action="/event/join/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="event" value="{{ event.id }}">
+                {% if  event not in joinedEvent%}
+                    <input class="btn btn-primary" type="submit" name="operation" value="Join">
+                {% else %}
+                    <input class="btn btn-danger" type="submit" name="operation" value="unJoin">
+                {% endif %}
+            </form>
             <!--end join evnet-->
         </div>
       </div>
