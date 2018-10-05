@@ -1,102 +1,190 @@
 {% extends 'base.html' %}
 
+{% block head %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{% endblock %}
+
 {% block content %}
   {% if user.is_authenticated and not user.is_staff %}
 
-    {% if view.events %}
-      <div class="container mt-3">
-          <h1>Your Events</h1>
-          <br>
-          {% for event in view.events %}
-          <div class="container mt-3">
+  <br>
 
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3 ">
+	     <div class="list-group ">
+          <a href="#" class="list-group-item list-group-item-action active">Dashboard</a>
+          <a href="#" class="list-group-item list-group-item-action">User Management</a>
+          <a href="#" class="list-group-item list-group-item-action">Used</a>
+          <a href="#" class="list-group-item list-group-item-action">Enquiry</a>
+          <a href="#" class="list-group-item list-group-item-action">Dealer</a>
+          <a href="#" class="list-group-item list-group-item-action">Media</a>
+          <a href="#" class="list-group-item list-group-item-action">Post</a>
+          <a href="#" class="list-group-item list-group-item-action">Category</a>
+          <a href="#" class="list-group-item list-group-item-action">New</a>
+          <a href="#" class="list-group-item list-group-item-action">Comments</a>
+          <a href="#" class="list-group-item list-group-item-action">Appearance</a>
+          <a href="#" class="list-group-item list-group-item-action">Reports</a>
+          <a href="#" class="list-group-item list-group-item-action">Settings</a>
+      </div>
+		</div>
+  	<div class="col-md-9">
+
+    <!-- User Detail -->
+    <div class="card">
+        <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
-                 <a href="/event/details/{{ event.id }}">
-                    {% if  event.imageFile %}
-                        <img class="img-thumbnail" src="{{ event.imageFile.url }}">
-                    {% else %}
-                        <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
-                    {% endif %}
-                 </a>
+                <div class="col-md-12">
+                    <h4>Profile</h4>
+                    <hr>
                 </div>
-                <div class="col-md-6">
-                    <h4><a class="text-primary" href="/event/details/{{ event.id }}">{{ event.name }}</a></h4>
-                    <p class="text-muted">11 Sep, 2018</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nunc libero, ultricies eget tortor sit amet,
-                        gravida aliquet mauris. Integer rhoncus feugiat erat in cursus.</p>
-                </div>
-                <div class="col-md-2">
-                      <a href="/event/details/{{ event.id }}" style="height:40px; width:120px ;position: relative; top: -16px;" class="btn btn-primary">Detail</a>
-
-                    <!--join and unjoin-->
-                    <form action="/event/join/" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="event" value="{{ event.id }}">
-                        {% if  event not in joinedEvent%}
-                            <input class="btn btn-primary" style="height:40px; width:120px ;position: relative; top: -16px;" type="submit" name="operation" value="Join">
-                        {% else %}
-                            <input class="btn btn-danger" style="height:40px; width:120px ;position: relative; top: -16px;" type="submit" name="operation" value="unJoin">
-                        {% endif %}
-                    </form>
-                    <!--end join and unjoin-->
-              </div>
             </div>
-            <hr>
-          </div>
-          {% endfor %}
-    {% else %}
-
-    <div class="container mt-3">
-        <h3>You haven't joined any events yet.</h3>
-        <p class="font-italic text-secondary">Why not check out what's on?</p>
-        <hr>
-            <h3>This Week:</h3>
             <div class="row">
-                <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
-                    <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
+                <div class="col-md-12">
+                    <form>
+                          <div class="form-group row">
+                            <label for="email" class="col-4 col-form-label">Email</label>
+                            <div class="col-8">
+                              <input id="email" name="email" value="{{ user.email }}" class="form-control here" required="required" type="text">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="username" class="col-4 col-form-label">Display Name (for the forum)</label>
+                            <div class="col-8">
+                              {{ user.display_name }}
+                              <input id="display_name" name="display_name" placeholder="{{ user.display_name }}" class="form-control here" type="text">
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label for="newpass" class="col-4 col-form-label">New Password</label>
+                            <div class="col-8">
+                              <input id="newpass" name="newpass" placeholder="*******" class="form-control here" type="password">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <div class="offset-4 col-8">
+                              <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                            </div>
+                          </div>
+                        </form>
                 </div>
+            </div>
+          </div>
+        </div>
+        <!-- End User Detail -->
+
+        <br>
+
+        <!-- Food Preferences -->
+        <div class="card">
+            <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Food Preferences</h4>
+                    <hr>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
-                    <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
+            </div>
+              <form method="POST" action="{% url 'user_profile' %}" class="col-md-12">
+                <div class="row">
+                  {% csrf_token %}
+                  {% for field in form %}
+
+                  <div class="form-group col-4">
+                    <label for="email" class="col-form-label">{{ field.label }}</label>
+                    {{ field }}
+                  </div>
+
+                  {% endfor %}
+                  <input type="submit" class="btn btn-primary" value="Update Preferences">
                 </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
-                    <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                </div>
+              </form>
+              {{ status }}
             </div>
         </div>
 
+          <!-- End Food Preferences -->
+          <br>
+          <!-- Events -->
+          <div class="card">
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <h4>Events</h4>
+                          <hr>
+                      </div>
+                  </div>
+                  {% if view.attending %}
+                  <div class="row">
+                      <div class="col-md-12">
+                        {% for event in view.attending %}
+                        <div class="container mt-3">
 
-    {% endif %}
+                          <div class="row">
+                              <div class="col-md-4">
+                               <a href="/event/details/{{ event.id }}">
+                                  {% if  event.imageFile %}
+                                      <img class="img-thumbnail" src="{{ event.imageFile.url }}">
+                                  {% else %}
+                                      <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                                  {% endif %}
+                               </a>
+                              </div>
+                              <div class="col-md-6">
+                                  <h4><a class="text-primary" href="/event/details/{{ event.id }}">{{ event.name }}</a></h4>
+                                  <p class="text-muted">11 Sep, 2018</p>
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nunc libero, ultricies eget tortor sit amet,
+                                      gravida aliquet mauris. Integer rhoncus feugiat erat in cursus.</p>
+                              </div>
+                              <div class="col-md-2">
+                                    <a href="/event/details/{{ event.id }}" style="height:40px; width:120px ;position: relative; top: -16px;" class="btn btn-primary">Detail</a>
 
-    <form method="POST" action="{% url 'user_profile' %}">
-      {% csrf_token %}
-      {% for field in form %}
-        {{ field.label }}{{ field }}<br>
-      {% endfor %}
-      <input type="submit" value="Update Preferences">
-    </form>
-    {{ status }}
+                                  <!--join and unjoin-->
+                                  <form action="/event/join/" method="POST">
+                                      {% csrf_token %}
+                                      <input type="hidden" name="event" value="{{ event.id }}">
+                                      {% if  event not in joinedEvent%}
+                                          <input class="btn btn-primary" style="height:40px; width:120px ;position: relative; top: -16px;" type="submit" name="operation" value="Join">
+                                      {% else %}
+                                          <input class="btn btn-danger" style="height:40px; width:120px ;position: relative; top: -16px;" type="submit" name="operation" value="unJoin">
+                                      {% endif %}
+                                  </form>
+                                  <!--end join and unjoin-->
+                            </div>
+                          </div>
+                          <hr>
+                        </div>
+                {% endfor %}
+          {% else %}
+              <p class="font-italic text-secondary">Why not check out what's on?</p>
+              <hr>
+                  <h4 class="text-secondary">This Week:</h4>
+                  <div class="row">
+                    {% for event in view.events %}
+                      <div class="col-md-6 col-lg-4">
+                      <div class="card">
+                          <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+                          <div class="card-body">
+                          <h5 class="card-title">{{ event.name }}</h5>
+                          <p class="card-text">{{ event.description }}</p>
+                          <a href="/event/details/{{ event.id }}" class="btn btn-primary">Details</a>
+                          </div>
+                      </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+
+          {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
   {% else %}
     <h3>You don't have permission to view this page, please login <a href="/accounts/users/login">here</a></h3>
   {% endif %}
