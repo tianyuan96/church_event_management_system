@@ -1,99 +1,101 @@
 {% extends 'base.html' %}
 
 {% block head %}
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <script type="text/javascript">
-    // This runs when the user clicks a button on the left navigation tabs.
-    // It remove the 'active' class from all tabs, and sets it to the tab the user just clicked.
-    // Doing this allows the button to be turned blue so the user can see which section they are in
-    function setActiveTab(clicked){
-      var items = document.getElementsByClassName('list-group-item');
-      Array.from(items).forEach(function(item){
-        item.classList.remove("active");
-      });
-      clicked.classList.add('active');
-    }
-  </script>
+<script type="text/javascript">
+  // This runs when the user clicks a button on the left navigation tabs.
+  // It remove the 'active' class from all tabs, and sets it to the tab the user just clicked.
+  // Doing this allows the button to be turned blue so the user can see which section they are in
+  function setActiveTab(clicked) {
+    var items = document.getElementsByClassName('list-group-item');
+    Array.from(items).forEach(function (item) {
+      item.classList.remove("active");
+    });
+    clicked.classList.add('active');
+  }
+</script>
 {% endblock %}
 
 {% block content %}
-  {% if user.is_authenticated and user.is_staff %}
+{% if user.is_authenticated and user.is_staff %}
 
-  <br>
+<br>
 
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-3 ">
-	     <div style="position: fixed; width: 320px;" id="sections_bar" class="list-group ">
-          <a href="#profile_section" class="list-group-item list-group-item-action active" onclick="setActiveTab(this);">Profile</a>
-          <a href="#events_section" class="list-group-item list-group-item-action" onclick="setActiveTab(this);">Events</a>
+  <div class="row">
+    <div class="col-md-3 ">
+      <div style="position: fixed; width: 320px;" id="sections_bar" class="list-group ">
+        <a href="#profile_section" class="list-group-item list-group-item-action active" onclick="setActiveTab(this);">Profile</a>
+        <a href="#events_section" class="list-group-item list-group-item-action" onclick="setActiveTab(this);">Events</a>
       </div>
-		</div>
-  	<div class="col-md-9">
+    </div>
+    <div class="col-md-9">
 
-    <!-- User Detail -->
-    <div id="profile_section" class="card">
+      <!-- User Detail -->
+      <div id="profile_section" class="card">
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <h4>Profile</h4>
-                    <hr>
-                </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h4>Profile</h4>
+              <hr>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <form>
-                          <div class="form-group row">
-                            <label for="email" class="col-4 col-form-label">Email</label>
-                            <div class="col-8">
-                              <input id="email" name="email" value="{{ user.username }}" class="form-control here" required="required" type="text">
-                            </div>
-                          </div>
-
-                          <div class="form-group row">
-                            <label for="username" class="col-4 col-form-label">Display Name (for the forum)</label>
-                            <div class="col-8">
-                              <input id="display_name" name="display_name" placeholder="{{ view.user_details.name }}" class="form-control here" type="text">
-                            </div>
-                          </div>
-
-                          <div class="form-group row">
-                            <label for="newpass" class="col-4 col-form-label">Old Password</label>
-                            <div class="col-8">
-                              <input id="newpass" name="newpass" placeholder="*******" class="form-control here" type="password">
-                            </div>
-                          </div>
-
-                          <div class="form-group row">
-
-                            <label for="newpass" class="col-4 col-form-label">New Password</label>
-                            <div class="col-8">
-                              <input id="newpass" name="newpass" placeholder="*******" class="form-control here" type="password">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="newpass" class="col-4 col-form-label">Retype Password</label>
-                            <div class="col-8">
-                              <input id="newpass" name="newpass" placeholder="*******" class="form-control here" type="password">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-4 col-8">
-                              <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
-                            </div>
-                          </div>
-                        </form>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <form>
+                <div class="form-group row">
+                  <label for="email" class="col-4 col-form-label">Email</label>
+                  <div class="col-8">
+                    <input id="email" name="email" value="{{ user.username }}" class="form-control here" required="required"
+                      type="text">
+                  </div>
                 </div>
+
+                <div class="form-group row">
+                  <label for="username" class="col-4 col-form-label">Display Name (for the forum)</label>
+                  <div class="col-8">
+                    <input id="display_name" name="display_name" placeholder="{{ view.user_details.name }}" class="form-control here"
+                      type="text">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="newpass" class="col-4 col-form-label">Old Password</label>
+                  <div class="col-8">
+                    <input id="newpass" name="newpass" placeholder="*******" class="form-control here" type="password">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+
+                  <label for="newpass" class="col-4 col-form-label">New Password</label>
+                  <div class="col-8">
+                    <input id="newpass" name="newpass" placeholder="*******" class="form-control here" type="password">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="newpass" class="col-4 col-form-label">Retype Password</label>
+                  <div class="col-8">
+                    <input id="newpass" name="newpass" placeholder="*******" class="form-control here" type="password">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="offset-4 col-8">
+                    <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-        <!-- End User Detail -->
+      </div>
+      <!-- End User Detail -->
 
-        <br>
-        <!-- Food Preferences -->
+      <br>
+      <!-- Food Preferences -->
 
-<!--
+      <!--
 <div id="food_preferences_section" class="card">
     <div class="card-body">
     <div class="row">
@@ -123,61 +125,72 @@
 
 -->
 
-          <!-- End Food Preferences -->
-          <br>
-          <!-- Events -->
+      <!-- End Food Preferences -->
+      <br>
+      <!-- Events -->
       <div id="events_section" class="card">
-          <div class="card-body">
-              <div class="row">
-                  <div class="col-md-6">
-                      <h4>Events</h4>
-                  </div>
-                  <div class="col-md-6">
-                    <a class="btn btn-primary float-right" href="{% url 'event_create' %}" role="button" >Add an event</a>
-                  </div>
-                  <hr>
-              </div>
-              <div class="row">
-                {% if view.events %}
-                  {% for event in view.events %}
-                    <div class="col-md-6 col-lg-4">
-                      <div class="card">
-                        {% if event.imageFile %}
-                          <img class="img-fluid" src="{{ event.imageFile.url }}">
-                        {% else %}
-                          <img class="img-fluid" src="https://www.newstatesman.com/sites/all/themes/creative-responsive-theme/images/new_statesman_events.jpg">
-                        {% endif %}
-                          <div class="card-body">
-                          <h5 class="card-title">{{ event.name }}</h5>
-                          <p class="card-text">{{ event.date}}</p>
-                          <a href="/event/details/{{ event.id }}" class="btn btn-primary">Details</a>
-                          </div>
-                      </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h4>Events</h4>
+            </div>
+            <div class="col-md-6">
+              <a class="btn btn-primary float-right" href="{% url 'event_create' %}" role="button">Add an event</a>
+            </div>
+            <hr>
+          </div>
+          <div class="row">
+            {% if view.events %}
+            {% for event in view.events %}
+            <div class="col-md-6 col-lg-4">
+              <div class="card event-card">
+                {% if event.imageFile %}
+                <div class="item-cover">
+                  <div class="item-bg-img" style="background-image:url({{event.imageFile.url}})"></div>
+                </div>
+                {%else%}
+                <div class="item-cover">
+                  <div class="item-bg-img" style="background-image:url(https://www.newstatesman.com/sites/all/themes/creative-responsive-theme/images/new_statesman_events.jpg)"></div>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ event.name }}</h5>
+                  <div class="row">
+                    <div class="col-6">
+                      <p class="card-text text-muted date">{{event.date}}</p>
                     </div>
-                  {% endfor %}
-                  {% else %}
-                  <div class="col-md-6 col-lg-4">
-                      <p class="font-italic text-secondary">You have not created any upcoming events</p>
+                    <div class="col-6 text-right">
+                      <a href="/event/details/{{ event.id }}" class="btn btn-primary" data-toggle="tooltip" title="Detail"><i
+                          class="fas fa-info-circle"></i></a>
+                    </div>
                   </div>
-                  {% endif %}
+                </div>
               </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="col-md-6 col-lg-4">
+              <p class="font-italic text-secondary">You have not created any upcoming events</p>
+            </div>
+            {% endif %}
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
 
   {% else %}
-    <h3>You don't have permission to view this page, please login <a href="/accounts/users/login">here</a></h3>
+  <h3>You don't have permission to view this page, please login <a href="/accounts/users/login">here</a></h3>
   {% endif %}
 
-{% endblock %}
+  {% endblock %}
