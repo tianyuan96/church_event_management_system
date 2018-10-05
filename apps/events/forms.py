@@ -12,15 +12,16 @@ class EventCreationForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ['name', 'location', 'description', 'imageFile', 'host','date',]
+        fields = ['name', 'location', 'description', 'imageFile', 'host','date','lan','lng']
         # exclude = ('host',)
 
         widgets = {
             'name': forms.TextInput(attrs={'class':'form-control'}),
-            'location': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'imageFile':forms.FileInput(attrs={'class': 'custom-file-input'})
-
+            'location': forms.TextInput(attrs={'class': 'form-control','id':'location_input'}),
+            'description': CKEditorWidget(attrs={'class': 'form-control'}),
+            'imageFile':forms.FileInput(attrs={'class': 'custom-file-input'}),
+            'lan':forms.TextInput(attrs={'class':'form-control','type':'hidden',"id":"lan"}),
+            'lng':forms.TextInput(attrs={'class':'form-control','type':'hidden',"id":"lng"}),
         }
 
 
