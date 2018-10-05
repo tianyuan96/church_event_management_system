@@ -29,7 +29,12 @@ class CreateSurveyForm(forms.ModelForm):
             return title
 
 
+
 class CreateOptionForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CreateOptionForm, self).__init__(*args, **kwargs)
+        self.fields['name'].required = False
 
     def clean_name(self):
         name = self.cleaned_data["name"]
@@ -43,8 +48,8 @@ class CreateOptionForm(forms.ModelForm):
     class Meta:
         model = OptionInSurvey
         fields = ['name','description','imageFile']
-        # exclude =('host',)
-        description = forms.CharField()
+
+
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control','id': 'option_name'}),
