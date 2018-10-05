@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block title %}{{ title }}{% endblock %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
 <div class="container mt-3">
 
     <h1>Post Something</h1>
@@ -65,7 +66,7 @@
                                 <i class="far fa-user"></i>
                             </div>
                         </div>
-                        <h5 class="pt-1 mb-1">USERNAME</h5>
+                        <h5 class="pt-1 mb-1">{{ every_post.author }}</h5>
                         <p class="text-muted">{{ every_post.date }}</p>
                     </div>
                     <p> {{ every_post.message }}</p>
@@ -83,37 +84,40 @@
                     <div class="comment">
                         {% if replies %}
                             {% for every_reply in replies %}
-                                <div class="comment-item">
-                                    <div class="row">
-                                        <div class="col-1">
-                                            <div class="comment-user-img">
-                                                <i class="far fa-user"></i>
+                                {% if every_reply.postID == every_post %}
+{#                                    every_post.id#}
+{#                                    every_reply.postID#}
+                                    <div class="comment-item">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <div class="comment-user-img">
+                                                    <i class="far fa-user"></i>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-11">
-                                            <div class="comment-msg">
-                                                <span>{{ every_reply.author }}</span>
-                                                <span>{{ every_reply.message }}</span>
-
+                                            <div class="col-11">
+                                                <div class="comment-msg">
+                                                    <span>{{ every_reply.author }}</span>
+                                                    <span>{{ every_reply.message }}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-{#                                <div class="comment-item">#}
-{#                                    <div class="row">#}
-{#                                        <div class="col-1">#}
-{#                                            <div class="comment-user-img">#}
-{#                                                <i class="far fa-user"></i>#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                        <div class="col-11">#}
-{#                                            <div class="comment-msg">#}
-{#                                                <span>USERNAME2:</span>#}
-{#                                                <span>xxxx message asdf;lzxk asdf apsodif nalsd</span>#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </div>#}
+    {#                                <div class="comment-item">#}
+    {#                                    <div class="row">#}
+    {#                                        <div class="col-1">#}
+    {#                                            <div class="comment-user-img">#}
+    {#                                                <i class="far fa-user"></i>#}
+    {#                                            </div>#}
+    {#                                        </div>#}
+    {#                                        <div class="col-11">#}
+    {#                                            <div class="comment-msg">#}
+    {#                                                <span>USERNAME2:</span>#}
+    {#                                                <span>xxxx message asdf;lzxk asdf apsodif nalsd</span>#}
+    {#                                            </div>#}
+    {#                                        </div>#}
+    {#                                    </div>#}
+    {#                                </div>#}
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
                         <form method="POST" action="/event/discussion/reply/{{ event.id}}/{{ every_post.id }}/" enctype="multipart/form-data">
