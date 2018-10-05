@@ -20,13 +20,15 @@ from . import views
 from django.conf.urls import url
 
 urlpatterns = [
-    path('create/', views.CreateEventView.as_view()),
+    path('create/', views.CreateEventView.as_view(), name='event_create'),
+    path('details/<int:pk>', views.EventDetailsView.as_view(), name='event_details'),
+
     path('delete/<int:pk>', views.DeleteEventView.as_view()),
     url(r'^update/(?P<pk>[0-9]+)$',views.UpdateEventView.as_view(), name='event_update'),
     path('success', views.CreateSuccessView.as_view(), name='event_success'),
-
     path('join/', views.JoinEvent.as_view()),
-    path('details/<int:pk>/', views.EventDetailView.as_view(),name='event_detail'),
-    #path('update/<int:pk>', views.UpdateEventView.as_view(), name='event-update'),
+    url(r'^discussion/(?P<eventID>[0-9]+)/$', views.PostCreationView.as_view(), name='event_forums'),
+    url(r'^updatepost/(?P<pk>[0-9]+)$',views.UpdatePostView.as_view(), name='post_update'),
+    path('deletepost/<int:pk>', views.DeletePostView.as_view()),
 
 ]

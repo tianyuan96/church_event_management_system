@@ -7,7 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from apps.events.models import Event
 from apps.core import views as core_views
-
+from apps.org_accounts.models import OrganisationDetails
+from django.contrib.auth.models import User
 
 
 
@@ -19,6 +20,13 @@ class OrganisationProfileView(LoginRequiredMixin, generic.ListView, core_views.B
     page_title = 'Profile'
 
     login_url = '/accounts/organisations/login/'
+
+    def user_details(self):
+        return OrganisationDetails.objects.get(user=self.request.user.id)
+
+    def events(self):
+        return Event.objects.all()
+
 
 # Create your views here.
 class RegisterOrganisationView(generic.FormView, core_views.BaseView):

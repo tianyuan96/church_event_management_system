@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 from django.core.management import call_command
 from django.contrib.auth.models import User
+from apps.org_accounts.models import OrganisationDetails
 
 class Command(BaseCommand):
     help = 'Shortcut for running the development server'
@@ -62,6 +63,9 @@ class Command(BaseCommand):
         u.is_superuser = False
         u.is_staff = True
         u.save()
+
+        details = OrganisationDetails(user=u, name='Focus Churches')
+        details.save()
 
         # Create a attendee user
         email = 'b@b.com'
