@@ -157,7 +157,9 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, core_views.BaseVi
         # return Event.objects.get(id=self.request.GET['eventID'])
 
     def form(self):
-        return self.form_class
+        form = self.form_class()
+
+        return form
 
     def posts(self):
         event = self.object
@@ -171,24 +173,24 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, core_views.BaseVi
         return ReplyCreationForm
 
 
-    # def post(self, request, *args, **kwargs):
-    #     user = request.user
-    #     eventID = kwargs.get("eventID")
-    #     if user is not None:
-    #         if user.is_active:
-    #             form = self.form_class(request.POST.copy(), request.FILES)
-    #             if form.is_valid():
-    #                 self.object = form.save(commit=False)
-    #                 self.object.author = user
-    #                 self.object.eventID = Event.objects.get(id=eventID)
-    #                 self.object.date = datetime.datetime.now()
-    #                 self.object.save()
-    #                 return HttpResponseRedirect('/event/discussion/'+eventID)
-    #             else:
-    #                 print(form.errors)
-    #                 return HttpResponseRedirect(request.path_info)
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        eventID = kwargs.get("pk")
+        if user is not None:
+            if user.is_active:
+                form = self.form_class(request.POST.copy(), request.FILES)
+                if form.is_valid():
+                    self.object = form.save(commit=False)
+                    self.object.author = user
+                    self.object.eventID = Event.objects.get(id=eventID)
+                    self.object.date = datetime.datetime.now()
+                    self.object.save()
+                    return HttpResponseRedirect('/event/discussion/'+str(eventID))
+                else:
+                    print(form.errors)
+                    return HttpResponseRedirect(request.path_info)
 
-    #     return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/')
 
 
 class ReplyCreationView(generic.CreateView):
