@@ -162,6 +162,9 @@
                     <div class="col-6 text-right">
                       <a href="/event/details/{{ event.id }}" class="btn btn-primary" data-toggle="tooltip" title="Detail"><i
                           class="fas fa-info-circle"></i></a>
+                      <a href="{% url 'event_update' event.id %}" class="btn btn-primary" data-toggle="tooltip" title="Detail"><i
+                          class="fas fa-edit"></i></a>
+
                     </div>
                   </div>
                 </div>

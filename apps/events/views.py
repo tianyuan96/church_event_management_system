@@ -82,10 +82,11 @@ class DeleteEventView(generic.DeleteView):
     success_url = reverse_lazy('org_profile')
 
 
-class UpdateEventView(edit.UpdateView):
+class UpdateEventView(edit.UpdateView, core_views.BaseView):
 
     model = Event
     template_name = "event_update.html"
+    page_title = "Update Event"
     form_class = EventUpdateForm
     success_url = reverse_lazy('org_profile')
 
@@ -122,7 +123,7 @@ class DeletePostView(generic.DeleteView):
         return reverse_lazy("event_forums", args=(self.object.eventID.id,))
 
 
-class UpdatePostView(generic.UpdateView):
+class UpdatePostView(generic.UpdateView, core_views.BaseView):
     model = Post
     template_name = "post_update_form.html"
     form_class = PostUpdateForm
