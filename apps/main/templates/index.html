@@ -1,16 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
+<section id="homepage-main">
+  <div class="bg-overlay"></div>
+  <video autoplay muted loop id="bg-video">
+    <source src="{% static 'main/bg.mp4' %}" type="video/mp4">
+  </video>
+
+  <div class="content">
+    <h1 class="text-center">Church Event Management</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nunc libero, ultricies eget tortor sit amet,
+      gravida
+      aliquet mauris. Integer rhoncus feugiat erat in cursus. Integer eu nulla sit amet diam hendrerit viverra. Proin
+      consectetur
+      imperdiet risus ac ullamcorper. Nullam vel vulputate tortor. Aenean pulvinar quam vitae efficitur commodo. Fusce
+      et ornare
+      nisi, a elementum nibh. Cras nec lorem mattis justo cursus auctor.</p>
+  </div>
+</section>
+
 <div class="container mt-3">
-
-  <h1>Church Event Management</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nunc libero, ultricies eget tortor sit amet, gravida
-    aliquet mauris. Integer rhoncus feugiat erat in cursus. Integer eu nulla sit amet diam hendrerit viverra. Proin consectetur
-    imperdiet risus ac ullamcorper. Nullam vel vulputate tortor. Aenean pulvinar quam vitae efficitur commodo. Fusce et ornare
-    nisi, a elementum nibh. Cras nec lorem mattis justo cursus auctor.</p>
-
-  <hr>
-
   <h2>What's on</h2>
   <br>
 
@@ -18,30 +28,45 @@
   <div class="row">
     {% for event in view.events %}
     <div class="col-md-6 col-lg-4 mb-4 mt-4">
-      <div class="card">
+      <div class="card event-card shadow">
         <a href="{% url 'event_details' pk=event.id  %} ">
-             {% if event.imageFile %}
-                <img class="card-img-top" src={{event.imageFile.url }} alt="Card image cap">
-            {%else%}
-              <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
-            {% endif %}
-         </a>
+          {% if event.imageFile %}
+          <div class="item-cover">
+            <div class="item-bg-img" style="background-image:url({{event.imageFile.url}})"></div>
+          </div>
+          {%else%}
+          <div class="item-cover">
+            <div class="item-bg-img" style="background-image:url(https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg)"></div>
+          </div>
+          {% endif %}
+        </a>
         <div class="card-body">
           <h5 class="card-title">{{event.name}}</h5>
-          <p class="card-text">{{event.date}}</p>
-          <a href="/event/details/{{ event.id }}" class="btn btn-primary">Detail</a>
-          <a href="/event/discussion/{{ event.id }}" class="btn btn-primary">Discussion</a>
-           <!--join event-->
-            <form action="/event/join/" method="POST">
+          <div class="row">
+            <div class="col-6">
+              <p class="card-text text-muted date">{{event.date}}</p>
+            </div>
+            <div class="col-6">
+              <!--join event-->
+              <form action="/event/join/" method="POST">
+                <a href="/event/details/{{ event.id }}" class="btn btn-primary" data-toggle="tooltip" title="Detail"><i
+                    class="fas fa-info-circle"></i></a>
+                <a href="/event/discussion/{{ event.id }}" class="btn btn-primary" data-toggle="tooltip" title="Discussion"><i
+                    class="far fa-comment-alt"></i></a>
+
                 {% csrf_token %}
                 <input type="hidden" name="event" value="{{ event.id }}">
-                {% if  event.id not in view.attending%}
-                    <input class="btn btn-primary" type="submit" name="operation" value="Join">
+                {% if event.id not in view.attending%}
+                <button class="btn btn-primary" type="submit" name="operation" value="Join" data-toggle="tooltip" title="Join"><i
+                    class="fas fa-sign-in-alt"></i></button>
                 {% else %}
-                    <input class="btn btn-danger" type="submit" name="operation" value="unJoin">
+                <button class="btn btn-danger" type="submit" name="operation" value="unJoin" data-toggle="tooltip"
+                  title="unJoin"><i class="fas fa-sign-out-alt"></i></button>
                 {% endif %}
-            </form>
-            <!--end join evnet-->
+              </form>
+              <!--end join evnet-->
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -49,47 +74,70 @@
   </div>
 
   <hr>
-    {% if view.future_events %}
-         <h3>Later</h3>
-        <div class="row">
-        {% for event in view.future_events %}
-        <div class="col-md-6 col-lg-4 mb-4 mt-4">
-          <div class="card">
-            <a href="/event/details/{{ event.id }}">
-                 {% if event.imageFile %}
-                    <img class="card-img-top" src={{event.imageFile.url }} alt="Card image cap">
-                {%else%}
-                  <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+  {% if view.future_events %}
+  <h3>Later</h3>
+  <div class="row">
+    {% for event in view.future_events %}
+    <div class="col-md-6 col-lg-4 mb-4 mt-4">
+      <div class="card event-card shadow">
+        <a href="/event/details/{{ event.id }}">
+          {% if event.imageFile %}
+          <div class="item-cover">
+            <div class="item-bg-img" style="background-image:url({{event.imageFile.url}})"></div>
+          </div>
+          {%else%}
+          <div class="item-cover">
+            <div class="item-bg-img" style="background-image:url(https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg)"></div>
+          </div>
+          {% endif %}
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">{{event.name}}</h5>
+          <div class="row">
+            <div class="col-6">
+              <p class="card-text text-muted date">{{event.date}}</p>
+            </div>
+            <div class="col-6">
+              <!--join event-->
+              <form action="/event/join/" method="POST">
+                <a href="/event/details/{{ event.id }}" class="btn btn-primary" data-toggle="tooltip" title="Detail"><i
+                    class="fas fa-info-circle"></i></a>
+                <a href="/event/discussion/{{ event.id }}" class="btn btn-primary" data-toggle="tooltip" title="Discussion"><i
+                    class="far fa-comment-alt"></i></a>
+
+                {% csrf_token %}
+                <input type="hidden" name="event" value="{{ event.id }}">
+                {% if event not in joinedEvent%}
+                <button class="btn btn-primary" type="submit" name="operation" value="Join" data-toggle="tooltip" title="Join"><i
+                    class="fas fa-sign-in-alt"></i></button>
+                {% else %}
+                <button class="btn btn-danger" type="submit" name="operation" value="unJoin" data-toggle="tooltip"
+                  title="unJoin"><i class="fas fa-sign-out-alt"></i></button>
                 {% endif %}
-             </a>
-              <div class="card-body">
-                <h5 class="card-title">{{event.name}}</h5>
-                <p class="card-text">{{event.description}}</p>
-                <div class="row">
-                  <div class="col-6">
-                      <a href="/event/details/{{ event.id }}" class="btn btn-primary btn-block">Detail</a>
-                  </div>
-                <!--join event-->
-                  <div class="col-6">
-                  <form action="/event/join/" method="POST">
-                      {% csrf_token %}
-                      <input type="hidden" name="event" value="{{ event.id }}">
-                      {% if  event not in joinedEvent%}
-                          <input class="btn btn-primary btn-block" type="submit" name="operation" value="Join">
-                      {% else %}
-                          <input class="btn btn-danger btn-block" type="submit" name="operation" value="unJoin">
-                      {% endif %}
-                  </form>
-                  </div>
-                </div>
-                <!--end join evnet-->
+              </form>
+              <!--end join evnet-->
             </div>
           </div>
         </div>
-        {% endfor %}
       </div>
+    </div>
+    {% endfor %}
+  </div>
 
-    {% endif %}
-
+  {% endif %}
 </div>
+
+
+<footer>
+  <div class="container">
+    <div class="text-center">
+      <a href="facebook"><i class="fab fa-facebook"></i></a>
+      <a href="facebook"><i class="fab fa-twitter-square"></i></a>
+      <a href="facebook"><i class="fab fa-instagram"></i></a>
+      <a href="facebook"><i class="fab fa-google-plus-square"></i></a>
+      <p class="m-0">Made by Team © 2018</p>
+    </div>
+  </div>
+</footer>
+
 {% endblock %}
