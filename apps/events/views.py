@@ -79,8 +79,10 @@ class EventDetailsView(generic.DetailView, core_views.BaseView):
 class DeleteEventView(generic.DeleteView):
 
     model = Event
-    success_url = reverse_lazy('org_profile')
+    success_url = 'org_profile'
 
+    def get_success_url(self):
+        return reverse_lazy(self.success_url)
 
 class UpdateEventView(edit.UpdateView, core_views.BaseView):
 

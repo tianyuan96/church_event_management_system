@@ -156,14 +156,16 @@
                 <div class="card-body">
                   <h5 class="card-title">{{ event.name }}</h5>
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-5">
                       <p class="card-text text-muted date">{{event.date}}</p>
                     </div>
-                    <div class="col-6 text-right">
+                    <div class="col-7 text-right">
                       <a href="/event/details/{{ event.id }}" class="btn btn-primary" data-toggle="tooltip" title="Detail"><i
                           class="fas fa-info-circle"></i></a>
                       <a href="{% url 'event_update' event.id %}" class="btn btn-primary" data-toggle="tooltip" title="Detail"><i
                           class="fas fa-edit"></i></a>
+                      <a href="{% url 'delete_event' event.id %}" class="btn btn-primary" data-toggle="tooltip" title="Detail"><i
+                          class="fas fa-trash"></i></a>
 
                     </div>
                   </div>
