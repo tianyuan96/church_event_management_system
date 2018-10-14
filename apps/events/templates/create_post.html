@@ -11,7 +11,7 @@
                 {%csrf_token%}
 
                 <div class="form-group row">
-                    <label name="event" class="col-sm-2 col-form-label">Write something</label>
+                    <label name="post" class="col-sm-2 col-form-label">Write something</label>
                     <div class="col-sm-10">
                         <!--<textarea class="form-control" name="event_description"></textarea>-->
                             {{view.form.message}}
@@ -20,12 +20,13 @@
                 </div>
 
                 <div class="form-group row">
-                    <label name="event" class="col-sm-2 col-form-label">Images</label>
+                    <label name="post" class="col-sm-2 col-form-label">Images</label>
                     <div class="col-sm-10">
+
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" name="event_image" multiple>
-                            <!-- {{view.form.imageFile}} -->
-                            <label class="custom-file-label" for="customFile">Choose file</label>
+{#                            <input type="file" class="custom-file-input" id="customFile" name="event_image" multiple>#}
+                            {{view.form.imageFile}}
+{#                            <label class="custom-file-label" for="customFile">Choose file</label>#}
                         </div>
                     </div>
                 </div>
@@ -84,46 +85,36 @@
 
                     <div class="comment">
                         {% if view.replies %}
-                        {% for every_reply in view.replies %}
-                        {% if every_reply.postID == every_post %}
-                        {# every_post.id#}
-                        {# every_reply.postID#}
-                        <div class="comment-item">
-                            <div class="row">
-                                <div class="col-1">
-                                    <div class="comment-user-img">
-                                        <i class="far fa-user"></i>
+                            {% for every_reply in view.replies %}
+                                {% if every_reply.postID == every_post %}
+                                {# every_post.id#}
+                                {# every_reply.postID#}
+                                    <div class="comment-item">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <div class="comment-user-img">
+                                                    <i class="far fa-user"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-11">
+                                                <div class="comment-msg">
+                                                    <span>{{ every_reply.author }}: </span>
+                                                    <span>{{ every_reply.message }}</span>
+                                                </div>
+                                                <div class="comment-action">
+                                                    <a tabindex="1" href="/event/discussion/replylike/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}" href="#">Like</a> {{ every_reply.likes }}
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-11">
-                                    <div class="comment-msg">
-                                        <span>{{ every_reply.author }}: </span>
-                                        <span>{{ every_reply.message }}</span>
-                                    </div>
-                                    <div class="comment-action">
-                                        <a tabindex="1" href="#">Like</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {# <div class="comment-item">#}
-                            {# <div class="row">#}
-                                {# <div class="col-1">#}
-                                    {# <div class="comment-user-img">#}
-                                        {# <i class="far fa-user"></i>#}
-                                        {# </div>#}
-                                    {# </div>#}
-                                {# <div class="col-11">#}
-                                    {# <div class="comment-msg">#}
-                                        {# <span>USERNAME2:</span>#}
-                                        {# <span>xxxx message asdf;lzxk asdf apsodif nalsd</span>#}
-                                        {# </div>#}
-                                    {# </div>#}
-                                {# </div>#}
-                            {# </div>#}
-                        <br>
-                        {% endif %}
-                        {% endfor %}
+
+                                    <br>
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                         <form method="POST" action="/event/discussion/reply/{{ event.id}}/{{ every_post.id }}/" enctype="multipart/form-data">
                             {%csrf_token%}
