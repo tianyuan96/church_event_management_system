@@ -13,8 +13,10 @@ class UpdateFoodPreferencesView(generic.View):
 
     def post(self, request, *args, **kwargs):
 
-        old, _ = FoodPreferences.objects.filter(user=request.user).delete()
+        # Delete the old user's food prefs
+        FoodPreferences.objects.filter(user=request.user).delete()
 
+        # Get the form data and save it to the database as the user's new food prefs
         form = FoodPreferencesForm(request.POST)
         prefs = form.save(commit=False)
         prefs.user = request.user

@@ -34,6 +34,8 @@ class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseV
     def food_preferences(self, queryset=None):
         obj, _ = pref_models.FoodPreferences.objects.get_or_create(user=self.request.user)
         instance = pref_forms.FoodPreferencesForm(instance=obj)
+
+        # We need to add the id here so we can post the form to the correct view
         instance.id = obj.id
         return instance
 
@@ -47,10 +49,6 @@ class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseV
     def events(self):
         return event_models.Event.objects.all()
 
-    # def food_preferences_form(self):
-    #     user = self.request.user
-    #     return survey_forms.FoodPreferencesForm(instance=user)
-    #
     def update_user_form(self):
         user = self.request.user
         return forms.UpdateUserForm(instance=user)
@@ -59,12 +57,6 @@ class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseV
         user = self.request.user
         return forms.UpdateUserDetailsForm(instance=user)
 
-class UpdateUserView(LoginRequiredMixin, generic.UpdateView, core_views.BaseView):
-
-    template_name = "user_accounts/registration/profile.html"
-    success_url = reverse_lazy('user_profile')
-    page_title = "Profile"
-    model = User
 
 class RegisterUserView(generic.FormView, core_views.BaseView):
 
