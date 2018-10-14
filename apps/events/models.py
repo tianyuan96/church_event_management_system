@@ -35,6 +35,7 @@ class Post(models.Model):
     date = models.DateTimeField(blank=True, default= "2006-10-25 14:30:59")
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     message = models.CharField(max_length = 256)
+    likes = models.IntegerField(default=0)
 
 class Reply(models.Model):
     author = models.ForeignKey(User, on_delete= models.CASCADE)
@@ -43,3 +44,12 @@ class Reply(models.Model):
     date = models.DateTimeField(blank=True, default= "2006-10-25 14:30:59")\
     #imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     message = models.CharField(max_length = 256)
+    likes = models.IntegerField(default=0)
+
+class PostLike(models.Model):
+    postID = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete= models.CASCADE)
+
+class ReplyLike(models.Model):
+    replyID = models.ForeignKey(Reply, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete= models.CASCADE)

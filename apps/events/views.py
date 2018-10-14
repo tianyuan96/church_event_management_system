@@ -4,7 +4,7 @@ from .forms import EventCreationForm, EventUpdateForm, Event, PostCreationForm, 
 from . import models
 from django.shortcuts import render, redirect
 from django.views.generic import edit
-from .models import Event, InvolvedEvent, Post, Reply
+from .models import Event, InvolvedEvent, Post, Reply, PostLike, ReplyLike
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseRedirect, HttpResponse
@@ -135,7 +135,7 @@ class UpdatePostView(generic.UpdateView, core_views.BaseView):
         return reverse_lazy("event_forums", args=(self.object.eventID.id,))
 
 # Sets up the posts in the database
-class PostCreationView(LoginRequiredMixin, generic.DetailView, core_views.BaseView):
+class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateView, core_views.BaseView):
 
     template_name = "create_post.html"
     form_class = PostCreationForm
@@ -256,3 +256,33 @@ class ReplyCreationView(generic.CreateView):
                     return HttpResponseRedirect(request.path_info)
 
         return HttpResponseRedirect('/')
+
+class ReplyLikeView(generic.View):
+    template_name = "create_post.html"
+    model = ReplyLike
+
+    form_class = PostCreationForm
+    #success_url = reverse_lazy('/event/discussion/'+eventID)
+    def get(self, request, eventID, postID, replyID):
+        user = request.user
+        #eventID = request.POST.get("event", "")
+        event = Event.objects.get(id=eventID)
+        post = Post.objects.get(id=postID)
+        form = PostCreationForm
+        if user is not None:
+            if user.is_active:
+                self.object = ReplyLike()
+                self.object.author = user
+
+                reply = Reply.objects.get(id=replyID)
+                reply.likes += 1
+                reply.save()
+                self.object.replyID = reply
+                self.object.save()
+                return HttpResponseRedirect('/event/discussion/'+eventID)
+        return HttpResponseRedirect('/')
+
+
+
+
+    

@@ -37,6 +37,7 @@ class LoginUserForm(forms.Form):
 
 class UpdateUserDetailsForm(auth_forms.UserChangeForm):
     # email = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': 'required', }))
+    display_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': False, }))
 
     class Meta:
         model = models.UserDetails
@@ -51,4 +52,5 @@ class UpdateUserForm(auth_forms.UserChangeForm):
 
     class Meta:
         model = User
+        # exclude = ('password',)
         fields = ('email', 'old_password', 'new_password', 'confirm_password')
