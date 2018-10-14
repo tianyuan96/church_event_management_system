@@ -9,7 +9,8 @@ from apps.events.models import Event
 from apps.core import views as core_views
 from apps.org_accounts.models import OrganisationDetails
 from django.contrib.auth.models import User
-
+from apps.main import forms as mainp_forms
+from apps.main import models as mainp_models
 
 
 class OrganisationProfileView(LoginRequiredMixin, generic.ListView, core_views.BaseView):
@@ -18,7 +19,6 @@ class OrganisationProfileView(LoginRequiredMixin, generic.ListView, core_views.B
     context_object_name = "events"
     model = Event
     page_title = 'Profile'
-
     login_url = '/accounts/organisations/login/'
 
     def user_details(self):
@@ -26,6 +26,13 @@ class OrganisationProfileView(LoginRequiredMixin, generic.ListView, core_views.B
 
     def events(self):
         return Event.objects.all()
+
+    def main_page(self):
+        main_page,_ = mainp_models.MainPage.objects.get_or_create(name="main_page")
+        return mainp_forms.MainPageForm(instance=main_page)
+
+
+
 
 
 # Create your views here.

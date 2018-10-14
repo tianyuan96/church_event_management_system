@@ -9,10 +9,16 @@
   </video>
 
   <div class="content">
-    <h1 class="text-center">Church Event Management</h1>
-    <p><font size="4"><center>A simple tool to help you connect with your church.<br>
-        See the social events they are hosting and better connect with the community!<br>
-        Come join us! We hope to see you at an event soon.</center></font></p>
+
+      {% if view.main_page %}
+          {{  view.main_page.description|safe }}
+
+      {% else %}
+          <h1 class="text-center">Church Event Management</h1>
+        <p><font size="4"><center>A simple tool to help you connect with your church.<br>
+            See the social events they are hosting and better connect with the community!<br>
+            Come join us! We hope to see you at an event soon.</center></font></p>
+    {% endif %}
   </div>
 </section>
 

@@ -125,7 +125,48 @@
 
 -->
 
+
+
+
       <!-- End Food Preferences -->
+    <!-- main page setting-->
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Main page setting</h4>
+                        <hr>
+                    </div>
+                </div>
+
+                <form method="POST" action="{% url 'update_home_page' %}" class="container">
+                        <div class="row">
+                          {% csrf_token %}
+                          <div class="container-fluid">
+                              <div>
+                                <label for="email" class="col-form-label ">Description</label>
+                              </div>
+                              <div class="offset-2  ">
+                                  {% load static %}
+                                <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+                                <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+                                  <script type="text/javascript">CKEDITOR.on('instanceLoaded', function(e) {e.editor.resize_maxWidth='3000px';e.editor.resize('100%', 450)} );</script>
+                                {{ view.main_page.description }}
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="offset-4 col-8">
+                                <input type="submit" class="btn btn-primary" value="Update Index Page">
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    <!-- end main page setting-->
+
+
+
       <br>
       <!-- Events -->
       <div id="events_section" class="card">

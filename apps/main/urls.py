@@ -22,4 +22,5 @@ from django.conf.urls import url
 urlpatterns = [
 
     path('', views.HomeView.as_view(), name='home'),
+    path('changeHomePage',views.UpdateHomePageDeatail.as_view(),name='update_home_page')
 ]

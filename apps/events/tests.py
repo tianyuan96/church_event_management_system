@@ -1,6 +1,6 @@
 from django.test import TestCase
 from apps.events.models import Event,InvolvedEvent
-from apps.surveys.models import FoodPreferences
+from apps.food_preferences.models import FoodPreferences
 from django.contrib.auth.models import User
 from apps.surveys.views import CreateSurveyView
 # Create your tests here.

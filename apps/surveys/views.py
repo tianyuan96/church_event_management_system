@@ -4,7 +4,8 @@ from django.views.generic.edit import FormView
 from django.shortcuts import redirect, reverse
 from django.views import generic
 from .forms import CreateSurveyForm,CreateOptionForm
-from .models import Survey,OptionInSurvey,SurveyParticipation,UserChoose,FoodPreferences
+from .models import Survey,OptionInSurvey,SurveyParticipation,UserChoose
+from apps.food_preferences.models import FoodPreferences
 from apps.events.models import Event,InvolvedEvent
 import json
 import datetime

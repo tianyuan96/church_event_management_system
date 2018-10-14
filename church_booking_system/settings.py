@@ -156,11 +156,13 @@ CKEDITOR_BASEPATH = os.path.join(BASE_DIR,'asset'+"/ckeditor/ckeditor")
 CKEDITOR_CONFIGS = {
        'default': {
            'toolbar':[
-               ["Bold","Italic","Underline","Strike","Outdent","Indent","Blockquote","Link"],
+               ["Bold","Italic","Underline","Strike","Outdent","Indent","Blockquote","Link",'NumberedList', 'BulletedList'],
                ["JustifyLeft","JustifyCenter","JustifyRight","Font","FontSize"],
+                ['TextColor', 'BGColor']
            ],
-           'removePlugins': 'stylesheetparser',
-            'width': "100%",
-            'extraPlugins': 'autogrow',
+            'width': '100%',
+           'resize_maxWidth':'10000px',
+
+
        },
    }

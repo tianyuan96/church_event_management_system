@@ -1,8 +1,25 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.views import generic
 from apps.events.models import Event, InvolvedEvent
 import apps.core.views as core_views
+from django.urls import reverse_lazy
+from .models import MainPage
+from .forms import MainPageForm
 import datetime
+
+class UpdateHomePageDeatail(generic.View):
+    model = MainPage
+    success_url = reverse_lazy('org_profile')
+
+    def post(self, request, *args, **kwargs):
+        # Delete the old user's food prefs
+        MainPage.objects.filter(name="main_page").delete()
+        # Get the form data and save it to the database as the user's new food prefs
+        form = MainPageForm(request.POST)
+        main_page = form.save()
+        return redirect(self.success_url)
+
 
 
 class HomeView(generic.TemplateView, core_views.BaseView):
@@ -26,6 +43,14 @@ class HomeView(generic.TemplateView, core_views.BaseView):
         user = self.request.user
         attending = InvolvedEvent.objects.filter(participant=user.id)
         return [involvedEvent.event.id for involvedEvent in attending]
+
+    def main_page(self):
+        try:
+            main_page=MainPage.objects.get(name="main_page")
+        except:
+            main_page=None
+        return main_page
+
 
 
 
