@@ -21,8 +21,8 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('create/', views.CreateEventView.as_view(), name='event_create'),
-    path('details/<int:pk>', views.EventDetailsView.as_view(), name='event_detail'),
-    path('details/<int:pk>', views.EventDetailsView.as_view(), name='event_details'),
+    path('details/<int:pk>/', views.EventDetailsView.as_view(), name='event_detail'),
+    path('details/<int:pk>/', views.EventDetailsView.as_view(), name='event_details'),
 
     path('delete/<int:pk>', views.DeleteEventView.as_view(), name='delete_event'),
     path('update/<int:pk>',views.UpdateEventView.as_view(), name='event_update'),

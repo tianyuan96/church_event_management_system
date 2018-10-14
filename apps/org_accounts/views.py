@@ -33,7 +33,7 @@ class RegisterOrganisationView(generic.FormView, core_views.BaseView):
 
     form_class = RegisterOrganisationForm
     page_title = "Register Organisation"
-    template_name = 'registration/org_register.html'
+    template_name = 'org_accounts/registration/register.html'
     success_url = reverse_lazy('org_profile')
 
 
