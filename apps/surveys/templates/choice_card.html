@@ -36,8 +36,18 @@
 <div>
     <!-- card for dishes -->
     <div class="card">
+
         <div class="card-body">
-            <div class="row">
+            <div class="row ">
+                <div class="row ml-2">
+                    {%  for preference, counter in preferences.items %}
+                        {% if counter > 0 %}
+                            <h3 class="badge badge-secondary ml-2" style="font-size:1em">
+                                {{ preference }} : {{ counter }}
+                            </h3>
+                        {% endif %}
+                    {% endfor %}
+                </div>
                 <div class="col-md-4">
                     <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
                     <!-- add image -->
@@ -49,6 +59,7 @@
                 </div>
 
                 <div class="col-md-8">
+
                     <div class="form-group">
                         <label>Name of the dish</label>
                        {{optionForm.name}}

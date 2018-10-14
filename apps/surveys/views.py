@@ -4,7 +4,7 @@ from django.views.generic.edit import FormView
 from django.shortcuts import redirect, reverse
 from django.views import generic
 from .forms import CreateSurveyForm,CreateOptionForm
-from .models import Survey,OptionInSurvey,SurveyParticipation,UserChoose
+from .models import Survey,OptionInSurvey,SurveyParticipation,UserChoose,FoodPreferences
 from apps.events.models import Event,InvolvedEvent
 import json
 import datetime
@@ -47,8 +47,10 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
             context={
                 "optionForm":self.option_form_class(),
                 "survey":survey,
-                "options":OptionInSurvey.objects.filter(survey=survey)
+                "options":OptionInSurvey.objects.filter(survey=survey),
+                "preferences":self.generateFoodPreferenceList(survey.event)
             }
+
             return render(request, self.template_name, context=context)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
@@ -74,7 +76,8 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                         context = {
                             "optionForm": self.option_form_class(),
                             "survey": survey,
-                            "options": OptionInSurvey.objects.filter(survey=survey)
+                            "options": OptionInSurvey.objects.filter(survey=survey),
+                            "preferences": self.generateFoodPreferenceList(survey.event),
                         }
                         return render(request, self.choice_card_template, context=context)
                 context = {
@@ -91,7 +94,8 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                         "optionForm": self.option_form_class(),
                         "survey": survey,
                         "error":"More options are needed to form a survey",
-                        "options": OptionInSurvey.objects.filter(survey=survey)
+                        "options": OptionInSurvey.objects.filter(survey=survey),
+                        "preferences": self.generateFoodPreferenceList(survey.event)
                     }
                     return render(request, self.template_name, context=context)
                 form = self.survey_form_class(request.POST)
@@ -105,9 +109,36 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                     "surveyForm":form,
                     "optionForm": self.option_form_class(),
                     "survey": survey,
-                    "options": OptionInSurvey.objects.filter(survey=survey)
+                    "options": OptionInSurvey.objects.filter(survey=survey),
+                    "preferences": self.generateFoodPreferenceList(survey.event)
                 }
                 return render(request, self.template_name, context=context)
+
+    def generateFoodPreferenceList(self,event):
+        participants = [involment.participant for involment in InvolvedEvent.objects.filter(event=event)]
+        foodPreferences = [FoodPreferences.objects.get(user=participant) for participant in participants
+                           if FoodPreferences.objects.filter(user=participant).count()>0]
+        print("search preference "+str(len(foodPreferences)))
+        result={
+        "vegetarian": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__vegetarian=True).count(),
+        "vegan": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__vegan=True).count(),
+        "nut allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__nut_allergy=True).count(),
+        "egg allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__egg_allergy=True).count(),
+        "dairy allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__dairy_allergy =True).count(),
+        "soy allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__soy_allergy=True).count(),
+        "shellfish allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__shellfish_allergy=True).count(),
+        "fish allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__fish_allergy=True).count(),
+        }
+        print(result)
+        return result
 
 
     def generateSuccessContext(self, survey):
