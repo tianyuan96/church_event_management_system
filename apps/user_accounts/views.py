@@ -18,19 +18,24 @@ from apps.core import views as core_views
 from apps.surveys import forms as survey_forms
 from apps.surveys import models as survey_models
 
-from django.forms.models import modelformset_factory
+from apps.food_preferences import forms as pref_forms
+from apps.food_preferences import models as pref_models
 
 class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseView):
-
 
     template_name = "user_accounts/registration/profile.html"
     success_url = reverse_lazy('user_profile')
     page_title = "Profile"
 
-
-    def get_object(self, queryset=None):
-        obj, _ = survey_models.FoodPreferences.objects.get_or_create(user=self.request.user)
-        return obj
+    """
+        The food prefs are defined this way (rather than a view method like below) so that they are
+        created in the db the first time the user views their profile.
+    """
+    def food_preferences(self, queryset=None):
+        obj, _ = pref_models.FoodPreferences.objects.get_or_create(user=self.request.user)
+        instance = pref_forms.FoodPreferencesForm(instance=obj)
+        instance.id = obj.id
+        return instance
 
     """
         Below are attributes that can be rendered in the template, for example {{ view.events }}
@@ -42,10 +47,10 @@ class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseV
     def events(self):
         return event_models.Event.objects.all()
 
-    def food_preferences_form(self):
-        user = self.request.user
-        return survey_forms.FoodPreferencesForm(instance=user)
-
+    # def food_preferences_form(self):
+    #     user = self.request.user
+    #     return survey_forms.FoodPreferencesForm(instance=user)
+    #
     def update_user_form(self):
         user = self.request.user
         return forms.UpdateUserForm(instance=user)
@@ -59,7 +64,7 @@ class UpdateUserView(LoginRequiredMixin, generic.UpdateView, core_views.BaseView
     template_name = "user_accounts/registration/profile.html"
     success_url = reverse_lazy('user_profile')
     page_title = "Profile"
-    # form_class = forms.UpdateUserForm
+    model = User
 
 class RegisterUserView(generic.FormView, core_views.BaseView):
 
