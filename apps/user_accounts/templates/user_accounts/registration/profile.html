@@ -163,12 +163,27 @@
                   <h4 class="text-secondary">This Week:</h4>
                   <div class="row">
                     {% for event in view.events %}
-                      <div class="col-md-6 col-lg-4">
+                      <div class="col-md-6 col-lg-4 mb-4 mt-4">
                       <div class="card">
-                          <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
+                          <a href="{% url 'event_details' pk=event.id  %} ">
+                            {% if event.imageFile %}
+                            <div class="item-cover">
+                              <div class="item-bg-img" style="background-image:url({{event.imageFile.url}})"></div>
+                            </div>
+                            {%else%}
+                            <div class="item-cover">
+                              <div class="item-bg-img" style="background-image:url(http://itjobsnepal.com/public/clients/images/noimage.png)"></div>
+                            </div>
+                            {% endif %}
+                          </a>
+                          <!-- <img class="card-img-top" src="http://itjobsnepal.com/public/clients/images/noimage.png" alt="Card image cap"> -->
                           <div class="card-body">
                           <h5 class="card-title">{{ event.name }}</h5>
+                          {% if event.description %}
                           <p class="card-text">{{ event.description|safe }}</p>
+                          {%else%}
+                          <p class="card-text" p style="color:#C0C0C0">No Description</font></p>
+                          {% endif %}
                           <a href="/event/details/{{ event.id }}" class="btn btn-primary">Details</a>
                           </div>
                       </div>
