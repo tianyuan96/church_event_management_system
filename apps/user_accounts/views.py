@@ -69,7 +69,7 @@ class UpdateUserView(generic.View):
         user_form = forms.UserForm(request.POST, instance=request.user)
         valid = user_form.is_valid()
         if not valid:
-            messages.add_message(request, messages.ERROR, 'Could not update user details.', extra_tags='danger update_profile')
+            messages.add_message(request, messages.ERROR, 'Could not update user details.', extra_tags='danger profile_update')
             return redirect(self.success_url)
 
         instance = user_form.save()

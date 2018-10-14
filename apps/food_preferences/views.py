@@ -20,6 +20,6 @@ class UpdateFoodPreferencesView(generic.View):
         prefs = form.save(commit=False)
         prefs.user = request.user
         prefs.save()
-        messages.add_message(request, messages.INFO, 'Successfully updated your food preferences!.', extra_tags='success food_preferences')
+        messages.add_message(request, messages.INFO, 'Successfully updated your food preferences!', extra_tags='success food_preferences')
 
         return redirect(self.success_url)
