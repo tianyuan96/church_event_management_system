@@ -32,5 +32,7 @@ urlpatterns = [
     url(r'^updatepost/(?P<pk>[0-9]+)$',views.UpdatePostView.as_view(), name='post_update'),
     path('deletepost/<int:pk>', views.DeletePostView.as_view()),
     url(r'^discussion/reply/(?P<eventID>[0-9]+)/(?P<postID>[0-9]+)/$', views.ReplyCreationView.as_view(), name='event_forums'),
+    url(r'^discussion/postlike/(?P<eventID>[0-9]+)/(?P<postID>[0-9]+)/$', views.PostLikeView.as_view(), name='event_forums'),
+    url(r'^discussion/replylike/(?P<eventID>[0-9]+)/(?P<postID>[0-9]+)/(?P<replyID>[0-9]+)/$', views.ReplyLikeView.as_view(), name='event_forums'),
 
 ]
