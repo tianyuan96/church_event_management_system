@@ -123,6 +123,9 @@ section#homepage-main .content h1{
 .comment-item .comment-post .form-control {
     border-radius: 2rem;
 }
+.comment-item .comment-reply .form-control {
+    border-radius: 2rem;
+}
 
 .event-card .date {
     position: relative;

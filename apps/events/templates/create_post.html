@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
+<script type="text/javascript">
+    function show(name) {
+        
+        var x= document.getElementById(name);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+
 <div class="container mt-3">
 
     <h1>Post Something</h1>
@@ -11,7 +23,7 @@
                 {%csrf_token%}
 
                 <div class="form-group row">
-                    <label name="event" class="col-sm-2 col-form-label">Write something</label>
+                    <label name="post" class="col-sm-2 col-form-label">Write something</label>
                     <div class="col-sm-10">
                         <!--<textarea class="form-control" name="event_description"></textarea>-->
                             {{view.form.message}}
@@ -20,12 +32,13 @@
                 </div>
 
                 <div class="form-group row">
-                    <label name="event" class="col-sm-2 col-form-label">Images</label>
+                    <label name="post" class="col-sm-2 col-form-label">Images</label>
                     <div class="col-sm-10">
+
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" name="event_image" multiple>
-                            <!-- {{view.form.imageFile}} -->
-                            <label class="custom-file-label" for="customFile">Choose file</label>
+{#                            <input type="file" class="custom-file-input" id="customFile" name="event_image" multiple>#}
+                            {{view.form.imageFile}}
+{#                            <label class="custom-file-label" for="customFile">Choose file</label>#}
                         </div>
                     </div>
                 </div>
@@ -79,7 +92,9 @@
                         <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
                         {% endif %}
                     </div>
-
+                    <div class="comment-action">
+                        <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_post.id }}/" >Like</a> {{ every_post.likes }}
+                    </div>
                     <hr>
 
                     <div class="comment">
@@ -95,32 +110,33 @@
                                         <i class="far fa-user"></i>
                                     </div>
                                 </div>
+
                                 <div class="col-11">
                                     <div class="comment-msg">
                                         <span>{{ every_reply.author }}: </span>
                                         <span>{{ every_reply.message }}</span>
                                     </div>
-                                    <div class="comment-action">
-                                        <a tabindex="1" href="#">Like</a>
+
+                                    <div class="comment-reply">
+                                        <div class="comment-action">
+                                            <a tabindex="1" href="/event/discussion/replylike/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}" href="#">Like</a> {{ every_reply.likes }}
+                                        </div>
+                                        <a href="javascript:void(0);" onclick="show( {{every_reply.id}} )">Reply</a>
+                                            <div id="{{ every_reply.id }}" style="display:none">
+                                                <div class="col-11">
+                                                        <form method class="form-group">
+                                                            <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to reply">
+                                                        </form>
+                                                </div>  
+                
+                                            </div>
                                     </div>
+
+
+
                                 </div>
                             </div>
                         </div>
-                        {# <div class="comment-item">#}
-                            {# <div class="row">#}
-                                {# <div class="col-1">#}
-                                    {# <div class="comment-user-img">#}
-                                        {# <i class="far fa-user"></i>#}
-                                        {# </div>#}
-                                    {# </div>#}
-                                {# <div class="col-11">#}
-                                    {# <div class="comment-msg">#}
-                                        {# <span>USERNAME2:</span>#}
-                                        {# <span>xxxx message asdf;lzxk asdf apsodif nalsd</span>#}
-                                        {# </div>#}
-                                    {# </div>#}
-                                {# </div>#}
-                            {# </div>#}
                         <br>
                         {% endif %}
                         {% endfor %}
