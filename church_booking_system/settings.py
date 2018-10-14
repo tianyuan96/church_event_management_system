@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.surveys',
     'apps.main',
     'apps.core',
+    'apps.food_preferences',
     'apps.user_accounts',
     'apps.org_accounts',
     'django.contrib.admin',

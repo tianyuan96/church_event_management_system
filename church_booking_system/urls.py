@@ -30,6 +30,7 @@ urlpatterns = [
     path('sitemap/', main_views.SitemapView.as_view(), name='sitemap'),
     path('event/', include('apps.events.urls')),
     path('survey/', include('apps.surveys.urls')),
+    path('food_preferences/', include('apps.food_preferences.urls', namespace='food_preferences')),
 
     # TODO: Maybe this should go in user_accounts?
     url(r'^user_confirm/(?P<confirmation_code>.*)/$', UserConfirmView.as_view(), name="user_confirm"),

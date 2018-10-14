@@ -87,10 +87,10 @@
                     <hr>
                 </div>
             </div>
-              <form method="POST" action="{% url 'user_profile' %}" class="col-md-12">
+              <form method="POST" action="{% url 'food_preferences:update' view.food_preferences.id %}" class="col-md-12">
                 <div class="row">
                   {% csrf_token %}
-                  {% for field in view.food_preferences_form %}
+                  {% for field in view.food_preferences %}
 
                   <div class="form-group col-4">
                     <label for="email" class="col-form-label">{{ field.label }}</label>

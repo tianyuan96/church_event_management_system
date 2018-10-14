@@ -1,13 +1,7 @@
 from django import forms
-from .models import Survey, FoodPreferences,OptionInSurvey
+from .models import Survey, OptionInSurvey
 from ckeditor.widgets import CKEditorWidget
 
-class FoodPreferencesForm(forms.ModelForm):
-
-    class Meta:
-
-        model = FoodPreferences
-        exclude = ('user', )
 
 class CreateSurveyForm(forms.ModelForm):
     title = forms.CharField()
