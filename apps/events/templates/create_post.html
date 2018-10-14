@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
+<script type="text/javascript">
+    function show(name) {
+        
+        var x= document.getElementById(name);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+
 <div class="container mt-3">
 
     <h1>Post Something</h1>
@@ -95,32 +107,29 @@
                                         <i class="far fa-user"></i>
                                     </div>
                                 </div>
+
                                 <div class="col-11">
                                     <div class="comment-msg">
                                         <span>{{ every_reply.author }}: </span>
                                         <span>{{ every_reply.message }}</span>
                                     </div>
-                                    <div class="comment-action">
-                                        <a tabindex="1" href="#">Like</a>
+
+                                    <div class="comment-reply">
+                                        <a href="javascript:void(0);" onclick="show( {{every_reply.id}} )">Reply</a>
+                                            <div id="{{ every_reply.id }}" style="display:none">
+                                                <div class="col-11">
+                                                        <form method class="form-group">
+                                                            <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to reply">
+                                                        </form>
+                                                </div>  
+                                            </div>
                                     </div>
+
+
+
                                 </div>
                             </div>
                         </div>
-                        {# <div class="comment-item">#}
-                            {# <div class="row">#}
-                                {# <div class="col-1">#}
-                                    {# <div class="comment-user-img">#}
-                                        {# <i class="far fa-user"></i>#}
-                                        {# </div>#}
-                                    {# </div>#}
-                                {# <div class="col-11">#}
-                                    {# <div class="comment-msg">#}
-                                        {# <span>USERNAME2:</span>#}
-                                        {# <span>xxxx message asdf;lzxk asdf apsodif nalsd</span>#}
-                                        {# </div>#}
-                                    {# </div>#}
-                                {# </div>#}
-                            {# </div>#}
                         <br>
                         {% endif %}
                         {% endfor %}
