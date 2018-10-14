@@ -90,7 +90,7 @@
               <form method="POST" action="{% url 'user_profile' %}" class="col-md-12">
                 <div class="row">
                   {% csrf_token %}
-                  {% for field in form %}
+                  {% for field in view.food_preferences_form %}
 
                   <div class="form-group col-4">
                     <label for="email" class="col-form-label">{{ field.label }}</label>
@@ -168,7 +168,7 @@
                           <img class="card-img-top" src="https://www.thebetterindia.com/wp-content/uploads/2015/12/c2-andhra.jpg" alt="Card image cap">
                           <div class="card-body">
                           <h5 class="card-title">{{ event.name }}</h5>
-                          <p class="card-text">{{ event.description }}</p>
+                          <p class="card-text">{{ event.description|safe }}</p>
                           <a href="/event/details/{{ event.id }}" class="btn btn-primary">Details</a>
                           </div>
                       </div>

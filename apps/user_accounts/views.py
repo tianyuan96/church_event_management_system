@@ -42,6 +42,10 @@ class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseV
     def events(self):
         return event_models.Event.objects.all()
 
+    def food_preferences_form(self):
+        user = self.request.user
+        return survey_forms.FoodPreferencesForm(instance=user)
+
     def update_user_form(self):
         user = self.request.user
         return forms.UpdateUserForm(instance=user)
