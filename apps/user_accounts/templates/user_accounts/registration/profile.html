@@ -44,11 +44,11 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                  <form>
+                  <form method="POST" action="{% url 'user_accounts:update_user' user.id %}">
                     {% csrf_token %}
                     {% for field in view.update_user_details_form %}
                       <div class="form-group row">
-                        <label for="email" class="col-4 col-form-label">{{ field.label }}</label>
+                        <label for="{{ field.label }}" class="col-4 col-form-label">{{ field.label }}</label>
                         <div class="col-8">
                           {{ field }}
                         </div>
@@ -63,6 +63,15 @@
                         </div>
                       </div>
                     {% endfor %}
+                    {% if messages %}
+                        {% for message in messages %}
+                          {% if "profile_update" in message.tags %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">
+                              {{ message }}
+                            </div>
+                          {% endif %}
+                        {% endfor %}
+                    {% endif %}
 
                       <div class="form-group row">
                         <div class="offset-4 col-8">
@@ -101,7 +110,17 @@
                   <input type="submit" class="btn btn-primary" value="Update Preferences">
                 </div>
               </form>
-              {{ status }}
+              {% if messages %}
+                  {% for message in messages %}
+                    {% if "food_preferences" in message.extra_tags %}
+                      <br>
+                      <div class="alert alert-{{ message.extra_tags }}" role="alert">
+                        {{ message }}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+              {% endif %}
+
             </div>
         </div>
 

@@ -35,22 +35,22 @@ class LoginUserForm(forms.Form):
         model = User
         fields = ('username', 'password', )
 
-class UpdateUserDetailsForm(auth_forms.UserChangeForm):
-    # email = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': 'required', }))
-    display_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': False, }))
+# class UserDetailsForm(forms.ModelForm):
+#     # email = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': 'required', }))
+#
+#     class Meta:
+#         model = models.UserDetails
+#         fields = ('display_name', )
 
-    class Meta:
-        model = models.UserDetails
-        fields = ('display_name', )
-
-class UpdateUserForm(auth_forms.UserChangeForm):
+class UserForm(forms.ModelForm):
 
     email = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': 'required', }))
-    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control', 'required': 'required', }))
-    new_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control' }))
-    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control' }))
+    display_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': False, }))
+
+    # new_password = forms.CharField(required=False, widget=forms.PasswordInput(attrs={'class':'form-control',}))
+    # confirm_password = forms.CharField(required=False, widget=forms.PasswordInput(attrs={'class':'form-control', }))
 
     class Meta:
         model = User
         # exclude = ('password',)
-        fields = ('email', 'old_password', 'new_password', 'confirm_password')
+        fields = ('email', 'display_name',)

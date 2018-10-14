@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 from apps.food_preferences.models import FoodPreferences
 from apps.food_preferences.forms import FoodPreferencesForm
 
 class UpdateFoodPreferencesView(generic.View):
 
-    model = FoodPreferences
-    success_url = reverse_lazy('user_profile')
-
+    success_url = reverse_lazy('user_accounts:user_profile')
 
     def post(self, request, *args, **kwargs):
 
@@ -21,4 +20,6 @@ class UpdateFoodPreferencesView(generic.View):
         prefs = form.save(commit=False)
         prefs.user = request.user
         prefs.save()
+        messages.add_message(request, messages.INFO, 'Successfully updated your food preferences!.', extra_tags='success food_preferences')
+
         return redirect(self.success_url)

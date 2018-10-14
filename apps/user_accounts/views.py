@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -20,6 +21,8 @@ from apps.surveys import models as survey_models
 
 from apps.food_preferences import forms as pref_forms
 from apps.food_preferences import models as pref_models
+
+
 
 class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseView):
 
@@ -51,11 +54,32 @@ class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseV
 
     def update_user_form(self):
         user = self.request.user
-        return forms.UpdateUserForm(instance=user)
+        form = forms.UserForm(instance=user)
+        user_details = models.UserDetails.objects.get(user=user)
+        form.fields['display_name'].initial = user_details.display_name
+        return form
 
-    def update_user_details_form(self):
-        user = self.request.user
-        return forms.UpdateUserDetailsForm(instance=user)
+class UpdateUserView(generic.View):
+
+    success_url = reverse_lazy('user_accounts:user_profile')
+
+
+    def post(self, request, *args, **kwargs):
+
+        user_form = forms.UserForm(request.POST, instance=request.user)
+        valid = user_form.is_valid()
+        if not valid:
+            messages.add_message(request, messages.ERROR, 'Could not update user details.', extra_tags='danger update_profile')
+            return redirect(self.success_url)
+
+        instance = user_form.save()
+
+        # Update user details as well
+        display_name = user_form.cleaned_data['display_name']
+        models.UserDetails.objects.filter(user=request.user).delete()
+        obj, created = models.UserDetails.objects.update_or_create(user=request.user, display_name=display_name)
+        messages.add_message(request, messages.INFO, 'User details updated!', extra_tags='success profile_update')
+        return redirect(self.success_url)
 
 
 class RegisterUserView(generic.FormView, core_views.BaseView):
