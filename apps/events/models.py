@@ -49,7 +49,10 @@ class Reply(models.Model):
 class PostLike(models.Model):
     postID = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete= models.CASCADE)
+    eventID = models.ForeignKey(Event, on_delete= models.CASCADE)
+
 
 class ReplyLike(models.Model):
     replyID = models.ForeignKey(Reply, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete= models.CASCADE)
+    eventID = models.ForeignKey(Event, on_delete= models.CASCADE)
