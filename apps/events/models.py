@@ -58,7 +58,4 @@ class PostLike(models.Model):
     eventID = models.ForeignKey(Event, on_delete= models.CASCADE)
 
 
-class ReplyLike(models.Model):
-    replyID = models.ForeignKey(Post, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete= models.CASCADE)
-    eventID = models.ForeignKey(Event, on_delete= models.CASCADE)
+

@@ -4,7 +4,7 @@ from .forms import EventCreationForm, EventUpdateForm, Event, PostCreationForm, 
 from . import models
 from django.shortcuts import render, redirect
 from django.views.generic import edit
-from .models import Event, InvolvedEvent, Post, ReplyTo, PostLike, ReplyLike
+from .models import Event, InvolvedEvent, Post, ReplyTo, PostLike
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseRedirect, HttpResponse
