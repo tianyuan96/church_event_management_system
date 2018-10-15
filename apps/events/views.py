@@ -4,7 +4,7 @@ from .forms import EventCreationForm, EventUpdateForm, Event, PostCreationForm, 
 from . import models
 from django.shortcuts import render, redirect
 from django.views.generic import edit
-from .models import Event, InvolvedEvent, Post, Reply, PostLike, ReplyLike
+from .models import Event, InvolvedEvent, Post, ReplyTo, PostLike, ReplyLike
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseRedirect, HttpResponse
@@ -167,11 +167,15 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
 
     def posts(self):
         event = self.object
-        return Post.objects.filter(eventID=event).order_by('-date')
+        return Post.objects.filter(eventID=event, type=0).order_by('-date')
 
     def replies(self):
         event = self.object
-        return Reply.objects.filter(eventID=event).order_by('date')
+        return Post.objects.filter(eventID=event, type=1).order_by('date')
+
+    def reply_to(self):
+        event = self.object
+        return ReplyTo.objects.filter(eventID=event)
 
     def reply_form(self):
         return ReplyCreationForm
@@ -188,6 +192,7 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
                     self.object.author = user
                     self.object.eventID = Event.objects.get(id=eventID)
                     self.object.date = datetime.datetime.now()
+                    self.object.type = 0
                     self.object.save()
                     return HttpResponseRedirect('/event/discussion/'+str(eventID))
                 else:
@@ -200,7 +205,7 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
 class ReplyCreationView(generic.CreateView):
     template_name = "create_post.html"
     form_class = ReplyCreationForm
-    model = Reply
+    model = Post
 
 
 
@@ -215,14 +220,16 @@ class ReplyCreationView(generic.CreateView):
         if user is not None:
             if user.is_active:
                 reply_form = self.form_class
-                posts = Post.objects.filter(eventID=eventID).order_by('-date')
-                replies = Reply.objects.filter(eventID=eventID).order_by('date')
+                posts = Post.objects.filter(eventID=eventID, type=0).order_by('-date')
+                replies = Post.objects.filter(eventID=event, type=1).order_by('date')
+                reply_to = ReplyTo.objects.filter(eventID=event).order_by('date')
                 context = {
                     "event": event,
                     "posts": posts,
                     "form": form,
                     "reply_form": reply_form,
-                    "replies": replies
+                    "replies": replies,
+                    "reply_to": reply_to,
 
                 }
                 return render(request, self.template_name, context=context)
@@ -243,13 +250,22 @@ class ReplyCreationView(generic.CreateView):
                 if message is not None:
 
                     #self.object = form.save(commit=False)
-                    self.object = Reply()
+                    self.object = Post()
                     self.object.message = message
                     self.object.author = user
                     self.object.eventID = Event.objects.get(id=eventID)
-                    self.object.postID = Post.objects.get(id=postID)
                     self.object.date = datetime.datetime.now()
+                    self.object.type = 1
                     self.object.save()
+
+                    replyID = self.object.id
+                    record = ReplyTo()
+                    record.eventID = Event.objects.get(id=eventID)
+                    record.author = Post.objects.get(id=postID)
+                    record.replier = Post.objects.get(id=replyID)
+                    record.postID = Post.objects.get(id=postID)
+                    record.save()
+
                     return HttpResponseRedirect('/event/discussion/'+eventID)
                 else:
 
@@ -257,13 +273,17 @@ class ReplyCreationView(generic.CreateView):
 
         return HttpResponseRedirect('/')
 
-class ReplyLikeView(generic.View):
-    template_name = "create_post.html"
-    model = ReplyLike
 
-    form_class = PostCreationForm
-    #success_url = reverse_lazy('/event/discussion/'+eventID)
-    def get(self, request, eventID, postID, replyID):
+class ReplyToCommentView(generic.CreateView):
+    template_name = "create_post.html"
+    form_class = ReplyCreationForm
+    model = Post
+
+
+
+
+
+    def get(self, request, eventID, postID):
         user = request.user
         #eventID = request.POST.get("event", "")
         event = Event.objects.get(id=eventID)
@@ -271,22 +291,98 @@ class ReplyLikeView(generic.View):
         form = PostCreationForm
         if user is not None:
             if user.is_active:
-                reply = Reply.objects.get(id=replyID)
-                event = Event.objects.get(id=eventID)
+                reply_form = self.form_class
+                posts = Post.objects.filter(eventID=eventID, type=0).order_by('-date')
+                replies = Post.objects.filter(eventID=event, type=1).order_by('date')
+                reply_to = ReplyTo.objects.filter(eventID=event).order_by('date')
+                context = {
+                    "event": event,
+                    "posts": posts,
+                    "form": form,
+                    "reply_form": reply_form,
+                    "replies": replies,
+                    "reply_to": reply_to,
 
-                reply_like = ReplyLike.objects.filter(eventID=event, replyID=reply, author=user).count()
-                if reply_like == 0:
-                    self.object = ReplyLike()
-                    self.object.author = user
-
-                    reply = Reply.objects.get(id=replyID)
-                    reply.likes += 1
-                    reply.save()
-                    self.object.replyID = reply
-                    self.object.eventID = event
-                    self.object.save()
-                return HttpResponseRedirect('/event/discussion/'+eventID)
+                }
+                return render(request, self.template_name, context=context)
         return HttpResponseRedirect('/')
+
+
+
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        eventID = kwargs.get("eventID")
+        postID = kwargs.get("postID")
+        commentID = kwargs.get("commentID")
+        if user is not None:
+            if user.is_active:
+                message = request.POST['message']
+                #form = self.form_class(request.POST.copy(), request.FILES)
+                #if form.is_valid():
+                if message is not None:
+
+                    #self.object = form.save(commit=False)
+                    self.object = Post()
+                    self.object.message = message
+                    self.object.author = user
+                    self.object.eventID = Event.objects.get(id=eventID)
+                    self.object.date = datetime.datetime.now()
+                    self.object.type = 1
+                    self.object.save()
+
+                    replyID = self.object.id
+                    record = ReplyTo()
+                    record.eventID = Event.objects.get(id=eventID)
+                    record.author = Post.objects.get(id=commentID)
+                    record.replier = Post.objects.get(id=replyID)
+                    record.postID = Post.objects.get(id=postID)
+                    record.save()
+
+                    return HttpResponseRedirect('/event/discussion/'+eventID)
+                else:
+
+                    return HttpResponseRedirect(request.path_info)
+
+        return HttpResponseRedirect('/')
+
+
+
+
+
+
+
+#
+# class ReplyLikeView(generic.View):
+#     template_name = "create_post.html"
+#     model = ReplyLike
+#
+#     form_class = PostCreationForm
+#     #success_url = reverse_lazy('/event/discussion/'+eventID)
+#     def get(self, request, eventID, postID, replyID):
+#         user = request.user
+#         #eventID = request.POST.get("event", "")
+#         event = Event.objects.get(id=eventID)
+#         post = Post.objects.get(id=postID)
+#         form = PostCreationForm
+#         if user is not None:
+#             if user.is_active:
+#                 reply = Reply.objects.get(id=replyID)
+#                 event = Event.objects.get(id=eventID)
+#
+#                 reply_like = ReplyLike.objects.filter(eventID=event, replyID=reply, author=user).count()
+#                 if reply_like == 0:
+#                     self.object = ReplyLike()
+#                     self.object.author = user
+#
+#                     reply = Reply.objects.get(id=replyID)
+#                     reply.likes += 1
+#                     reply.save()
+#                     self.object.replyID = reply
+#                     self.object.eventID = event
+#                     self.object.save()
+#                 return HttpResponseRedirect('/event/discussion/'+eventID)
+#         return HttpResponseRedirect('/')
 
 
 class PostLikeView(generic.View):

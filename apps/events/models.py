@@ -36,15 +36,21 @@ class Post(models.Model):
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     message = models.CharField(max_length = 256)
     likes = models.IntegerField(default=0)
+    type = models.IntegerField(default=0)
 
-class Reply(models.Model):
-    author = models.ForeignKey(User, on_delete= models.CASCADE)
-    eventID = models.ForeignKey(Event, on_delete= models.CASCADE)
-    postID = models.ForeignKey(Post, on_delete=models.CASCADE)
-    date = models.DateTimeField(blank=True, default= "2006-10-25 14:30:59")\
-    #imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
-    message = models.CharField(max_length = 256)
-    likes = models.IntegerField(default=0)
+# class Reply(models.Model):
+#     author = models.ForeignKey(User, on_delete= models.CASCADE)
+#     eventID = models.ForeignKey(Event, on_delete= models.CASCADE)
+#     date = models.DateTimeField(blank=True, default= "2006-10-25 14:30:59")\
+#     #imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
+#     message = models.CharField(max_length = 256)
+#     likes = models.IntegerField(default=0)
+
+class ReplyTo(models.Model):
+    author = models.ForeignKey(Post, on_delete= models.CASCADE, related_name="postwriter")
+    replier = models.ForeignKey(Post, on_delete= models.CASCADE, related_name="postreplier")
+    eventID = models.ForeignKey(Event, on_delete=models.CASCADE)
+    postID = models.ForeignKey(Post, on_delete= models.CASCADE, related_name="post")
 
 class PostLike(models.Model):
     postID = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -53,6 +59,6 @@ class PostLike(models.Model):
 
 
 class ReplyLike(models.Model):
-    replyID = models.ForeignKey(Reply, on_delete=models.CASCADE)
+    replyID = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete= models.CASCADE)
     eventID = models.ForeignKey(Event, on_delete= models.CASCADE)

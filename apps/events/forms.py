@@ -1,4 +1,4 @@
-from .models import Event, Post, Reply
+from .models import Event, Post, ReplyTo
 from django import forms
 import datetime
 from ckeditor.widgets import CKEditorWidget
@@ -68,7 +68,7 @@ class PostCreationForm(forms.ModelForm):
 class ReplyCreationForm(forms.ModelForm):
 
     class Meta:
-        model = Reply
+        model = Post
         fields = '__all__'
         fields = {
             'message': forms.Textarea(attrs={'class': 'form-control'}),

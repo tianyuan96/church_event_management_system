@@ -100,45 +100,67 @@
                     <div class="comment">
                         {% if view.replies %}
                         {% for every_reply in view.replies %}
-                        {% if every_reply.postID == every_post %}
-                        {# every_post.id#}
-                        {# every_reply.postID#}
-                        <div class="comment-item">
-                            <div class="row">
-                                <div class="col-1">
-                                    <div class="comment-user-img">
-                                        <i class="far fa-user"></i>
-                                    </div>
-                                </div>
-
-                                <div class="col-11">
-                                    <div class="comment-msg">
-                                        <span>{{ every_reply.author }}: </span>
-                                        <span>{{ every_reply.message }}</span>
-                                    </div>
-
-                                    <div class="comment-reply">
-                                        <div class="comment-action">
-                                            <a tabindex="1" href="/event/discussion/replylike/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}" href="#">Like</a> {{ every_reply.likes }}
-                                        </div>
-                                        <a href="javascript:void(0);" onclick="show( {{every_reply.id}} )">Reply</a>
-                                            <div id="{{ every_reply.id }}" style="display:none">
-                                                <div class="col-11">
-                                                        <form method class="form-group">
-                                                            <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to reply">
-                                                        </form>
-                                                </div>  
-                
+                            {% for every_record in view.reply_to %}
+                            {% if every_record.replier == every_reply and every_record.postID == every_post %}
+                            {# every_post.id#}
+                            {# every_reply.postID#}
+                                <div class="comment-item">
+                                    <div class="row">
+                                        <div class="col-1">
+                                            <div class="comment-user-img">
+                                                <i class="far fa-user"></i>
                                             </div>
+                                        </div>
+
+                                        <div class="col-11">
+                                            <div class="comment-msg">
+                                                {% if every_record.author.type == 0 %}
+                                                    <span>{{ every_reply.author }}: </span>
+
+                                                {% endif %}
+
+                                                {% if every_record.author.type == 1 %}
+                                                    <span>{{ every_reply.author }} to {{ every_record.author.author }}: </span>
+
+                                                {% endif %}
+                                                <span>{{ every_reply.message }}</span>
+                                            </div>
+
+                                            <div class="comment-reply">
+
+                                                <div class="comment-action">
+                                                    <a tabindex="1" href="/event/discussion/replylike/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}/" href="#">Like</a> {{ every_reply.likes }}
+                                                </div>
+                                                <a href="javascript:void(0);" onclick="show( {{every_reply.id}} )">Reply</a>
+                                                    <div id="{{ every_reply.id }}" style="display:none">
+
+                                                        <form method="POST" action="/event/discussion/replytocomment/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}/" enctype="multipart/form-data">
+                                                            {%csrf_token%}
+                                                            <div class="comment-item">
+                                                                <div class="row">
+                                                                    <div class="col-11">
+                                                                        <div class="comment-post">
+                                                                            <form method class="form-group">
+                                                                                <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+
+                                            </div>
+
+
+
+                                        </div>
                                     </div>
-
-
-
                                 </div>
-                            </div>
-                        </div>
-                        <br>
-                        {% endif %}
+                                <br>
+                            {% endif %}
+                            {% endfor %}
                         {% endfor %}
                         {% endif %}
                         <form method="POST" action="/event/discussion/reply/{{ event.id}}/{{ every_post.id }}/" enctype="multipart/form-data">
