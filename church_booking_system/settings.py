@@ -26,7 +26,7 @@ SECRET_KEY = '!k&+g1(d!gozidu&c*sh6wuje3ngr-77o7ubk(@bi^lg@(jn#g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'samscheding1.pythonanywhere.com/']
 
 
 # Email server settings
