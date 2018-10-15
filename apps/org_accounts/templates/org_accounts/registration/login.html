@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form method="post" action="{% url 'org_login' %}">
+<form method="post" action="{% url 'org_accounts:login' %}">
   {% csrf_token %}
   <input type="hidden" name="next" value="{{ next }}" />
   <div class="row">
@@ -24,7 +24,6 @@
 
           <div class="form-group">
             <button class="btn btn-block btn-primary" type="submit">Login</button>
-            <a class="btn-link" href="{% url 'password_reset' %}">Lost password?</a>
             {{ form.errors }}
           </div>
 

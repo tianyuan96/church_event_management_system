@@ -104,7 +104,7 @@
             <hr>
         </div>
     </div>
-      <form method="POST" action="{% url 'user_profile' %}" class="col-md-12">
+      <form method="POST" action="{% url 'user_accounts:profile' %}" class="col-md-12">
         <div class="row">
           {% csrf_token %}
           {% for field in form %}
@@ -198,7 +198,7 @@
                   <h5 class="card-title">{{ event.name }}</h5>
                   <div class="row">
                     <div class="col-5">
-                      <p class="card-text text-muted date">{{event.date}}</p>
+                      <p class="card-text text-muted date">{{ event.date }}</p>
                     </div>
                     <div class="col-7 text-right">
                       <a href="/event/details/{{ event.id }}" class="btn btn-primary" data-toggle="tooltip" title="Detail"><i
@@ -236,7 +236,7 @@
 
 
   {% else %}
-  <h3>You don't have permission to view this page, please login <a href="/accounts/users/login">here</a></h3>
+  <h3>You don't have permission to view this page, please login <a href="{% url 'user_accounts:login' %}">here</a></h3>
   {% endif %}
 
   {% endblock %}

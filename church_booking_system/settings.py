@@ -26,7 +26,7 @@ SECRET_KEY = '!k&+g1(d!gozidu&c*sh6wuje3ngr-77o7ubk(@bi^lg@(jn#g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'samscheding1.pythonanywhere.com/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'samscheding1.pythonanywhere.com']
 
 
 # Email server settings
@@ -73,7 +73,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'templates/',
+            os.path.join(BASE_DIR, 'templates/'),
             'apps/events/templates/',
             'apps/main/templates/',
             'apps/user_accounts/templates/',

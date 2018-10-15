@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.main.urls')),
     path('accounts/users/', include('apps.user_accounts.urls', namespace='user_accounts')),
-    path('accounts/organisations/', include('apps.org_accounts.urls')),
+    path('accounts/organisations/', include('apps.org_accounts.urls', namespace='org_accounts')),
     path('sitemap/', main_views.SitemapView.as_view(), name='sitemap'),
     path('event/', include('apps.events.urls')),
     path('survey/', include('apps.surveys.urls')),

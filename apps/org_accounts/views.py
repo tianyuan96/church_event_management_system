@@ -19,7 +19,7 @@ class OrganisationProfileView(LoginRequiredMixin, generic.ListView, core_views.B
     context_object_name = "events"
     model = Event
     page_title = 'Profile'
-    login_url = '/accounts/organisations/login/'
+    # login_url = '/accounts/organisations/login/'
 
     def user_details(self):
         return OrganisationDetails.objects.get(user=self.request.user.id)
@@ -41,7 +41,7 @@ class RegisterOrganisationView(generic.FormView, core_views.BaseView):
     form_class = RegisterOrganisationForm
     page_title = "Register Organisation"
     template_name = 'org_accounts/registration/register.html'
-    success_url = reverse_lazy('org_profile')
+    success_url = reverse_lazy('org_accounts:profile')
 
 
     # Get the data from the registration form and register the user
@@ -85,7 +85,7 @@ class LoginOrganisationView(generic.FormView, core_views.BaseView):
     form_class = LoginOrganisationForm
     page_title = "Login"
     template_name = 'org_accounts/registration/login.html'
-    success_url = reverse_lazy('org_profile')
+    success_url = reverse_lazy('org_accounts:profile')
 
     def post(self, request, *args, **kwargs):
 

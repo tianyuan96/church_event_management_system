@@ -27,7 +27,7 @@ from apps.food_preferences import models as pref_models
 class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseView):
 
     template_name = "user_accounts/registration/profile.html"
-    success_url = reverse_lazy('user_profile')
+    success_url = reverse_lazy('user_accounts:profile')
     page_title = "Profile"
 
     """
@@ -89,7 +89,7 @@ class RegisterUserView(generic.FormView, core_views.BaseView):
     template_name = 'user_accounts/registration/register.html'
     #success_url = reverse_lazy('user_profile')
     success_url = reverse_lazy('successfully_registered')
-    profile_url = reverse_lazy('user_profile')
+    profile_url = reverse_lazy('user_accounts:profile')
 
     # Get the data from the registration form and register the user
     def post(self, request, *args, **kwargs):
@@ -165,7 +165,7 @@ class LoginUserView(generic.FormView, core_views.BaseView):
     form_class = forms.LoginUserForm
     page_title = "Login"
     template_name = 'user_accounts/registration/login.html'
-    success_url = reverse_lazy('user_profile')
+    success_url = reverse_lazy('user_accounts:profile')
 
     def post(self, request, *args, **kwargs):
 

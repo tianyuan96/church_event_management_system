@@ -19,15 +19,15 @@ class BaseView():
         user = self.request.user
 
         if user.is_staff:
-            return reverse_lazy('org_profile')  # TODO: Give org_accounts a namespace and appname so this can change to match user_accounts
+            return reverse_lazy('org_accounts:profile')
         else:
-            return reverse_lazy('user_accounts:user_profile')
+            return reverse_lazy('user_accounts:profile')
 
     def logout_page(self):
 
         user = self.request.user
 
         if user.is_staff:
-            return reverse_lazy('org_logout')
+            return reverse_lazy('org_accounts:logout')
         else:
-            return reverse_lazy('user_accounts:user_logout')
+            return reverse_lazy('user_accounts:logout')

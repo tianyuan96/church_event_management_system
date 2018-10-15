@@ -6,11 +6,11 @@ app_name = 'user_accounts'
 
 urlpatterns = [
 
-    path('register/', views.RegisterUserView.as_view(), name='user_register'),
-    path('profile/', views.UserProfileView.as_view(), name="user_profile"),
-    path('login/', views.LoginUserView.as_view(), name="user_login"),
+    path('register/', views.RegisterUserView.as_view(), name='register'),
+    path('profile/', views.UserProfileView.as_view(), name="profile"),
+    path('login/', views.LoginUserView.as_view(), name="login"),
     path('reset/', views.ResetUserView.as_view(), name="password_reset"),
-    path('logout/', views.LogoutUserView.as_view(), name="user_logout"),
+    path('logout/', views.LogoutUserView.as_view(), name="logout"),
 
     path('update/<int:pk>', views.UpdateUserView.as_view(), name="update_user"),
 

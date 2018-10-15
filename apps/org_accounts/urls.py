@@ -1,11 +1,13 @@
 from . import views
 from django.urls import path, include
 
+app_name = 'org_accounts'
+
 urlpatterns = [
 
-    path('register/', views.RegisterOrganisationView.as_view(), name='org_register'),
-    path('profile/', views.OrganisationProfileView.as_view(), name="org_profile"),
-    path('login/', views.LoginOrganisationView.as_view(), name="org_login"),
-    path('logout/', views.LogoutOrganisationView.as_view(), name="org_logout"),
+    path('register/', views.RegisterOrganisationView.as_view(), name='register'),
+    path('profile/', views.OrganisationProfileView.as_view(), name="profile"),
+    path('login/', views.LoginOrganisationView.as_view(), name="login"),
+    path('logout/', views.LogoutOrganisationView.as_view(), name="logout"),
 
 ]
