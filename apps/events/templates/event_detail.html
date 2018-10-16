@@ -50,13 +50,23 @@
             <br>
             <!-- all the surveys go here -->
             {% if view.surveys %}
+                <div >
+                    <h3>
+                        <span>Relevant survey</span>
+                    {% if user.is_staff %}
+                        <a href="/survey/create/{{ event.id }}"><i class="fas fa-plus-circle" style="font-size: 26px;"></i></a>
 
-                <h3>
-                    <span>Relevant survey</span>
-                {% if user.is_staff %}
-                    <a href="/survey/create/{{ event.id }}"><i class="fas fa-plus-circle" style="font-size: 26px;"></i></a>
-                {% endif %}
-                </h3>
+                        <span class="float-right text-muted">
+                            {%  if view.number_of_participant > 1 %}
+                                {{ view.number_of_participant}} participants
+                            {% else %}
+                                 {{ view.number_of_participant}} participant
+                            {% endif %}
+                        </span>
+
+                    {% endif %}
+                    </h3>
+                </div>
 
             <ul class="list-group">
                 {% for survey in view.surveys %}
@@ -114,10 +124,23 @@
             </ul>
 
             {% else%}
-            {% if user.is_staff %}
-                 <h3>Relevant survey</h3>
-                <a href="/survey/create/{{ event.id }}" class="btn btn-primary"> Add survey</a>
-            {% endif %}
+                {% if user.is_staff %}
+                    <div>
+                     <h3>Relevant survey
+                        <a href="/survey/create/{{ event.id }}" class="btn btn-primary"> Add survey</a>
+                        <span class="float-right text-muted">
+                            {%  if view.number_of_participant > 1 %}
+                                {{ view.number_of_participant}} participants
+                            {% else %}
+                                 {{ view.number_of_participant}} participant
+                            {% endif %}
+                        </span>
+                     </h3>
+                    </div>
+
+
+
+                {% endif %}
 
             {% endif %}
             <!-- end surveylist-->
