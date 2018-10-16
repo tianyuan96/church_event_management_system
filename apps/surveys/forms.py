@@ -30,12 +30,12 @@ class CreateOptionForm(forms.ModelForm):
         super(CreateOptionForm, self).__init__(*args, **kwargs)
         self.fields['name'].required = False
 
-    def clean_name(self):
-        name = self.cleaned_data["name"]
-        if name == "":
-            raise forms.ValidationError("the name of option can not be empty")
-        else:
-            return name
+    # def clean_name(self):
+    #     name = self.cleaned_data["name"]
+    #     if name == "":
+    #         raise forms.ValidationError("the name of option can not be empty")
+    #     else:
+    #         return name
 
 
 

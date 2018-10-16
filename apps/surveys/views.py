@@ -12,6 +12,8 @@ import datetime
 from apps.core import views as core_views
 from django.views.generic import edit
 from django.urls import reverse_lazy
+from google.cloud import vision
+from google.cloud.vision import types
 # Create your views here.
 
 
@@ -66,13 +68,17 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
             surveyId = request.POST.get("survey", "")
             survey = Survey.objects.get(id=surveyId)
             if operation == "add_option":
-                form = self.option_form_class(request.POST, request.FILES)
-
-                if form.is_valid():
+                files=request.FILES.copy()
+                use_img_rcgn= request.POST.get("useImageRecognition","")
+                rq = request.POST.copy()
+                form = self.option_form_class(rq, files)
+                if form.is_valid() and self.usingRecognitionCompletetion(request):
+                    print("pass test")
                     option = form.save(commit=False)
-
                     if Survey.objects.filter(id= surveyId).count()>0:
                         option.survey=survey
+                        if use_img_rcgn == "True":
+                            option.name = self.performPictureRecognition(request)
                         option.save()
                         context = {
                             "optionForm": self.option_form_class(),
@@ -81,6 +87,9 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                             "preferences": self.generateFoodPreferenceList(survey.event),
                         }
                         return render(request, self.choice_card_template, context=context)
+                print(form.errors)
+                # if user does not enter a name for the option
+                form.add_error("name","please enter name for the option or use picture recognition")
                 context = {
                     "optionForm": form,
                     "survey": survey,
@@ -115,6 +124,26 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                 }
                 return render(request, self.template_name, context=context)
 
+    def usingRecognitionCompletetion(self,request):
+        if request.POST.get("name","") =="":
+            if request.POST.get("useImageRecognition","")=="True" and len(request.FILES) >0:
+                return True
+            else:
+                return False
+        else:
+            return True
+
+
+    def performPictureRecognition(self,request):
+        result=""
+        try:
+            pass
+            result=self.pictureRecognition(request.FILES['imageFile'].read())
+        except:
+            result="as shown at the picture"
+            print("error")
+        return result
+
     def generateFoodPreferenceList(self,event):
         participants = [involment.participant for involment in InvolvedEvent.objects.filter(event=event)]
         foodPreferences = [FoodPreferences.objects.get(user=participant) for participant in participants
@@ -141,6 +170,27 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
         print(result)
         return result
 
+
+    def pictureRecognition(self,pic):
+        if pic is not None:
+            client = vision.ImageAnnotatorClient()
+            image = types.Image(content=pic)
+            # Performs label detection on the image file
+            response = client.label_detection(image=image)
+            labels = response.label_annotations
+            print(self.findValidLabel(labels))
+            return self.findValidLabel(labels)
+        return ""
+
+
+    def findValidLabel(self,labels):
+        usless_label= ["food", "cuisine", "dish"]
+        for label in labels:
+            if label.description in usless_label:
+                continue
+            if label.score >0.85:
+                return label.description
+        return ""
 
     def generateSuccessContext(self, survey):
         return {
