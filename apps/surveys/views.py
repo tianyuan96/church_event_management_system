@@ -79,9 +79,14 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                         option.survey=survey
                         if use_img_rcgn == "True":
                             option.name = self.performPictureRecognition(request)
-                        option.save()
+                        if option.name=="":
+                            form.add_error("name", "picture recognition does not work for this image")
+
+                        else:
+                            form=self.option_form_class()
+                            option.save()
                         context = {
-                            "optionForm": self.option_form_class(),
+                            "optionForm":form,
                             "survey": survey,
                             "options": OptionInSurvey.objects.filter(survey=survey),
                             "preferences": self.generateFoodPreferenceList(survey.event),
