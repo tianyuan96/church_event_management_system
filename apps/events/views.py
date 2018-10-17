@@ -75,6 +75,11 @@ class EventDetailsView(generic.DetailView, core_views.BaseView):
         user = self.request.user
         return InvolvedEvent.objects.filter(participant=user, event=event).exists()
 
+    def number_of_participant(self):
+        event = self.object
+        return  InvolvedEvent.objects.filter(event=event).count()
+
+
 
 class DeleteEventView(generic.DeleteView):
 
