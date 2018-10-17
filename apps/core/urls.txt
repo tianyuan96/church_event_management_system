@@ -1,0 +1,100 @@
+/	apps.main.views.HomeView	home
+/Users\/SamTheNormalOne\/projects\/4920\-project\/media\/<path>	django.views.static.serve
+/accounts/organisations/login/	apps.org_accounts.views.LoginOrganisationView	org_accounts:login
+/accounts/organisations/logout/	apps.org_accounts.views.LogoutOrganisationView	org_accounts:logout
+/accounts/organisations/profile/	apps.org_accounts.views.OrganisationProfileView	org_accounts:profile
+/accounts/organisations/register/	apps.org_accounts.views.RegisterOrganisationView	org_accounts:register
+/accounts/users/login/	apps.user_accounts.views.LoginUserView	user_accounts:login
+/accounts/users/logout/	apps.user_accounts.views.LogoutUserView	user_accounts:logout
+/accounts/users/profile/	apps.user_accounts.views.UserProfileView	user_accounts:profile
+/accounts/users/register/	apps.user_accounts.views.RegisterUserView	user_accounts:register
+/accounts/users/reset/	apps.user_accounts.views.ResetUserView	user_accounts:password_reset
+/accounts/users/successfully_confirmed/	apps.user_accounts.views.HasActivatedView	user_accounts:successfully_confirmed
+/accounts/users/successfully_registered/	apps.user_accounts.views.NeedActivateView	user_accounts:successfully_registered
+/accounts/users/update/<int:pk>	apps.user_accounts.views.UpdateUserView	user_accounts:update_user
+/accounts/users/user_confirm/<confirmation_code>/	apps.user_accounts.views.UserConfirmView	user_accounts:user_confirm
+/admin/	django.contrib.admin.sites.index	admin:index
+/admin/<app_label>/	django.contrib.admin.sites.app_index	admin:app_list
+/admin/auth/group/	django.contrib.admin.options.changelist_view	admin:auth_group_changelist
+/admin/auth/group/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/auth/group/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:auth_group_change
+/admin/auth/group/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:auth_group_delete
+/admin/auth/group/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:auth_group_history
+/admin/auth/group/add/	django.contrib.admin.options.add_view	admin:auth_group_add
+/admin/auth/group/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:auth_group_autocomplete
+/admin/auth/user/	django.contrib.admin.options.changelist_view	admin:auth_user_changelist
+/admin/auth/user/<id>/password/	django.contrib.auth.admin.user_change_password	admin:auth_user_password_change
+/admin/auth/user/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/auth/user/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:auth_user_change
+/admin/auth/user/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:auth_user_delete
+/admin/auth/user/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:auth_user_history
+/admin/auth/user/add/	django.contrib.auth.admin.add_view	admin:auth_user_add
+/admin/auth/user/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:auth_user_autocomplete
+/admin/events/event/	django.contrib.admin.options.changelist_view	admin:events_event_changelist
+/admin/events/event/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/events/event/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:events_event_change
+/admin/events/event/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:events_event_delete
+/admin/events/event/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:events_event_history
+/admin/events/event/add/	django.contrib.admin.options.add_view	admin:events_event_add
+/admin/events/event/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:events_event_autocomplete
+/admin/events/post/	django.contrib.admin.options.changelist_view	admin:events_post_changelist
+/admin/events/post/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/events/post/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:events_post_change
+/admin/events/post/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:events_post_delete
+/admin/events/post/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:events_post_history
+/admin/events/post/add/	django.contrib.admin.options.add_view	admin:events_post_add
+/admin/events/post/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:events_post_autocomplete
+/admin/events/replyto/	django.contrib.admin.options.changelist_view	admin:events_replyto_changelist
+/admin/events/replyto/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/events/replyto/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:events_replyto_change
+/admin/events/replyto/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:events_replyto_delete
+/admin/events/replyto/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:events_replyto_history
+/admin/events/replyto/add/	django.contrib.admin.options.add_view	admin:events_replyto_add
+/admin/events/replyto/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:events_replyto_autocomplete
+/admin/jsi18n/	django.contrib.admin.sites.i18n_javascript	admin:jsi18n
+/admin/login/	django.contrib.admin.sites.login	admin:login
+/admin/logout/	django.contrib.admin.sites.logout	admin:logout
+/admin/org_accounts/organisationdetails/	django.contrib.admin.options.changelist_view	admin:org_accounts_organisationdetails_changelist
+/admin/org_accounts/organisationdetails/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/org_accounts/organisationdetails/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:org_accounts_organisationdetails_change
+/admin/org_accounts/organisationdetails/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:org_accounts_organisationdetails_delete
+/admin/org_accounts/organisationdetails/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:org_accounts_organisationdetails_history
+/admin/org_accounts/organisationdetails/add/	django.contrib.admin.options.add_view	admin:org_accounts_organisationdetails_add
+/admin/org_accounts/organisationdetails/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:org_accounts_organisationdetails_autocomplete
+/admin/password_change/	django.contrib.admin.sites.password_change	admin:password_change
+/admin/password_change/done/	django.contrib.admin.sites.password_change_done	admin:password_change_done
+/admin/r/<int:content_type_id>/<path:object_id>/	django.contrib.contenttypes.views.shortcut	admin:view_on_site
+/admin/user_accounts/confirmations/	django.contrib.admin.options.changelist_view	admin:user_accounts_confirmations_changelist
+/admin/user_accounts/confirmations/<path:object_id>/	django.views.generic.base.RedirectView
+/admin/user_accounts/confirmations/<path:object_id>/change/	django.contrib.admin.options.change_view	admin:user_accounts_confirmations_change
+/admin/user_accounts/confirmations/<path:object_id>/delete/	django.contrib.admin.options.delete_view	admin:user_accounts_confirmations_delete
+/admin/user_accounts/confirmations/<path:object_id>/history/	django.contrib.admin.options.history_view	admin:user_accounts_confirmations_history
+/admin/user_accounts/confirmations/add/	django.contrib.admin.options.add_view	admin:user_accounts_confirmations_add
+/admin/user_accounts/confirmations/autocomplete/	django.contrib.admin.options.autocomplete_view	admin:user_accounts_confirmations_autocomplete
+/changeHomePage	apps.main.views.UpdateHomePageDeatail	update_home_page
+/choose-meal	apps.main.views.ChooseMealView	choose_meal
+/choose-meal-success	apps.main.views.SuccessView	general_success
+/event/create/	apps.events.views.CreateEventView	event_create
+/event/delete/<int:pk>	apps.events.views.DeleteEventView	delete_event
+/event/deletepost/<int:pk>	apps.events.views.DeletePostView
+/event/details/<int:pk>/	apps.events.views.EventDetailsView	event_detail
+/event/details/<int:pk>/	apps.events.views.EventDetailsView	event_details
+/event/discussion/<int:pk>/	apps.events.views.PostCreationView	event_forums
+/event/discussion/postlike/<eventID>/<postID>/	apps.events.views.PostLikeView	event_forums
+/event/discussion/reply/<eventID>/<postID>/	apps.events.views.ReplyCreationView	event_forums
+/event/discussion/replytocomment/<eventID>/<postID>/<commentID>/	apps.events.views.ReplyToCommentView	event_forums
+/event/join/	apps.events.views.JoinEvent
+/event/success	apps.events.views.CreateSuccessView	event_success
+/event/update/<int:pk>	apps.events.views.UpdateEventView	event_update
+/event/updatepost/<pk>	apps.events.views.UpdatePostView	post_update
+/food_preferences/update/<int:pk>	apps.food_preferences.views.UpdateFoodPreferencesView	food_preferences:update
+/sitemap/	apps.main.views.SitemapView	sitemap
+/survey/close_open/	apps.surveys.views.CloseSurveyView
+/survey/create/<eventId>	apps.surveys.views.EmptySurveyGenerator
+/survey/create/<eventId>/<surveyId>/	apps.surveys.views.CreateSurveyView	add_option_for_survey
+/survey/delete/	apps.surveys.views.DeleteSurveyView
+/survey/do/<surveyId>	apps.surveys.views.DoSurveyView
+/survey/result/(P<surveyId>[0-9]+)	apps.surveys.views.SeeSurveyResultView
+/survey/submit/	apps.surveys.views.SubmitSurveyView
+/survey/success/	apps.surveys.views.SuccessView	survey-success
+/user_confirm/<confirmation_code>/	apps.user_accounts.views.UserConfirmView	user_confirm
