@@ -34,8 +34,7 @@ class OptionInSurvey (models.Model):
     name = models.CharField(max_length=50,)
     description = RichTextField(max_length=100, blank=True, null=True)
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
-    survey = models.ForeignKey(Survey,on_delete=models.CASCADE) #many options to one survey
-
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE) #many options to one survey
 
 
 class UserChoose(models.Model):
