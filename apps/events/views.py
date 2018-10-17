@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 from .forms import EventCreationForm, EventUpdateForm, Event, PostCreationForm, PostUpdateForm, ReplyCreationForm
 from . import models
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,reverse
 from django.views.generic import edit
 from .models import Event, InvolvedEvent, Post, ReplyTo, PostLike
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,6 +11,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404
 from apps.surveys.models import Survey
 from apps.core import views as core_views
+from django.contrib.auth.decorators import login_required
 import datetime
 
 
@@ -59,12 +60,14 @@ class CreateEventView(LoginRequiredMixin, generic.CreateView, core_views.BaseVie
         return form
 
 
-class EventDetailsView(generic.DetailView, core_views.BaseView):
+
+class EventDetailsView(LoginRequiredMixin,generic.DetailView, core_views.BaseView):
 
     model = Event
     context_object_name = 'event'
     template_name = 'event_detail.html'
     page_title = 'Choose My Meal'
+    login_url = reverse_lazy("user_accounts:login")
 
     def surveys(self):
         event = self.object
@@ -167,7 +170,6 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
 
     def form(self):
         form = self.form_class()
-
         return form
 
     def posts(self):

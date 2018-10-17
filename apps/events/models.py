@@ -34,7 +34,7 @@ class Post(models.Model):
     eventID = models.ForeignKey(Event, on_delete= models.CASCADE)
     date = models.DateTimeField(blank=True, default= "2006-10-25 14:30:59")
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
-    message = models.CharField(max_length = 256)
+    message = RichTextField(max_length = 256)
     likes = models.IntegerField(default=0)
     type = models.IntegerField(default=0)
 

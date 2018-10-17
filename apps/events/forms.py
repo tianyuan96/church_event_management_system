@@ -51,7 +51,7 @@ class PostUpdateForm(forms.ModelForm):
         fields = '__all__'
         fields = {
 
-            'message': forms.Textarea(attrs={'class': 'form-control'}),
+            'message': CKEditorWidget(attrs={'class': 'form-control'}),
             'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'}),
             }
 
@@ -61,8 +61,8 @@ class PostCreationForm(forms.ModelForm):
         model = Post
         fields = '__all__'
         fields = {
-            'message': forms.Textarea(attrs={'class': 'form-control'}),
-            'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'}),
+            'message': CKEditorWidget(attrs={'class': 'form-control'}),
+            'imageFile': forms.FileInput(attrs={'class': 'custom-file-input', 'id': 'post_image'}),
         }
 
 class ReplyCreationForm(forms.ModelForm):
@@ -71,5 +71,5 @@ class ReplyCreationForm(forms.ModelForm):
         model = Post
         fields = '__all__'
         fields = {
-            'message': forms.Textarea(attrs={'class': 'form-control'}),
+            'message': CKEditorWidget(attrs={'class': 'form-control'}),
         }

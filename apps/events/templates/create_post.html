@@ -18,7 +18,7 @@
 {#    HERE: {{ event }}#}
     <br>
     <div class="card">
-        <div class="card-body">
+        <div class="card-body container">
             <form method="POST" action="" enctype="multipart/form-data">
                 {%csrf_token%}
 
@@ -26,22 +26,40 @@
                     <label name="post" class="col-sm-2 col-form-label">Write something</label>
                     <div class="col-sm-10">
                         <!--<textarea class="form-control" name="event_description"></textarea>-->
+                        {% load static %}
+                        <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+                        <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
                             {{view.form.message}}
+
 
                     </div>
                 </div>
-
+                <!-- upload image here-->
                 <div class="form-group row">
                     <label name="post" class="col-sm-2 col-form-label">Images</label>
                     <div class="col-sm-10">
 
-                        <div class="custom-file">
-{#                            <input type="file" class="custom-file-input" id="customFile" name="event_image" multiple>#}
+                        <div class="col-6">
                             {{view.form.imageFile}}
-{#                            <label class="custom-file-label" for="customFile">Choose file</label>#}
+
                         </div>
+
                     </div>
                 </div>
+                <!-- end upload image -->
+                <img id="imageFileToBeUpload" class="img-thumbnail" src="">
+                <script type="text/javascript">
+                    $('#id_imageFile').change(function(e){
+                        var uploadFile = e.target.files[0].name;
+                        //show image
+                        var reader = new FileReader();
+                        reader.readAsDataURL(this.files[0]);
+                        reader.onload = function (ev) {
+                            // show the image of the picutre that is going to be upload
+                            document.getElementById("imageFileToBeUpload").src= ev.target.result;
+                        };
+                    });
+                </script>
 
                 <br>
                 <br>
@@ -57,53 +75,129 @@
 
     {% if view.posts %}
     <div class="container mt-3">
-        <div class="row">
+
             {% for every_post in view.posts %}
-            <div class="col-12 col-md-6">
+            <!-- post row -->
+            <div class="row">
+                <div class="col-12 ">
 
-                <div class="post-item">
+                    <div class="post-item">
 
-                    <div class="float-right">
-                        <form action="/event/updatepost/{{ every_post.id }}" method="POST" class="d-inline">
-                            {% csrf_token %}
-                            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-edit"></i></button>
-                        </form>
-                        <form action="/event/deletepost/{{ every_post.id }}" method="POST" class="d-inline">
-                            {% csrf_token %}
-                            <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
-                        </form>
-                    </div>
-
-                    <div>
-                        <div class="float-left mr-3">
-                            <div class="user-img">
-                                <i class="far fa-user"></i>
-                            </div>
+                        <div class="float-right">
+                            <form action="/event/updatepost/{{ every_post.id }}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-edit"></i></button>
+                            </form>
+                            <form action="/event/deletepost/{{ every_post.id }}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                            </form>
                         </div>
-                        <h5 class="pt-1 mb-1">{{ every_post.author }}</h5>
-                        <p class="text-muted">{{ every_post.date }}</p>
-                    </div>
-                    <p> {{ every_post.message }}</p>
 
-                    <div>
-                        {% if every_post.imageFile %}
-                        <img class="img-thumbnail" src="{{ every_post.imageFile.url }}">
-                        {% else %}
-                        <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
-                        {% endif %}
-                    </div>
-                    <div class="comment-action">
-                        <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_post.id }}/" >Like</a> {{ every_post.likes }}
-                    </div>
-                    <hr>
+                        <div>
+                            <div class="float-left mr-3">
+                                <div class="user-img">
+                                    <i class="far fa-user"></i>
+                                </div>
+                            </div>
+                            <h5 class="pt-1 mb-1">{{ every_post.author.user_detail.display_name }}</h5>
+                            <p class="text-muted">{{ every_post.date }}</p>
+                        </div>
+                        <!-- start post massage-->
+                        <div class="col-12 float-right ml-4">
+                            <hr>
+                            {{ every_post.message |safe}}
+                        </div>
+                        <!-- end post massage-->
+                        <div>
+                            {% if every_post.imageFile %}
+                                <img class="img-thumbnail" src="{{ every_post.imageFile.url }}">
+                            {% else %}
+                            {% endif %}
+                        </div>
+                        <div class="comment-action">
+                            <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_post.id }}/" >Like</a> {{ every_post.likes }}
+                        </div>
+                        <hr>
 
-                    <div class="comment">
-                        {% if view.replies %}
-                        {% for every_reply in view.replies %}
-                            {% for every_record in view.reply_to %}
-                            {% if every_record.replier == every_reply and every_record.postID == every_post %}
-                            {# every_post.id#}
-                            {# every_reply.postID#}
+                        <div class="comment">
+                            {% if view.replies %}
+                            {% for every_reply in view.replies %}
+                                {% for every_record in view.reply_to %}
+                                {% if every_record.replier == every_reply and every_record.postID == every_post %}
+                                {# every_post.id#}
+                                {# every_reply.postID#}
+                                    <div class="comment-item">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <div class="comment-user-img">
+                                                    <i class="far fa-user"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-11">
+                                                <div class="comment-msg">
+                                                    {% if every_record.author.type == 0 %}
+                                                        <span>{{ every_reply.author.user_detail.display_name }}: </span>
+
+                                                    {% endif %}
+
+                                                    {% if every_record.author.type == 1 %}
+                                                        <span>{{ every_reply.author.user_detail.display_name }} to {{ every_record.author.author.user_detail.display_name }}: </span>
+
+                                                    {% endif %}
+                                                    <span>{{ every_reply.message }}</span>
+                                                </div>
+                                                <div class="float-right">
+                                                    <form action="/event/updatepost/{{ every_reply.id }}" method="POST" class="d-inline">
+                                                        {% csrf_token %}
+                                                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-edit"></i></button>
+                                                    </form>
+                                                    <form action="/event/deletepost/{{ every_reply.id }}" method="POST" class="d-inline">
+                                                        {% csrf_token %}
+                                                        <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                                    </form>
+                                                </div>
+
+                                                <div class="comment-reply">
+
+                                                    <div class="comment-action">
+                                                        <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_reply.id }}/" href="#">Like</a> {{ every_reply.likes }}
+                                                    </div>
+                                                    <a href="javascript:void(0);" onclick="show( {{every_reply.id}} )">Reply</a>
+                                                        <div id="{{ every_reply.id }}" style="display:none">
+
+                                                            <form method="POST" action="/event/discussion/replytocomment/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}/" enctype="multipart/form-data">
+                                                                {%csrf_token%}
+                                                                <div class="comment-item">
+                                                                    <div class="row">
+                                                                        <div class="col-11">
+                                                                            <div class="comment-post">
+                                                                                <form method class="form-group">
+                                                                                    <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                            {% endif %}
+                            <form method="POST" action="/event/discussion/reply/{{ event.id}}/{{ every_post.id }}/" enctype="multipart/form-data">
+                                {%csrf_token%}
                                 <div class="comment-item">
                                     <div class="row">
                                         <div class="col-1">
@@ -111,99 +205,30 @@
                                                 <i class="far fa-user"></i>
                                             </div>
                                         </div>
-
                                         <div class="col-11">
-                                            <div class="comment-msg">
-                                                {% if every_record.author.type == 0 %}
-                                                    <span>{{ every_reply.author }}: </span>
-
-                                                {% endif %}
-
-                                                {% if every_record.author.type == 1 %}
-                                                    <span>{{ every_reply.author }} to {{ every_record.author.author }}: </span>
-
-                                                {% endif %}
-                                                <span>{{ every_reply.message }}</span>
-                                            </div>
-                                            <div class="float-right">
-                                                <form action="/event/updatepost/{{ every_reply.id }}" method="POST" class="d-inline">
-                                                    {% csrf_token %}
-                                                    <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-edit"></i></button>
-                                                </form>
-                                                <form action="/event/deletepost/{{ every_reply.id }}" method="POST" class="d-inline">
-                                                    {% csrf_token %}
-                                                    <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                            <div class="comment-post">
+                                                <form method class="form-group">
+                                                    <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">
                                                 </form>
                                             </div>
-
-                                            <div class="comment-reply">
-
-                                                <div class="comment-action">
-                                                    <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_reply.id }}/" href="#">Like</a> {{ every_reply.likes }}
-                                                </div>
-                                                <a href="javascript:void(0);" onclick="show( {{every_reply.id}} )">Reply</a>
-                                                    <div id="{{ every_reply.id }}" style="display:none">
-
-                                                        <form method="POST" action="/event/discussion/replytocomment/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}/" enctype="multipart/form-data">
-                                                            {%csrf_token%}
-                                                            <div class="comment-item">
-                                                                <div class="row">
-                                                                    <div class="col-11">
-                                                                        <div class="comment-post">
-                                                                            <form method class="form-group">
-                                                                                <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-
-                                                    </div>
-
-                                            </div>
-
-
-
                                         </div>
                                     </div>
                                 </div>
-                                <br>
-                            {% endif %}
-                            {% endfor %}
-                        {% endfor %}
-                        {% endif %}
-                        <form method="POST" action="/event/discussion/reply/{{ event.id}}/{{ every_post.id }}/" enctype="multipart/form-data">
-                            {%csrf_token%}
-                            <div class="comment-item">
-                                <div class="row">
-                                    <div class="col-1">
-                                        <div class="comment-user-img">
-                                            <i class="far fa-user"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-11">
-                                        <div class="comment-post">
-                                            <form method class="form-group">
-                                                <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+
+                        <br>
+                        <br>
                     </div>
-
-                    <br>
-                    <br>
                 </div>
+            <!-- end post row-->
             </div>
             {% endfor %}
-        </div>
+
     </div>
 
     {% else %}
     <p class="font-italic text-center text-muted">There is no post for this event right now</p>
     {% endif %}
-
+</div>
     {% endblock %}
