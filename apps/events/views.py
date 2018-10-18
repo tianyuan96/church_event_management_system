@@ -157,7 +157,7 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
     form_class = PostCreationForm
     model = Event
     context_object_name = "event"
-    page_title = "TEST 2"
+
     login_url = reverse_lazy("user_accounts:login")
 
 #    def get(self, request, *args, **kwargs):
