@@ -193,8 +193,7 @@ class LoginUserView(generic.FormView, core_views.BaseView):
                 else:
                     form.errors[""] = " You aren't allowed to log in here"
             else:
-                form.errors['password'] = " Invalid Login"
-
+                form.errors['password'] = "Wrong email or password"
         return render(request, self.template_name, { 'form': form, })
 
 

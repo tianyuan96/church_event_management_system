@@ -6,12 +6,6 @@
 
 <div class="container mt-3">
 
-  {% if form.errors %}
-  <div class="alert alert-warning">
-    <p>{{ form.errors }}
-  </div>
-  {% endif %}
-
 
   <form method="post" action="{% url 'user_accounts:login' %}">
     {% csrf_token %}
@@ -21,15 +15,25 @@
         <div class="card mb-3">
           <h3 class="card-header text-center bg-primary text-white">Login</h3>
           <div class="card-body pb-0">
-
+              {% if  form.password.errors %}
+                    <div class="alert alert-warning">
+                    {{ form.password.errors }}
+                    </div>
+                {% endif %}
             <div class="form-group">
               {{ form.email.label_tag }}
               <br> {{ form.email }}
+                {% if  form.email.errors %}
+                        <div class="alert alert-warning">
+                        {{ form.email.errors }}
+                        </div>
+                {% endif %}
               <!-- <input class="form-control" name="username"> -->
             </div>
             <div class="form-group">
               {{ form.password.label_tag }}
               <br> {{ form.password }}
+
               <!-- <input type="password" class="form-control" name="password"> -->
               <br><br><button class="btn btn-block btn-primary" type="submit">Login</button>
             </div>
