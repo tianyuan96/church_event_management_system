@@ -7,7 +7,7 @@ from django.views.generic import edit
 from .models import Event, InvolvedEvent, Post, ReplyTo, PostLike
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from apps.surveys.models import Survey
 from apps.core import views as core_views
@@ -127,8 +127,18 @@ class DiscussionView(generic.CreateView, core_views.BaseView):
 class DeletePostView(generic.DeleteView):
 
     model = Post
-    def get_success_url(self, **kwargs):
 
+    def dispatch(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        user = request.user
+        print("delete" +str(pk))
+        print(Post.objects.filter(author=user,id=pk).exists())
+        if Post.objects.filter(author=user,id=pk).exists():
+            return super(DeleteEventView, self).dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden()
+
+    def get_success_url(self, **kwargs):
 
         return reverse_lazy("event_forums", args=(self.object.eventID.id,))
 
@@ -186,6 +196,12 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
 
     def reply_form(self):
         return ReplyCreationForm
+
+
+    def has_joined(self):
+        event = self.object
+        user = self.request.user
+        return InvolvedEvent.objects.filter(participant=user, event=event).exists()
 
 
     def post(self, request, *args, **kwargs):
