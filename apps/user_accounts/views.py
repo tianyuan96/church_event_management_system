@@ -22,9 +22,11 @@ from apps.surveys import models as survey_models
 from apps.food_preferences import forms as pref_forms
 from apps.food_preferences import models as pref_models
 
+from utils.mail.mail_server import ConfirmationEmail
 
+from braces.views import UserPassesTestMixin
 
-class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseView):
+class UserProfileView(UserPassesTestMixin, LoginRequiredMixin, generic.TemplateView, core_views.BaseView):
 
     template_name = "user_accounts/registration/profile.html"
     success_url = reverse_lazy('user_accounts:profile')
@@ -59,6 +61,10 @@ class UserProfileView(LoginRequiredMixin, generic.TemplateView, core_views.BaseV
         form.fields['display_name'].initial = user_details.display_name
         return form
 
+    def test_func(self, user):
+        print('kasdfkasd;flkasdj;lasdkjf')
+        return user.is_active
+
 class UpdateUserView(generic.View):
 
     success_url = reverse_lazy('user_accounts:user_profile')
@@ -88,8 +94,7 @@ class RegisterUserView(generic.FormView, core_views.BaseView):
     page_title = "Register"
     template_name = 'user_accounts/registration/register.html'
     #success_url = reverse_lazy('user_profile')
-    success_url = reverse_lazy('successfully_registered')
-    profile_url = reverse_lazy('user_accounts:profile')
+    success_url = reverse_lazy('user_accounts:successfully_registered')
 
     # Get the data from the registration form and register the user
     def post(self, request, *args, **kwargs):
@@ -109,29 +114,32 @@ class RegisterUserView(generic.FormView, core_views.BaseView):
             user.username = username
             user.save()
 
-            # Auto log the user in
             user = authenticate(username=username, password=password)
-            code = hash(username)
-            models.Confirmations.objects.create(user=user, confirmation_code=code)
-            user_to_confirm = models.Confirmations.objects.get(user=user)
-            if user is not None: # if the user was successfully authed
-                if user.is_active:  # The user has not been banned
-                    login(request, user)
-                    if user_to_confirm.has_confirmed is False:
+            user.is_active = False  # set the user to inactive so they need to confirm their email
+            user.save()
+            if user and user.is_authenticated:
 
+                self.confirm_email(user)
+                messages.success(request, 'A confirmation email has been sent to {}'.format(username))
+                return redirect(self.success_url)
+            else:
+                print('user was not authed')
+                return redirect(reverse_lazy('user_accounts:register'))
 
+        print('Form was not valid')
+        return redirect(reverse_lazy('user_accounts:register'))
 
-                        subject = 'Please activate your account at ChurchEvent'
-                        message = 'Welcome to ChurchEvent!\n Please activate your account at 127.0.0.1:8000/user_confirm/{0}'.format(str(code))
-                        from_email = settings.EMAIL_HOST_USER
-                        to_list = [username]
-                        send_mail(subject, message, from_email, to_list, fail_silently=True)
-                        messages.success(request, 'Thank you, we will be in touch')
-                        return redirect(self.success_url)
-                    else:
-                        return redirect(self.profile_url)
+    def confirm_email(self, user):
 
-        return render(request, self.template_name, {'form': form, })
+        # Generate a code
+        code = hash(user.username)
+        models.Confirmations.objects.create(user=user, confirmation_code=code)
+        user_to_confirm = models.Confirmations.objects.get(user=user)
+
+        # And send them a confirmation email
+        confirm = ConfirmationEmail()
+        confirm.send(user.username, code)  # async
+        return True
 
 class NeedActivateView(generic.TemplateView, core_views.BaseView):
 
@@ -185,34 +193,30 @@ class LoginUserView(generic.FormView, core_views.BaseView):
                     form.errors[""] = " You aren't allowed to log in here"
             else:
                 form.errors['password'] = "Wrong email or password"
-
         return render(request, self.template_name, { 'form': form, })
 
 
 class UserConfirmView(generic.View, core_views.BaseView):
 
-    success_url = reverse_lazy('successfully_confirmed')
+    success_url = reverse_lazy('user_accounts:successfully_confirmed')
     page_title = 'Confirmation'
 
     def get(self, request, confirmation_code):
+        print('HERE:', request.GET.get('email'))
+
+        user = User.objects.get(email=request.GET.get('email'))
+        user.is_active = True
+        user.save()
+
         record = models.Confirmations.objects.get(confirmation_code=confirmation_code)
         record.has_confirmed = True
         record.save()
 
+        login(request, user)
+
         return redirect(self.success_url)
 
-class HasActivatedView(generic.View):
+class HasActivatedView(core_views.BaseView, generic.TemplateView):
 
     template_name = "user_accounts/registration/successfully_confirmed.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
-
-# TODO: We can delete this right? From what I can tell, all it does is redirect to the homepage,
-# but we may as well just do that directly, rather than have this in the middle
-# class BackHomepageView(generic.View):
-#
-#     success_url = reverse_lazy('home')
-#
-#     def get(self, request, *args, **kwargs):
-#         return redirect(self.success_url)
+    page_title = 'Confirmation Success!'

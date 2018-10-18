@@ -157,17 +157,21 @@
                                             </div>
 
                                             <div class="col-11">
+
+
                                                 <div class="comment-msg">
                                                     {% if every_record.author.type == 0 %}
-                                                        <span>{{ every_reply.author.user_detail.display_name }}: </span>
+                                                        <span><i>{{ every_reply.author.user_detail.display_name }}<b>:</b> </i></span>
 
                                                     {% endif %}
 
                                                     {% if every_record.author.type == 1 %}
-                                                        <span>{{ every_reply.author.user_detail.display_name }} to {{ every_record.author.author.user_detail.display_name }}: </span>
+                                                        <span><i>{{ every_reply.author.user_detail.display_name }} <b>to</b> {{ every_record.author.author.user_detail.display_name }}<b>:</b> </i></span>
 
                                                     {% endif %}
-                                                    <span>{{ every_reply.message }}</span>
+                                                    <br>
+                                                    <br>
+                                                    <span>{{ every_reply.message |safe}}</span>
                                                 </div>
                                                 <div class="float-right">
                                                     {% if user == every_post.author %}
