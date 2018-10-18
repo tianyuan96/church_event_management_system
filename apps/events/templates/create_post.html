@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <script type="text/javascript">
     function show(name) {
         
@@ -13,7 +14,20 @@
 </script>
 
 <div class="container mt-3">
+    {% include 'event_header.html' with event=event %}
+    <br>
 
+    <nav class="mt-5 mb-3">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+            <a class="nav-item nav-link " href="{% url 'event_details' event.id %}" role="tab"
+                aria-controls="nav-home" aria-selected="false" style="width: 50%">Description</a>
+            <a class="nav-item nav-link active"  href="{% url 'event_forums' event.id %}"
+                aria-selected="true" style="width: 50%">Discussion</a>
+
+
+        </div>
+    </nav>
     <h1>Post Something</h1>
 {#    HERE: {{ event }}#}
     <br>
