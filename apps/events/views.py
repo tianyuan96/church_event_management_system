@@ -196,6 +196,11 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
     def reply_form(self):
         return ReplyCreationForm
 
+    def has_liked(self):
+        event = self.object
+        user = self.request.user
+        return[ post_like.postID.id for post_like in PostLike.objects.filter(eventID=event, author=user)]
+
 
     def has_joined(self):
         event = self.object
@@ -440,3 +445,21 @@ class PostLikeView(generic.View):
                     self.object.save()
                 return HttpResponseRedirect('/event/discussion/'+eventID)
         return HttpResponseRedirect('/')
+
+
+class PostUnlikeView(generic.DeleteView):
+    model=PostLike
+    def delete(self, request, *args, **kwargs):
+        try:
+            event=Event.objects.get(id=kwargs["eventID"])
+            post=Post.objects.get(id=kwargs["postID"])
+            post_like=self.model.objects.get(author=request.user,eventID=event,postID=post)
+
+            post_like.delete()
+            post.likes-=1
+            post.save()
+            return redirect('event_forums', pk=event.id)
+        except:
+            return Http404
+
+

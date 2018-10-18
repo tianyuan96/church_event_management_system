@@ -137,7 +137,14 @@
                             {% endif %}
                         </div>
                         <div class="comment-action">
-                            <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_post.id }}/" >Like</a> {{ every_post.likes }}
+                            {%if every_post.id not in view.has_liked %}
+                                <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_post.id }}/" >Like</a> {{ every_post.likes }}
+                            {% else%}
+                                <form method="POST" action="{% url 'unlike_post' event.id  every_post.id %}">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Unlike">{{ every_post.likes }}
+                                </form>
+                            {% endif %}
                         </div>
                         <hr>
 
@@ -190,7 +197,15 @@
                                                 <div class="comment-reply">
 
                                                     <div class="comment-action">
-                                                        <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_reply.id }}/" href="#">Like</a> {{ every_reply.likes }}
+                                                        {%if every_reply.id not in view.has_liked %}
+                                                            <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_reply.id }}/" >Like</a> {{ every_reply.likes }}
+                                                        {% else %}
+
+                                                            <form method="POST" action="{% url 'unlike_post' event.id every_reply.id %}">
+                                                                {% csrf_token %}
+                                                                <input type="submit" value="Unlike">{{ every_reply.likes }}
+                                                            </form>
+                                                        {% endif %}
                                                     </div>
                                                     <a href="javascript:void(0);" onclick="show( {{every_reply.id}} )">Reply</a>
                                                         <div id="{{ every_reply.id }}" style="display:none">
