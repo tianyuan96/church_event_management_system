@@ -44,7 +44,8 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <form>
+              <form  method="POST" action="{% url 'org_accounts:update' user.id %}">
+                  {% csrf_token %}
                 <div class="form-group row">
                   <label for="email" class="col-4 col-form-label">Email</label>
                   <div class="col-8">
@@ -56,7 +57,7 @@
                 <div class="form-group row">
                   <label for="username" class="col-4 col-form-label">Display Name (for the forum)</label>
                   <div class="col-8">
-                    <input id="display_name" name="display_name" placeholder="{{ view.user_details.name }}" class="form-control here"
+                    <input id="display_name" name="display_name" placeholder="{{ view.user_details.display_name }}" class="form-control here"
                       type="text">
                   </div>
                 </div>

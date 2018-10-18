@@ -67,7 +67,7 @@ class UserProfileView(UserPassesTestMixin, LoginRequiredMixin, generic.TemplateV
 
 class UpdateUserView(generic.View):
 
-    success_url = reverse_lazy('user_accounts:user_profile')
+    success_url = reverse_lazy('user_accounts:profile')
 
 
     def post(self, request, *args, **kwargs):
