@@ -189,11 +189,11 @@ class LoginUserView(generic.FormView, core_views.BaseView):
                 if user.is_active and not user.is_staff and not user.is_superuser:
                     login(request, user)
                     return redirect(self.success_url)
+
                 else:
                     form.errors[""] = " You aren't allowed to log in here"
             else:
-                form.errors['password'] = " Invalid Login"
-
+                form.errors['password'] = "Wrong email or password"
         return render(request, self.template_name, { 'form': form, })
 
 

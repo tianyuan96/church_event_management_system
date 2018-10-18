@@ -13,8 +13,9 @@ from apps.surveys.models import Survey
 from apps.core import views as core_views
 from django.contrib.auth.decorators import login_required
 import datetime
+from django.contrib.auth.models import User
 
-
+from utils.mail.mail_server import ForumReplyEmail
 
 class JoinEvent(generic.View):
     #success_url =
@@ -157,7 +158,7 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
     form_class = PostCreationForm
     model = Event
     context_object_name = "event"
-    page_title = "TEST 2"
+
     login_url = reverse_lazy("user_accounts:login")
 
 #    def get(self, request, *args, **kwargs):
@@ -224,13 +225,10 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
 
 
 class ReplyCreationView(generic.CreateView):
+
     template_name = "create_post.html"
     form_class = ReplyCreationForm
     model = Post
-
-
-
-
 
     def get(self, request, eventID, postID):
         user = request.user
@@ -286,6 +284,12 @@ class ReplyCreationView(generic.CreateView):
                     record.replier = Post.objects.get(id=replyID)
                     record.postID = Post.objects.get(id=postID)
                     record.save()
+
+                    # Notify the toplevel person someone has replied to their post
+                    email = Post.objects.get(id=postID).author.email
+                    print('HERE:', email)
+                    forum_reply_email = ForumReplyEmail()
+                    forum_reply_email.send(email, eventID)
 
                     return HttpResponseRedirect('/event/discussion/'+eventID)
                 else:
@@ -436,7 +440,3 @@ class PostLikeView(generic.View):
                     self.object.save()
                 return HttpResponseRedirect('/event/discussion/'+eventID)
         return HttpResponseRedirect('/')
-
-
-
-    
