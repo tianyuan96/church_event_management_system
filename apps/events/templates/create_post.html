@@ -28,7 +28,7 @@
 
         </div>
     </nav>
-    <h1>Post Something</h1>
+    <h3>Post Something</h3>
 {#    HERE: {{ event }}#}
     <br>
     <div class="card">
@@ -37,7 +37,7 @@
                 {%csrf_token%}
 
                 <div class="form-group row">
-                    <label name="post" class="col-sm-2 col-form-label">Write something</label>
+                    <label name="post" class="col-sm-2 col-form-label">Post text</label>
                     <div class="col-sm-10">
                         <!--<textarea class="form-control" name="event_description"></textarea>-->
                         {% load static %}
@@ -50,19 +50,14 @@
                 </div>
                 <!-- upload image here-->
                 <div class="form-group row">
-                    <label name="post" class="col-sm-2 col-form-label">Images</label>
-                    <div class="col-sm-10">
-
+                    <label name="post" class="col-sm-2 col-form-label">Post Images</label>
                         <div class="col-6 ">
                             {{view.form.imageFile}}
-
                         </div>
-
-                    </div>
                 </div>
                 <!-- end upload image -->
                 <div id="image_container" class="d-flex justify-content-center" style="display:none">
-                    <img id="imageFileToBeUpload" class="img-thumbnail "  src="">
+                    <img id="post_image_content" id="imageFileToBeUpload" class="img-thumbnail" style="display:none" src="">
                 </div>
                 <script type="text/javascript">
                     $('#id_imageFile').change(function(e){
@@ -74,6 +69,8 @@
                             // show the image of the picutre that is going to be upload
                             document.getElementById("imageFileToBeUpload").src= ev.target.result;
                             document.getElementById("image_container").style.display="block";
+                            document.getElementById("post_image_content").style.display="block";
+
                         };
                     });
                 </script>
