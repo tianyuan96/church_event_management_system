@@ -147,3 +147,11 @@ footer a {
 footer a:hover {
     color: #eee
 }
+
+.text-format {
+
+    font-size: 1.0rem;
+    color:grey;
+    font-family: Helvetica, Arial, sans-serif;
+
+}
