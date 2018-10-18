@@ -113,3 +113,4 @@ venv.bak/
 
 #imagefolder
 .media/image/None*
+media/image/None/*
