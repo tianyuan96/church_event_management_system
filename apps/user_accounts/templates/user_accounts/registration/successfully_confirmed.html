@@ -1,11 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ title }}{% endblock %}
-
 {% block content %}
 
-    <a href="/accounts/users/back_homepage">Go back to homepage</a><br>
-    <p>Congratulations! You have already confirmed your account ; )</p>
-
+    <a href="{% url 'home' %}">Go back to homepage</a><br>
+    <p>Congratulations! You have confirmed your account</p>
 
 {% endblock %}
