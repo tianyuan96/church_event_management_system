@@ -153,9 +153,8 @@
                               </div>
                               <div class="col-md-6">
                                   <h4><a class="text-primary" href="/event/details/{{ event.id }}">{{ event.name }}</a></h4>
-                                  <p class="text-muted">11 Sep, 2018</p>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nunc libero, ultricies eget tortor sit amet,
-                                      gravida aliquet mauris. Integer rhoncus feugiat erat in cursus.</p>
+                                  <p class="text-muted">{{ event.date }}</p>
+                                  <p>{{ event.description }}</p>
                               </div>
                               <div class="col-md-2">
                                     <a href="/event/details/{{ event.id }}" style="height:40px; width:120px ;position: relative; top: -16px;" class="btn btn-primary">Detail</a>
