@@ -188,6 +188,12 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
         return ReplyCreationForm
 
 
+    def has_joined(self):
+        event = self.object
+        user = self.request.user
+        return InvolvedEvent.objects.filter(participant=user, event=event).exists()
+
+
     def post(self, request, *args, **kwargs):
         user = request.user
         eventID = kwargs.get("pk")
