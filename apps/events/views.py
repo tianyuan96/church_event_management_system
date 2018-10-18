@@ -131,10 +131,8 @@ class DeletePostView(generic.DeleteView):
     def dispatch(self, request, *args, **kwargs):
         pk = kwargs.get('pk')
         user = request.user
-        print("delete" +str(pk))
-        print(Post.objects.filter(author=user,id=pk).exists())
         if Post.objects.filter(author=user,id=pk).exists():
-            return super(DeleteEventView, self).dispatch(request, *args, **kwargs)
+            return super(DeletePostView, self).dispatch(request, *args, **kwargs)
         else:
             return HttpResponseForbidden()
 
@@ -160,7 +158,7 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
     model = Event
     context_object_name = "event"
     page_title = "TEST 2"
-
+    login_url = reverse_lazy("user_accounts:login")
 
 #    def get(self, request, *args, **kwargs):
 #        user = request.user
