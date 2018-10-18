@@ -87,7 +87,7 @@ class EventDetailsView(LoginRequiredMixin,generic.DetailView, core_views.BaseVie
 class DeleteEventView(generic.DeleteView):
 
     model = Event
-    success_url = 'org_profile'
+    success_url = 'org_accounts:profile'
 
     def get_success_url(self):
         return reverse_lazy(self.success_url)
