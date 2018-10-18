@@ -101,14 +101,17 @@
                     <div class="post-item">
 
                         <div class="float-right">
-                            <form action="/event/updatepost/{{ every_post.id }}" method="POST" class="d-inline">
-                                {% csrf_token %}
-                                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-edit"></i></button>
-                            </form>
-                            <form action="/event/deletepost/{{ every_post.id }}" method="POST" class="d-inline">
-                                {% csrf_token %}
-                                <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
-                            </form>
+                                {% if every_post.author == user %}
+                                <form action="/event/updatepost/{{ every_post.id }}" method="POST" class="d-inline">
+                                    {% csrf_token %}
+                                    <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-edit"></i></button>
+                                </form>
+
+                                <form action="/event/deletepost/{{ every_post.id }}" method="POST" class="d-inline">
+                                    {% csrf_token %}
+                                    <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                </form>
+                                {% endif %}
                         </div>
 
                         <div>
@@ -170,14 +173,17 @@
                                                     <span>{{ every_reply.message }}</span>
                                                 </div>
                                                 <div class="float-right">
-                                                    <form action="/event/updatepost/{{ every_reply.id }}" method="POST" class="d-inline">
-                                                        {% csrf_token %}
-                                                        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-edit"></i></button>
-                                                    </form>
-                                                    <form action="/event/deletepost/{{ every_reply.id }}" method="POST" class="d-inline">
-                                                        {% csrf_token %}
-                                                        <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
-                                                    </form>
+                                                    {% if user == every_post.author %}
+                                                        <form action="/event/updatepost/{{ every_reply.id }}" method="POST" class="d-inline">
+                                                            {% csrf_token %}
+                                                            <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-edit"></i></button>
+                                                        </form>
+
+                                                        <form action="/event/deletepost/{{ every_reply.id }}" method="POST" class="d-inline">
+                                                            {% csrf_token %}
+                                                            <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                                        </form>
+                                                    {% endif %}
                                                 </div>
 
                                                 <div class="comment-reply">
