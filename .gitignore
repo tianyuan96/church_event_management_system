@@ -5,7 +5,7 @@ __pycache__/
 
 .*migrations/*
 (.*?)/migrations/*
-
+app/(.?*)/migrations/
 # C extensions
 *.so
 
