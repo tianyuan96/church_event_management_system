@@ -16,6 +16,7 @@ PROJECT_NAME = 'Church Bookings'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+HOSTNAME = 'http://127.0.0.1:8000'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -75,6 +76,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates/'),
+            os.path.join(BASE_DIR, 'utils', 'mail', 'templates/'),
             'apps/events/templates/',
             'apps/main/templates/',
             'apps/user_accounts/templates/',
