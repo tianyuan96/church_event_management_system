@@ -18,8 +18,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        host = User.objects.get(email='a@a.com')
-
+        # host = User.objects.get(email='a@a.com')
+        host = User(email='samscheding@gmail.com', username='samscheding@gmail.com')
+        host.set_password('password')
+        host.save()
         for i in range(0, 12):
             name = "Auto Generated Event {}".format(i)
             date = datetime.now() + timedelta(days=i)

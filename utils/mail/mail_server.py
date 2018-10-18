@@ -43,9 +43,10 @@ class ForumReplyEmail():
         self.sender = settings.EMAIL_HOST_USER
 
     @multitasking.task  # This is a decorator that turns send() into a non-blocking method
-    def send(self, forum_link):
+    def send(self, to_email, event_id):
 
-        forum_link = '{}/user_confirm/{}?email={}'.format(self.host_name, code, to_email)
+
+        forum_link = '{}/event/discussion/{}'.format(self.host_name, event_id)
         context = {
             'forum_link': forum_link,
         }
