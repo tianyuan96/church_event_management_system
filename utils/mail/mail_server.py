@@ -27,7 +27,31 @@ class ConfirmationEmail():
         }
 
         # Supply both html and plaintext content, in case the user's email client doesn't support html
-        text_content = "Click the following link to confirm your Church Bookings account. \n{}".format(confirmation_url)
+        text_content = "Visit the following url to confirm your Church Bookings account. \n{}".format(confirmation_url)
+        html_content = render_to_string(self.template_name, context)
+        msg = EmailMultiAlternatives(self.subject, text_content, self.sender, [to_email])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+
+class ForumReplyEmail():
+
+    def __init__(self):
+        self.host_name = settings.HOSTNAME  # The domain name of the website. In development this would be 127.0.0.1:8000
+        self.template_name = "forum_reply_email.html"
+        self.subject = "New Forum Reply!"
+        self.sender = settings.EMAIL_HOST_USER
+
+    @multitasking.task  # This is a decorator that turns send() into a non-blocking method
+    def send(self, forum_link):
+
+        forum_link = '{}/user_confirm/{}?email={}'.format(self.host_name, code, to_email)
+        context = {
+            'forum_link': forum_link,
+        }
+
+        # Supply both html and plaintext content, in case the user's email client doesn't support html
+        text_content = "Visit the following url to see the new forum reply. \n{}".format(forum_link)
         html_content = render_to_string(self.template_name, context)
         msg = EmailMultiAlternatives(self.subject, text_content, self.sender, [to_email])
         msg.attach_alternative(html_content, "text/html")
