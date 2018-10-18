@@ -11,6 +11,7 @@ from apps.org_accounts.models import OrganisationDetails
 from django.contrib.auth.models import User
 from apps.main import forms as mainp_forms
 from apps.main import models as mainp_models
+from apps.user_accounts.models import UserDetails
 
 
 class OrganisationProfileView(LoginRequiredMixin, generic.ListView, core_views.BaseView):
@@ -22,6 +23,7 @@ class OrganisationProfileView(LoginRequiredMixin, generic.ListView, core_views.B
     # login_url = '/accounts/organisations/login/'
 
     def user_details(self):
+
         return OrganisationDetails.objects.get(user=self.request.user.id)
 
     def events(self):
@@ -68,6 +70,8 @@ class RegisterOrganisationView(generic.FormView, core_views.BaseView):
             org = OrganisationDetails(name=form.cleaned_data['organisation'], user=user)
             org.save()
 
+            detail=UserDetails.objects.create(user=user,display_name=form.cleaned_data['organisation'])
+            detail.save()
             # Auto log the user in
             user = authenticate(username=username, password=password)
 

@@ -114,7 +114,11 @@
                                     <i class="far fa-user"></i>
                                 </div>
                             </div>
-                            <h5 class="pt-1 mb-1">{{ every_post.author.user_detail.display_name }}</h5>
+                            {% if every_post.author.user_detail.display_name %}
+                                <h5 class="pt-1 mb-1">{{ every_post.author.user_detail.display_name }}</h5>
+                            {% else %}
+                                <h5 class="pt-1 mb-1">{{ every_post.author}}</h5>
+                            {% endif %}
                             <p class="text-muted">{{ every_post.date }}</p>
                         </div>
                         <!-- start post massage-->
@@ -214,12 +218,26 @@
                                 {%csrf_token%}
                                 <div class="comment-item">
                                     <div class="row">
-                                        <div class="col-1">
-                                            <div class="comment-user-img">
-                                                <i class="far fa-user"></i>
-                                            </div>
+                                        <div class="col-2">
+                                            <span>
+                                                <div class="comment-user-img">
+                                                    <span>
+                                                        <i class="far fa-user"></i>
+                                                    </span>
+
+                                                </div>
+
+
+
+                                            </span>
+                                            <span>
+                                                  {{ user.user_detail.display_name }} :
+                                            </span>
+
+
+
                                         </div>
-                                        <div class="col-11">
+                                        <div class="col-9">
                                             <div class="comment-post">
                                                 <form method class="form-group">
                                                     <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">
