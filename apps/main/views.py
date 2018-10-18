@@ -9,8 +9,9 @@ from .forms import MainPageForm
 import datetime
 
 class UpdateHomePageDeatail(generic.View):
+
     model = MainPage
-    success_url = reverse_lazy('org_profile')
+    success_url = reverse_lazy('org_accounts:profile')
 
     def post(self, request, *args, **kwargs):
         # Delete the old user's food prefs
