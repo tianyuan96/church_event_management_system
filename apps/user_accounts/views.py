@@ -67,7 +67,7 @@ class UserProfileView(UserPassesTestMixin, LoginRequiredMixin, generic.TemplateV
 
 class UpdateUserView(generic.View):
 
-    success_url = reverse_lazy('user_accounts:user_profile')
+    success_url = reverse_lazy('user_accounts:profile')
 
 
     def post(self, request, *args, **kwargs):
@@ -189,6 +189,7 @@ class LoginUserView(generic.FormView, core_views.BaseView):
                 if user.is_active and not user.is_staff and not user.is_superuser:
                     login(request, user)
                     return redirect(self.success_url)
+
                 else:
                     form.errors[""] = " You aren't allowed to log in here"
             else:

@@ -7,10 +7,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from apps.events.models import Event
 from apps.core import views as core_views
+from apps.org_accounts import forms
+from apps.org_accounts import models
 from apps.org_accounts.models import OrganisationDetails
 from django.contrib.auth.models import User
 from apps.main import forms as mainp_forms
 from apps.main import models as mainp_models
+from django.contrib import messages
+
 from apps.user_accounts.models import UserDetails
 
 
@@ -119,4 +123,27 @@ class LogoutOrganisationView(generic.View):
     def get(self, request, *args, **kwargs):
 
         response = logout(request)
+        return redirect(self.success_url)
+
+
+class UpdateUserView(generic.View):
+
+    success_url = reverse_lazy('org_accounts:profile')
+
+
+    def post(self, request, *args, **kwargs):
+
+        user_form = forms.OrgnasationForm(request.POST, instance=request.user)
+        valid = user_form.is_valid()
+        if not valid:
+            messages.add_message(request, messages.ERROR, 'Could not update user details.', extra_tags='danger profile_update')
+            return redirect(self.success_url)
+
+        instance = user_form.save()
+
+        # Update user details as well
+        display_name = user_form.cleaned_data['display_name']
+        models.OrganisationDetails.objects.filter(user=request.user).delete()
+        obj, created = models.OrganisationDetails.objects.update_or_create(user=request.user, display_name=display_name)
+        messages.add_message(request, messages.INFO, 'User details updated!', extra_tags='success profile_update')
         return redirect(self.success_url)

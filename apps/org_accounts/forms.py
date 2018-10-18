@@ -41,3 +41,16 @@ class LoginOrganisationForm(forms.Form):
     class Meta:
         model = User
         fields = ('email', )
+
+class OrgnasationForm(forms.ModelForm):
+
+    email = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': 'required', }))
+    display_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'required': False, }))
+
+    # new_password = forms.CharField(required=False, widget=forms.PasswordInput(attrs={'class':'form-control',}))
+    # confirm_password = forms.CharField(required=False, widget=forms.PasswordInput(attrs={'class':'form-control', }))
+
+    class Meta:
+        model = User
+        # exclude = ('password',)
+        fields = ('email', 'display_name',)
