@@ -4,7 +4,7 @@
     <h1>What's the title for the survey?</h1>
 
 
-    <form method="POST" action="/survey/create/{{ survey.event_id }}/{{ survey.id }}/"  enctype="multipart/form-data" id="survey_form">
+    <form  method="POST" action="/survey/create/{{ survey.event_id }}/{{ survey.id }}/"  enctype="multipart/form-data" id="survey_form1">
         {% csrf_token %}
         <div class="card">
             <div class="card-body">
@@ -27,7 +27,8 @@
                 </div>
             </div>
         </div>
-
+        <input type="hidden" name="operation" value="create_survey" />
+    </form>
     <br>
 
     {% if error %}
@@ -49,16 +50,22 @@
     </div>
 
     <br>
-
-
     <!-- submit survey button -->
     <div class="col-md-4 offset-md-4">
-        <button class="btn btn-primary btn-block" type="submit" name="operation" value="create_survey" >Public survey</button>
+
+        <button id="submit_survey_button" class="btn btn-primary btn-block" name="operation" value="create_survey" >Public Survey</button>
+        <script type="text/javascript">
+            $('#submit_survey_button').click(function() {
+                            var form = document.getElementById('survey_form1');
+                            alert(form);
+                            form.submit();
+        });
+        </script>
     </div>
         
     <!-- end submit survey button -->
 
-    </form>
+
     <!--end add dish panel-->
 
 

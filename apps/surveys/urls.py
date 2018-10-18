@@ -28,7 +28,8 @@ urlpatterns = [
     path('submit/', views.SubmitSurveyView.as_view()),
     path('close_open/', views.CloseSurveyView.as_view()),
     url(r'result/(?P<surveyId>[0-9]+)', views.SeeSurveyResultView.as_view()),
-    path('success/',views.SuccessView.as_view(),name='survey-success')
+    path('success/',views.SuccessView.as_view(),name='survey-success'),
+    path('option/delete/<int:pk>/',views.DeleteOptionInSurvey.as_view(),name="delete_option_in_survey"),
     #path('delete/<int:pk>', views.DeleteEventView.as_view()),
     #url(r'^update/(?P<pk>[0-9]+)$',views.UpdateEventView.as_view(), name='event-update'),
     #path('join/', views.JoinEvent.as_view()),

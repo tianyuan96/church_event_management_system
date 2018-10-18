@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect
+from django.views.generic.edit import DeleteView
 from django.shortcuts import render, render_to_response
 from django.views.generic.edit import FormView
 from django.shortcuts import redirect, reverse
@@ -212,6 +213,14 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
             "redirect": reverse("event_detail", kwargs={"pk": survey.event.id}),
             "message": "Create survey fail",
         }
+
+class DeleteOptionInSurvey(DeleteView):
+    model = OptionInSurvey
+
+    def get_success_url(self, **kwargs):
+        print(self.object.survey.event.id)
+        return reverse_lazy('add_option_for_survey',args=(self.object.survey.event.id,self.object.survey.id,))
+
 
 class SubmitSurveyView(generic.View):
     def post(self, request):

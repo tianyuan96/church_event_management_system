@@ -53,7 +53,7 @@
                     <label name="post" class="col-sm-2 col-form-label">Images</label>
                     <div class="col-sm-10">
 
-                        <div class="col-6">
+                        <div class="col-6 ">
                             {{view.form.imageFile}}
 
                         </div>
@@ -61,7 +61,9 @@
                     </div>
                 </div>
                 <!-- end upload image -->
-                <img id="imageFileToBeUpload" class="img-thumbnail" src="">
+                <div id="image_container" class="d-flex justify-content-center" style="display:none">
+                    <img id="imageFileToBeUpload" class="img-thumbnail "  src="">
+                </div>
                 <script type="text/javascript">
                     $('#id_imageFile').change(function(e){
                         var uploadFile = e.target.files[0].name;
@@ -71,6 +73,7 @@
                         reader.onload = function (ev) {
                             // show the image of the picutre that is going to be upload
                             document.getElementById("imageFileToBeUpload").src= ev.target.result;
+                            document.getElementById("image_container").style.display="block";
                         };
                     });
                 </script>
