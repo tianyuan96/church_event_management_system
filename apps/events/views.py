@@ -53,7 +53,7 @@ class CreateEventView(LoginRequiredMixin, generic.CreateView, core_views.BaseVie
     model = Event
     page_title = 'Create Event'
     success_url = reverse_lazy('home')
-    login_url = '/accounts/organisations/login/'  # If the user isn't logged in, they will be redirected here (see: LoginRequiredMixin)
+    login_url = reverse_lazy('org_accounts:login')  # If the user isn't logged in, they will be redirected here (see: LoginRequiredMixin)
 
     def form(self):
         form = self.form_class()
@@ -62,7 +62,7 @@ class CreateEventView(LoginRequiredMixin, generic.CreateView, core_views.BaseVie
 
 
 
-class EventDetailsView(LoginRequiredMixin,generic.DetailView, core_views.BaseView):
+class EventDetailsView(LoginRequiredMixin, generic.DetailView, core_views.BaseView):
 
     model = Event
     context_object_name = 'event'
@@ -88,10 +88,10 @@ class EventDetailsView(LoginRequiredMixin,generic.DetailView, core_views.BaseVie
 class DeleteEventView(generic.DeleteView):
 
     model = Event
-    success_url = 'org_accounts:profile'
+    success_url = reverse_lazy('org_accounts:profile')
 
     def get_success_url(self):
-        return reverse_lazy(self.success_url)
+        return self.success_url
 
 class UpdateEventView(edit.UpdateView, core_views.BaseView):
 
@@ -99,7 +99,7 @@ class UpdateEventView(edit.UpdateView, core_views.BaseView):
     template_name = "event_update.html"
     page_title = "Update Event"
     form_class = EventUpdateForm
-    success_url = reverse_lazy('org_profile')
+    success_url = reverse_lazy('org_accounts:profile')
 
 
 
@@ -461,5 +461,3 @@ class PostUnlikeView(generic.DeleteView):
             return redirect('event_forums', pk=event.id)
         except:
             return Http404
-
-
