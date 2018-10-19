@@ -105,10 +105,11 @@ class LoginOrganisationView(generic.FormView, core_views.BaseView):
             password = form.cleaned_data['password']
             user = authenticate(username=email, password=password)
 
-            if user is not None:
+            if user:
                 if user.is_active and user.is_staff and not user.is_superuser:
                     login(request, user)
-                    return redirect(self.success_url)
+                    next_page = request.POST.get('next', self.success_url)
+                    return redirect(next_page)
                 else:
                     form.errors[""] = " You aren't allowed to log in here"
             else:
