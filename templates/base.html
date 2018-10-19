@@ -16,8 +16,11 @@
 	 crossorigin="anonymous"></script>
 
 	 <script>
+
 		$(document).ready(function() {
-			$('[data-toggle="tooltip"]').tooltip();
+			setTimeout(function(){
+				$('[data-toggle="tooltip"]').tooltip();
+			}, 1000);
 		});
 	 </script>
 
@@ -31,6 +34,8 @@
 	{% include 'nav.html' %}
 
 	{% block content %} {% endblock %}
+
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5bc98a44e9595b61"></script>
 </body>
 
 </html>
