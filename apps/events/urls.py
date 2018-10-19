@@ -19,13 +19,15 @@ from django.views.generic.edit import CreateView
 from . import views
 from django.conf.urls import url
 
+app_name = "events"
+
 urlpatterns = [
     path('create/', views.CreateEventView.as_view(), name='event_create'),
     path('details/<int:pk>/', views.EventDetailsView.as_view(), name='event_detail'),
     path('details/<int:pk>/', views.EventDetailsView.as_view(), name='event_details'),
 
     path('delete/<int:pk>', views.DeleteEventView.as_view(), name='delete_event'),
-    path('update/<int:pk>',views.UpdateEventView.as_view(), name='event_update'),
+    path('update/<int:pk>',views.UpdateEventView.as_view(), name='update'),
     path('success', views.CreateSuccessView.as_view(), name='event_success'),
     path('join/', views.JoinEvent.as_view()),
     path('discussion/<int:pk>/', views.PostCreationView.as_view(), name='event_forums'),
