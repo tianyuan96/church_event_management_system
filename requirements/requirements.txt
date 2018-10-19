@@ -14,6 +14,7 @@ google-cloud-vision==0.34.0
 googleapis-common-protos==1.5.3
 grpcio==1.15.0
 idna==2.7
+loremipsum==1.0.5
 multitasking==0.0.7
 Pillow==5.2.0
 protobuf==3.6.1
