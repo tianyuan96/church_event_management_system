@@ -55,7 +55,6 @@ class EventUpdateForm(forms.ModelForm):
 
         }
 
-
 class PostUpdateForm(forms.ModelForm):
 
     class Meta:

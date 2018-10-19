@@ -19,6 +19,7 @@ from django.views.generic.edit import CreateView
 from . import views
 from django.conf.urls import url
 
+
 urlpatterns = [
     path('create/', views.CreateEventView.as_view(), name='event_create'),
     path('details/<int:pk>/', views.EventDetailsView.as_view(), name='event_detail'),
