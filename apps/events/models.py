@@ -12,7 +12,7 @@ class Event(models.Model):
     name = models.CharField(max_length = 100)
     date = models.DateField(blank = True, default="1997-11-1")
     location = models.CharField(max_length = 100,)
-    description = RichTextField(max_length=512,blank=True)
+    description = RichTextField(max_length=5120,blank=True)
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     host = models.ForeignKey(User, on_delete = models.CASCADE)
     lan = models.DecimalField(null=True,decimal_places=145,max_digits=150,blank=True,)

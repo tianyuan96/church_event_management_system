@@ -37,12 +37,12 @@ class EventUpdateForm(forms.ModelForm):
     class Meta:
 
         model = Event
-        fields = '__all__'
-        fields = {
+        fields =['date','name','location','description','imageFile']
+        widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             # 'date': forms.TextInput(attrs={'class': 'form-control',
             #                                'type': 'date'}),
-            'location': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.TextInput(attrs={'class': 'form-control','id':'location_input'}),
             'description': CKEditorWidget(attrs={'class': 'form-control'}),
             'imageFile': forms.FileInput(attrs={'class': 'custom-file-input'}),
 
