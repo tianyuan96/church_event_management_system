@@ -188,8 +188,9 @@ class LoginUserView(generic.FormView, core_views.BaseView):
             if user is not None:
                 if user.is_active and not user.is_staff and not user.is_superuser:
                     login(request, user)
-                    if request.POST['next']:
-                        return redirect(request.POST['next'])
+                    next_page = request.POST['next']
+                    if next_page and next_page != '':
+                        return redirect(next_page)
                     else:
                         return redirect(self.success_url)
 

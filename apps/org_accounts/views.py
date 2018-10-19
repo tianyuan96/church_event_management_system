@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 from apps.main import forms as mainp_forms
 from apps.main import models as mainp_models
 from django.contrib import messages
-
+from django.conf import settings
 from apps.user_accounts.models import UserDetails
 
 
@@ -93,7 +93,8 @@ class LoginOrganisationView(generic.FormView, core_views.BaseView):
     form_class = LoginOrganisationForm
     page_title = "Login"
     template_name = 'org_accounts/registration/login.html'
-    success_url = reverse_lazy('org_accounts:profile')
+    success_view = 'org_accounts:profile'
+    success_url = reverse_lazy(success_view)
 
     def post(self, request, *args, **kwargs):
 
@@ -108,13 +109,18 @@ class LoginOrganisationView(generic.FormView, core_views.BaseView):
             if user:
                 if user.is_active and user.is_staff and not user.is_superuser:
                     login(request, user)
-                    next_page = request.POST.get('next', self.success_url)
-                    return redirect(next_page)
+                    next_page = request.POST.get('next')
+                    if next_page and next_page != '':
+                        return redirect(next_page)
+                    return redirect(self.success_url)
+
                 else:
                     form.errors[""] = " You aren't allowed to log in here"
             else:
                 form.errors["password"] = ' Wrong email or password'
-        return render(request, self.template_name, { 'form': form, })
+
+        # This is very ugly, please never do this
+        return render(request, self.template_name, { 'form': form, 'view': {'title': self.page_title, 'project_name': settings.PROJECT_NAME}, })
 
 
 class LogoutOrganisationView(generic.View):
