@@ -109,7 +109,7 @@
 
                 {% csrf_token %}
                 <input type="hidden" name="event" value="{{ event.id }}">
-                {% if event not in joinedEvent%}
+                {% if event.id not in view.attending%}
                 <button class="btn btn-primary" type="submit" name="operation" value="Join" data-toggle="tooltip" title="Join"><i
                     class="fas fa-sign-in-alt"></i></button>
                 {% else %}

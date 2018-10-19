@@ -1,3 +1,7 @@
+.btn-link {
+    border-color: transparent;
+}
+
 section#homepage-main {
     position: relative;
 }

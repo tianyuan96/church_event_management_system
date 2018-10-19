@@ -125,8 +125,7 @@
                             <p class="text-muted">{{ every_post.date }}</p>
                         </div>
                         <!-- start post massage-->
-                        <div class="col-12 float-right ml-4">
-                            <hr>
+                        <div class="">
                             {{ every_post.message |safe}}
                         </div>
                         <!-- end post massage-->
@@ -137,7 +136,18 @@
                             {% endif %}
                         </div>
                         <div class="comment-action">
-                            <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_post.id }}/" >Like</a> {{ every_post.likes }}
+                            {%if every_post.id not in view.has_liked %}
+                                <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_post.id }}/" >
+                                    <i class="far fa-thumbs-up"></i> Like
+                                </a>
+                                {{ every_post.likes }}
+                            {% else%}
+                                <form class="d-inline-block" method="POST" action="{% url 'unlike_post' event.id  every_post.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-link p-0"><i class="fas fa-thumbs-up"></i> Unlike</button>
+                                    {{ every_post.likes }}
+                                </form>
+                            {% endif %}
                         </div>
                         <hr>
 
@@ -149,16 +159,11 @@
                                 {# every_post.id#}
                                 {# every_reply.postID#}
                                     <div class="comment-item">
-                                        <div class="row">
-                                            <div class="col-1">
                                                 <div class="comment-user-img">
                                                     <i class="far fa-user"></i>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-11">
-
-
+                                            <div class="">
                                                 <div class="comment-msg">
                                                     {% if every_record.author.type == 0 %}
                                                         <span><i>{{ every_reply.author.user_detail.display_name }}<b>:</b> </i></span>
@@ -169,8 +174,6 @@
                                                         <span><i>{{ every_reply.author.user_detail.display_name }} <b>to</b> {{ every_record.author.author.user_detail.display_name }}<b>:</b> </i></span>
 
                                                     {% endif %}
-                                                    <br>
-                                                    <br>
                                                     <span>{{ every_reply.message |safe}}</span>
                                                 </div>
                                                 <div class="float-right">
@@ -190,34 +193,42 @@
                                                 <div class="comment-reply">
 
                                                     <div class="comment-action">
-                                                        <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_reply.id }}/" href="#">Like</a> {{ every_reply.likes }}
-                                                    </div>
-                                                    <a href="javascript:void(0);" onclick="show( {{every_reply.id}} )">Reply</a>
-                                                        <div id="{{ every_reply.id }}" style="display:none">
+                                                        {%if every_reply.id not in view.has_liked %}
+                                                            <a tabindex="1" href="/event/discussion/postlike/{{ event.id}}/{{ every_reply.id }}/" >
+                                                                <i class="far fa-thumbs-up"></i> Like
+                                                            </a>
+                                                            {{ every_reply.likes }}
+                                                        {% else %}
 
-                                                            <form method="POST" action="/event/discussion/replytocomment/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}/" enctype="multipart/form-data">
-                                                                {%csrf_token%}
-                                                                <div class="comment-item">
-                                                                    <div class="row">
-                                                                        <div class="col-11">
-                                                                            <div class="comment-post">
-                                                                                <form method class="form-group">
-                                                                                    <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                            <form method="POST" class="d-inline-block" action="{% url 'unlike_post' event.id every_reply.id %}">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="btn-link p-0"><i class="fas fa-thumbs-up"></i> Unlike</button>
+                                                                {{ every_reply.likes }}
                                                             </form>
+                                                        {% endif %}
 
-                                                        </div>
+                                                        <a class="ml-2" href="javascript:void(0);" onclick="show( {{every_reply.id}} )">Reply</a>
+                                                    </div>
+
+                                                    <div id="{{ every_reply.id }}" style="display:none">
+
+                                                        <form method="POST" action="/event/discussion/replytocomment/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}/" enctype="multipart/form-data">
+                                                            {%csrf_token%}
+                                                            <div class="comment-item">
+                                                                <div class="comment-post" style="margin-left: 4.5rem; width: 60%;">
+                                                                    <form method class="form-group">
+                                                                        <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
 
                                                 </div>
 
 
 
                                             </div>
-                                        </div>
                                     </div>
                                     <br>
                                 {% endif %}
@@ -227,27 +238,20 @@
                             <form method="POST" action="/event/discussion/reply/{{ event.id}}/{{ every_post.id }}/" enctype="multipart/form-data">
                                 {%csrf_token%}
                                 <div class="comment-item">
-                                    <div class="row">
-                                        <div class="col-2">
+                                    <div class="">
+                                        <div class="d-inline-block">
                                             <span>
                                                 <div class="comment-user-img">
                                                     <span>
                                                         <i class="far fa-user"></i>
                                                     </span>
-
                                                 </div>
-
-
-
                                             </span>
                                             <span>
                                                   {{ user.user_detail.display_name }} :
                                             </span>
-
-
-
                                         </div>
-                                        <div class="col-9">
+                                        <div class="d-inline-block" style="width: 60%">
                                             <div class="comment-post">
                                                 <form method class="form-group">
                                                     <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">

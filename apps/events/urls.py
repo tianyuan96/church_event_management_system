@@ -34,7 +34,7 @@ urlpatterns = [
     url(r'^discussion/reply/(?P<eventID>[0-9]+)/(?P<postID>[0-9]+)/$', views.ReplyCreationView.as_view(), name='event_forums'),
     url(r'^discussion/postlike/(?P<eventID>[0-9]+)/(?P<postID>[0-9]+)/$', views.PostLikeView.as_view(), name='event_forums'),
     url(r'^discussion/replytocomment/(?P<eventID>[0-9]+)/(?P<postID>[0-9]+)/(?P<commentID>[0-9]+)/$', views.ReplyToCommentView.as_view(), name='event_forums'),
-
+    url(r'unlikepost/(?P<eventID>[0-9]+)/(?P<postID>[0-9]+)/',views.PostUnlikeView.as_view(),name='unlike_post')
     # url(r'^discussion/replylike/(?P<eventID>[0-9]+)/(?P<postID>[0-9]+)/(?P<replyID>[0-9]+)/$', views.ReplyLikeView.as_view(), name='event_forums'),
 
 ]
