@@ -34,10 +34,13 @@ class EventUpdateForm(forms.ModelForm):
 
     date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control',
                                                          'type': 'date'}))
+    lan = forms.DecimalField(widget=forms.TextInput(attrs={'class': 'form-control',  'id': "lan"}))
+    lng = forms.DecimalField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': "lng"}))
+
     class Meta:
 
         model = Event
-        fields =['date','name','location','description','imageFile']
+        fields =['date','name','location','description','imageFile','lan','lng']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             # 'date': forms.TextInput(attrs={'class': 'form-control',
