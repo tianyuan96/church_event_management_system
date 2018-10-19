@@ -354,13 +354,18 @@ class SeeSurveyResultView(generic.View):
         summary=self._construct_result(surveyId)
         survey = Survey.objects.get(id=surveyId)
         options = OptionInSurvey.objects.filter(survey=survey)
-        sumOfChoosen = 0;
+        sumOfChoosen = 0
+        prevent_zero =lambda x:1 if x == 0 else x
         context={
             "survey":survey,
             "options":options,
             "summary":summary,
             "chart_data":self._construct_json_result(surveyId,sumOfChoosen),
-            "sumOfChoosen":self._sum_result(surveyId)
+            "sumOfChoosen":self._sum_result(surveyId),
+            "participation_rate": SurveyParticipation.objects.filter(survey=survey).filter().count() * 100 /
+                                  prevent_zero(InvolvedEvent.objects.filter(event=survey.event).count()),
+            "survey_participant":SurveyParticipation.objects.filter(survey=survey).filter().count() ,
+            "event_participant":InvolvedEvent.objects.filter(event=survey.event).count(),
         }
 
         return render(request, self.template_name, context=context)
