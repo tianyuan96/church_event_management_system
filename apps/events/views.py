@@ -113,11 +113,11 @@ class CreateSuccessView(generic.TemplateView, core_views.BaseView):
 class DiscussionView(generic.CreateView, core_views.BaseView):
     template_name = "create_post.html"
     form_class = PostCreationForm
-    page_title = "TEST"
+    page_title = "Discussion"
     def get(self, request, eventId):
 
         event = Event.objects.get(id=eventId)
-        print('HERE:', event)
+
         form=self.form_class
         context = {
             "event": event,

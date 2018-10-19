@@ -65,7 +65,7 @@ class Command(BaseCommand):
         u.is_staff = True
         u.save()
 
-        details = OrganisationDetails(user=u, name='Focus Churches')
+        details = OrganisationDetails(user=u, display_name='Focus Churches')
         details.save()
 
         # Create a attendee user
