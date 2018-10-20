@@ -101,9 +101,6 @@ class UpdateEventView(edit.UpdateView, core_views.BaseView):
     form_class = EventUpdateForm
     success_url = reverse_lazy('org_accounts:profile')
 
-    def get_form(self, form_class=None):
-        return self.form_class(instance=self.object)
-
 
 
 class CreateSuccessView(generic.TemplateView, core_views.BaseView):
