@@ -66,7 +66,7 @@ class PostCreationForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ['message', 'imageFile']
         widgets = {
             'message': CKEditorWidget(attrs={'class': 'form-control'}),
             'imageFile': forms.FileInput(attrs={'class': 'custom-file-input', 'id': 'post_image'}),
