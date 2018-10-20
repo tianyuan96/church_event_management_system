@@ -54,23 +54,31 @@
                         <div class="col-sm-10">
                             <div class="custom-file">
                                 {{form.imageFile }}
-                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                <label id="image_label" class="custom-file-label" for="customFile">Choose file</label>
                             </div>
-                </div>
+                        </div>
                 <!-- end upload image -->
-                <div id="image_container" class="d-flex justify-content-center" style="display:none">
-                    <img id="post_image_content" id="imageFileToBeUpload" class="img-thumbnail" style="display:none" src="">
+
                 </div>
+                <div class=" flex-row">
+                    <div id="image_container" class=" d-flex  justify-content-center " style="display:none">
+
+                            <img id="post_image_content" class="img-thumbnail justify-content-center" style="display:none" src="">
+
+                    </div>
                 </div>
+
                 <script type="text/javascript">
-                    $('#id_imageFile').change(function(e){
+                    $('#post_image').change(function(e){
                         var uploadFile = e.target.files[0].name;
+                        $("#image_label").html(uploadFile);
                         //show image
                         var reader = new FileReader();
                         reader.readAsDataURL(this.files[0]);
+
                         reader.onload = function (ev) {
                             // show the image of the picutre that is going to be upload
-                            document.getElementById("imageFileToBeUpload").src= ev.target.result;
+                            document.getElementById("post_image_content").src= ev.target.result;
                             document.getElementById("image_container").style.display="block";
                             document.getElementById("post_image_content").style.display="block";
 
