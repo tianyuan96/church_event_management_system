@@ -62,9 +62,9 @@
                 </div>
                 <div class=" flex-row">
                     <div id="image_container" class=" d-flex  justify-content-center " style="display:none">
-
+                            <div class="col-8">
                             <img id="post_image_content" class="img-thumbnail justify-content-center" style="display:none" src="">
-
+                            </div>
                     </div>
                 </div>
 
@@ -153,7 +153,9 @@
                         <!-- end post massage-->
                         <div>
                             {% if every_post.imageFile %}
+                                <div class="col-8">
                                 <img class="img-thumbnail" src="{{ every_post.imageFile.url }}">
+                                </div>
                             {% else %}
                             {% endif %}
                         </div>
