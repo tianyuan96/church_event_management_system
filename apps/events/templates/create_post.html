@@ -183,7 +183,7 @@
                                                         <span><i>{{ every_reply.author.user_detail.display_name }} <b>to</b> {{ every_record.author.author.user_detail.display_name }}<b>:</b> </i></span>
 
                                                     {% endif %}
-                                                    <span>{{ every_reply.message |safe}}</span>
+                                                    <span>{{ every_reply.message |safe}}</>
                                                 </div>
                                                 <div class="float-right">
                                                     {% if user == every_reply.author %}
