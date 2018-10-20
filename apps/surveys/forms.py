@@ -41,7 +41,10 @@ class CreateOptionForm(forms.ModelForm):
 
     class Meta:
         model = OptionInSurvey
-        fields = ['name','description','imageFile']
+        fields = ['name','description','imageFile',
+                'vegetarian', 'vegan', 'nut_allergy', 'egg_allergy', 'dairy_allergy', 'soy_allergy',
+                'shellfish_allergy', 'fish_allergy'
+                ]
 
 
 

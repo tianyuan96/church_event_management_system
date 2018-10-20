@@ -1,0 +1,1874 @@
+commit 1af6e7d31dacf034ef025ba40355c28eb1169bdf
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Sat Oct 20 13:38:02 2018 +1100
+
+    fix mergeerrors
+
+commit 2d4e70f5de92bb0ecbb11de502f50a2a1049970b
+Merge: 0c60121 7b6dbf3
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Sat Oct 20 13:37:21 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 0c60121bffeb14f463ade6a2f265b4d7c967f71d
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Sat Oct 20 13:33:00 2018 +1100
+
+    revert togit reset --hard 7ce137e
+
+commit 7b6dbf3e45aee1d03f353c55e78c6994e3543963
+Merge: 7399e91 7ce137e
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Sat Oct 20 13:24:23 2018 +1100
+
+    merge
+
+commit 7ce137e244f37f68f01f6378b5f21b4756933622
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sat Oct 20 11:38:12 2018 +1100
+
+    successfully can lat and lng,everything works now
+
+commit 7ca0fddfcf0eddd7e63221b6f2099d6c3264a9c6
+Merge: 4d7bbf6 196a539
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sat Oct 20 11:24:19 2018 +1100
+
+    Merge branch 'update_event_fix'
+
+commit 196a5397a9d2d1dc593595b85eb8089af4b6db6a
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sat Oct 20 11:23:36 2018 +1100
+
+    final fix of update event
+
+commit e31f2ac9a50a8815d360a27c97a63326575a096a
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Fri Oct 19 21:40:19 2018 +1100
+
+    fiupdate event now works
+
+commit 7399e911584e8c2594b72aebbaf437c5549c9f11
+Merge: 2529fc4 4d7bbf6
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Fri Oct 19 20:50:16 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 10d505e28c2fa5aafaeb831e160774e80e1d0ed2
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Fri Oct 19 20:49:17 2018 +1100
+
+    fix the event upate
+
+commit 4d7bbf67cff32ae0b915c853ae62460a1a010709
+Author: Sam Scheding <samscheding@gmail.com>
+Date:   Fri Oct 19 08:54:11 2018 +0000
+
+    Initial Bitbucket Pipelines configuration
+
+commit 6b489d4f209da58bfecd10ba3e82d907ca3e8050
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 19:47:58 2018 +1100
+
+    rewinding changes
+
+commit e5ad96d3c5b07f7105dcba388b97c0de12348019
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 19:46:04 2018 +1100
+
+    rewinding changes
+
+commit dc677065f1c006d7e56effe29e18abf7f0f770dc
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 19:44:37 2018 +1100
+
+    added namespace to events
+
+commit 09ceb5d2b8750cc1d834667fb37f052d429ed3a6
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 19:42:15 2018 +1100
+
+    new requirements
+
+commit a03d9fb6b7b5f7e3028031f5b049e9997ae984dd
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 19:37:26 2018 +1100
+
+    changed event update to dynamic url
+
+commit 75c26acbdf29fda2cb9da8fa170733055ace9116
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 19:32:57 2018 +1100
+
+    pushing old event stuff
+
+commit 2529fc46ccd0f7c6b61cb2cb67a7906be6ac4bad
+Merge: daea8a2 6c50927
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Fri Oct 19 19:21:25 2018 +1100
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+    john's version of event update
+
+commit daea8a28ce1cd2a9e750b0b99622bfec52ff9865
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Fri Oct 19 19:21:15 2018 +1100
+
+    fix event update
+
+commit 6c50927acbcc3ce1d894567b898bf9ed6469c4b0
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 19:20:22 2018 +1100
+
+    fixed bug on event update
+
+commit 3c0bd6268bac46f04d9717ceab373f6f7277864a
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 19:15:12 2018 +1100
+
+    fixed a login redirect bug
+
+commit 8b891121e44906bffa8f66b25d6fef5ac35ef339
+Merge: 4d08032 895cd0a
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 18:56:19 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 4d08032123cb0ffe2aa07ae189bda84d4059b608
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 18:56:01 2018 +1100
+
+    orgs now have login next value
+
+commit 895cd0afd5eb1e3676b9cc70dddfe04cd86940e0
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 19 18:47:07 2018 +1100
+
+    add share link
+
+commit 9751725a1dd529dee861ad9ca596c223251df945
+Merge: 941b693 14ebcef
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 18:31:23 2018 +1100
+
+    login now redirects to the previously requested page, rather than just the profile
+
+commit 941b693ffeba60ec1f197ba75b78348d0838d645
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 19 18:29:52 2018 +1100
+
+    test_data now generates random text for forum posts/replies
+
+commit 14ebcef9cbd0bfbec30728a114c61e03844f4550
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 19 18:29:32 2018 +1100
+
+    add more styles
+
+commit f081b9227c621fe0a5d2c1466cee33500dfcbb9d
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Fri Oct 19 18:16:24 2018 +1100
+
+    format review result page
+
+commit 514a3c595e0ef2ffa2fb1379a385ca177c609f1a
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Fri Oct 19 18:04:13 2018 +1100
+
+    format review result page
+
+commit f3f9524d505b7397db0a5f36bc57b16b84380c53
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 19 17:13:07 2018 +1100
+
+    fix can't run bug in resetdb
+
+commit be1632c2996f5f42eae1f6fffd5e3a01b1e402e7
+Merge: 4f379fe 7f2b4af
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 20:46:57 2018 +1100
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+
+commit 4f379fe71f7b53df78f16eee1b8269f8d6d60bfa
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 20:46:38 2018 +1100
+
+    toggling the like button
+
+commit 7f2b4af1c6e257bd1299b6da49503bc30dccd697
+Merge: 057c740 59720d1
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Oct 18 20:33:45 2018 +1100
+
+    merge
+
+commit 057c740ae7252cd6b5adffd791d77fd1d960cbca
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Oct 18 20:32:01 2018 +1100
+
+    fix org profeiles update
+
+commit 59720d18450a7e3700db5b241df6199d0d5a033b
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 20:01:00 2018 +1100
+
+    make survey looks better
+
+commit be52afbf19910dc39977b96f274c4aa65ecd2191
+Merge: 781c0b9 1489a51
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 19:37:32 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 781c0b9ae17b7c0c555a3f3c458e11b90c14e785
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 19:37:10 2018 +1100
+
+    bleh
+
+commit 1489a5108dc6f20e8e203de93b0ed5361d19989d
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Oct 18 19:36:13 2018 +1100
+
+    update gitinore to avoid uploading migration file
+
+commit 8fe357ea6b9c99658f917abc61ee7bfe5e544ba5
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Oct 18 19:34:20 2018 +1100
+
+    update gitinore to avoid uploading migration file
+
+commit c53b809d21ae79acd5777b5bf4c9d1bd853cf14c
+Merge: 8db7322 ebebb2d
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Oct 18 19:32:16 2018 +1100
+
+    fix display bugs
+
+commit 8db73222ac3f4163e080c07e12baf5a7039264a7
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Oct 18 19:27:13 2018 +1100
+
+    fix display bugs
+
+commit ebebb2d0f164c284560c8b15cfb78510a57cd0ec
+Merge: a466a0d 6c0959c
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 19:13:18 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit a466a0dac431b748e99878ad5acf6e9bc11c5c41
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 19:13:03 2018 +1100
+
+    Forum Reply email working
+
+commit 6c0959ccba4f352e34edc4a25dd03becc3e96996
+Merge: 409254b 17da29c
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 18:59:05 2018 +1100
+
+    format the login page
+
+commit 409254b4d6065e91562e65032b54f89ffdcfbfa9
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 18:57:59 2018 +1100
+
+    format the login page
+
+commit 17da29c8bf9058c0aeda31e59e6e5c4b654f9efe
+Merge: 7794ccd 4c0da3e
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 18:50:19 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 7794ccd26a42c52bf2d1f2b70bacaed7c33aa0f2
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 18:50:01 2018 +1100
+
+    added a test_data command
+
+commit 4c0da3e191992cd019b40c77705220f06673f75a
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Oct 18 18:47:50 2018 +1100
+
+    fix mainpage display
+
+commit c6a3e7807b8eec9b8a48bf78107d0d4d06ce9a7a
+Merge: ec08ac4 5a71185
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Oct 18 18:37:10 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit ec08ac4cc30b60520b2f2cbf96f2200820e606c5
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Oct 18 18:36:41 2018 +1100
+
+    fix reply update
+
+commit 5a71185dd5700d1930160bc8b3d3886d5d632efa
+Merge: ade8af2 6aaadd3
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 18:30:52 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit ade8af2e05f97b31eb43add7be7a10292d590c03
+Merge: 4f60acf 83985d3
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 18:30:30 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 6aaadd35f9db193a400898f621d8c0fbd38d4bed
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Oct 18 18:30:26 2018 +1100
+
+    fix comment display and post update
+
+commit 4f60acfcfc9ad7c2ba9f5bd5727bd100d9290e12
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 18:29:53 2018 +1100
+
+    updated requirements file
+
+commit 83985d320a6c20ed59842b77bec6f7dca1f5d5e0
+Merge: 143edfa 37138d8
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 18:23:18 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 143edfa5696494d086288611c5f6c9efc29c411d
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 18:22:57 2018 +1100
+
+    change vedio to small size
+
+commit 37138d869681ddd28abc7b4c48b6f3908c048fc4
+Merge: 49b5d05 6933a7a
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 18:18:12 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 49b5d05358e8750cbd39293215473264cd9f54c5
+Merge: dfbd2cb 76636b6
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 18:17:41 2018 +1100
+
+    fixed merge conflicts
+
+commit dfbd2cb84b2b25818bfdb33fbb24df1178f2f71d
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 18:16:06 2018 +1100
+
+    user confirm emails now stop the user from logging in before they have confirmed. And the template is updated
+
+commit 6933a7a3f043f9dd04d554a9c505bfa29ea18672
+Merge: 2f4fe46 76636b6
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 18:15:59 2018 +1100
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+
+commit 2f4fe468f36ae6fb006c238c53b9dbc1ea6d8c94
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 18:15:45 2018 +1100
+
+    fix the forum page redirect issue
+
+commit 76636b6fe2a2e38d1a5e8937117a990874cb13ad
+Merge: c62c4e1 876d9c9
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 18:11:38 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit c62c4e116e3e63d37158b2f4e3439d4362a88b4e
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 18:10:55 2018 +1100
+
+    change h1->h3
+
+commit 876d9c9aec60cfd382899828542254c4c36ed19e
+Merge: fb6e5ce 5b25fe9
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Oct 18 18:01:28 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit fb6e5cede36fc3e283b3b8f4e7db3bdb71e38948
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Oct 18 18:01:06 2018 +1100
+
+    changed event desc. to location in case of very long descriptions
+
+commit 5b25fe9009b5e393cf6289f21f21e20986719318
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 17:58:49 2018 +1100
+
+    change update post page
+
+commit a48df0c4fb9e03f49ea8f935856e35b9c1b042cd
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 17:47:26 2018 +1100
+
+    fix delete post
+
+commit 4f5132a7db424fcea285888bfbcefeaea5b5c5dc
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Oct 18 17:44:02 2018 +1100
+
+    user profiles can now see proper event details
+
+commit ac84f33dcd65d6e7924314396399a8812dbbe044
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Oct 18 17:22:42 2018 +1100
+
+    changed error message for date
+
+commit 35068c881921cee670e6bf125ab776d53f7aec3d
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Oct 18 17:19:51 2018 +1100
+
+    events cannot be made in the past
+
+commit 3054c3fefa1a29ceeb5c8b083a761e08ca7ea00c
+Merge: 34ca91f 5dc4d6d
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Oct 18 17:17:27 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 34ca91f7ed41370d1802b3531c9835c4df35b3b0
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Oct 18 17:17:02 2018 +1100
+
+    events cannot be made in the past
+
+commit 5dc4d6d1c0eb30829850451dd1a3a509fcc1ab92
+Merge: ad23e18 f03a06b
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 16:53:42 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit f03a06b060cbda79fb06de6a556681143bb280ce
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 16:51:45 2018 +1100
+
+    fix the join event does not work at the detail page
+
+commit ad23e184280abe2b451f2713c7591a3dcc6c8d5d
+Merge: dbe7afd 603303f
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 16:51:17 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit dbe7afda50ccd641850f61d4f39d55ef6226ebe0
+Author: tian <yuantian23@sina.com>
+Date:   Thu Oct 18 16:50:27 2018 +1100
+
+    fix the index.html
+
+commit 603303fa2d42fb3ec350445ece6d4e2f0f56e4c3
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Oct 18 16:43:16 2018 +1100
+
+    fixed bug on food prefs
+
+commit 9064bdc1c9f6d3379eed3317ab070d07e0105f7d
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 13:47:29 2018 +1100
+
+    add delete button
+
+commit e7491163437c6443076f016c97577578bc2f6823
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 12:17:30 2018 +1100
+
+    create user detaill when user register
+
+commit af2f8ee3d6259bf7f24d31bc781d0a9767ffb824
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 11:33:20 2018 +1100
+
+    adcombine rorum
+
+commit bee8191592a770b8c0289aa14f74766034dd0e80
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 18 11:32:28 2018 +1100
+
+    adcombine rorum
+
+commit 2ae8492a358c0228ac366c7737dbcbaf5b45a94f
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Wed Oct 17 23:21:37 2018 +1100
+
+    did not mean to push log file but use for your diary if needed haha
+
+commit 163ca3352db0ccf0236bff2f908cca527b39eca9
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Wed Oct 17 23:17:10 2018 +1100
+
+    reincorporated login button that had disappeared for users
+
+commit 6d48815abb07c91a3e637181bf6dd1282e163e55
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Wed Oct 17 19:28:23 2018 +1100
+
+    upload requirement file
+
+commit 74660f2c6a3da43d2ca457f2b34f5890679a1edd
+Merge: 540d673 a826045
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Wed Oct 17 19:22:29 2018 +1100
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+
+commit 540d673d61cc2ae05bce4c7159411035d4e860c5
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Wed Oct 17 19:21:59 2018 +1100
+
+    fix the 'display name does not show in the forum',add ck editor to the post forum page, show image that user want to upload in the post page
+
+commit a826045543c83b0da14661e98a9c14b097252d2c
+Merge: 856b096 79f4c31
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Wed Oct 17 13:53:08 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 856b0962533582ea84b525530df74b4d163523bf
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Wed Oct 17 13:52:42 2018 +1100
+
+    added user tests
+
+commit 79f4c313a269b1063fa24d2c1c765f560d12a7b3
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Tue Oct 16 21:09:15 2018 +1100
+
+    show a better look of number of participants of an event
+
+commit 74810d8826ec82e398641e883215d561f8f8dd77
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Tue Oct 16 20:52:12 2018 +1100
+
+    don't show the open close button for unfinalized event
+
+commit 694de641a2a6ca65df37783131616ceca8d24c69
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Tue Oct 16 15:51:33 2018 +1100
+
+    update requirement file
+
+commit cef18f0760f7637399cd78185860c6de246c9d87
+Merge: 8cc7ce7 7665938
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Tue Oct 16 15:40:35 2018 +1100
+
+    successfully add image recognition stuff
+
+commit 76659387c7637e04cc1c8f7b425eb8e91cfbc888
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Tue Oct 16 11:50:17 2018 +1100
+
+    add picture regonition
+
+commit 8cc7ce7b95e4be3378da7ab1ab4b29c05e521087
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Tue Oct 16 00:34:01 2018 +1100
+
+    fixed broken url on login
+
+commit 39c45a480c8f9ffd2eb5e241a0a7829da356f799
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Oct 15 23:44:36 2018 +1100
+
+    created deployment environment
+
+commit 6a7a226cc412bc292476838014f98be94098aac9
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Oct 15 23:24:08 2018 +1100
+
+    added python anywhere to the allowed hosts
+
+commit 6d15e0c829e5a2b76fd21b50bae6f007d40ca9a1
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Oct 15 17:05:44 2018 +1100
+
+    users can updte and delete comments now
+
+commit 7d8b33128971cd848da3341d5bf20008c715d3dd
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Oct 15 17:00:41 2018 +1100
+
+    like function works now
+
+commit 91ce2306bc4dfcf5d7f9fa71919381e0375bbc2b
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Oct 15 16:52:48 2018 +1100
+
+    now can reply to comments, restructured post & reply
+
+commit afdb71cb3ba1b5e03fe801b5f7ceb9df5c9e6aef
+Merge: 12e98a5 617e780
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Oct 14 17:59:14 2018 +1100
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+
+commit 12e98a57e57a02098c91b00dfb39fb8a2be558c6
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Oct 14 17:56:31 2018 +1100
+
+    allow user to change text displayed at the index page
+
+commit 617e78058f31d2ff42aae953655cc8f895de7554
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Oct 14 16:27:18 2018 +1100
+
+    Fixed bug
+
+commit 55b0ac0accdd0a79655379a83a8552b4ca6a62dd
+Merge: d4489ae dac1b78
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Oct 14 16:17:52 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit d4489ae8ad4a13178a4c883e09a71f13d6954902
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Oct 14 16:17:37 2018 +1100
+
+    user update now working
+
+commit dac1b780344e8351bd69f87df9a3c0091aa2e10d
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Sun Oct 14 16:00:25 2018 +1100
+
+    likes feature works well now
+
+commit 3fa6451847759c785529375110a9a3b8cf9ad526
+Merge: 5f02931 6b0273a
+Author: tian <yuantian23@sina.com>
+Date:   Sun Oct 14 15:19:57 2018 +1100
+
+    add reply
+
+commit 5f0293142ba58366909d2b32e249feedc4254732
+Author: tian <yuantian23@sina.com>
+Date:   Sun Oct 14 15:04:46 2018 +1100
+
+    add reply
+
+commit 6b0273ab21564c852683d1bd28eab00b70cea2da
+Merge: 9f90ee2 4eb7f69
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Sun Oct 14 14:32:34 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+    
+    fix likes feature
+
+commit 2c5a7156acf70bd84a640260470f95956d336066
+Merge: 5d14406 4eb7f69
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Oct 14 14:32:10 2018 +1100
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project into showPrferenceInSurvey
+
+commit 9f90ee2b81550b0519d75be888890751883714f1
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Sun Oct 14 14:31:28 2018 +1100
+
+    fix likes feature
+
+commit 4eb7f6997755daf4349306ebbfa09189e715dfaa
+Merge: 11b4c8f 97c8867
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Sun Oct 14 14:25:29 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 11b4c8ff1dedb7ec495e5928e2e21dbd342c0cdf
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Sun Oct 14 14:25:10 2018 +1100
+
+    changed event default image to 'no image' and changed default desc to 'No Description'
+
+commit 97c886748ac9ab54b9762e73961eaa5170f0c057
+Merge: aab71f4 c2f87f2
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Oct 14 14:21:08 2018 +1100
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit aab71f45130ce28804d9f46c60614aa5677d0d63
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Oct 14 14:20:40 2018 +1100
+
+    pushing food prefs stuff
+
+commit 5d1440612f8c52b2a2a156440e71fa12652b8fc5
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Oct 14 14:16:21 2018 +1100
+
+    show preference
+
+commit 4e63a9e61a3c902a28cc47c0b8a4147e654dfe10
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Oct 14 14:00:34 2018 +1100
+
+    food preferences working again
+
+commit c2f87f24b5bbc3a7ff63a9e57a566215a2a039d5
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Sun Oct 14 13:50:23 2018 +1100
+
+    small spelling error in title
+
+commit e11984dbd14ca55ef666271ea5d6cb1ba85051f4
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Sun Oct 14 13:34:46 2018 +1100
+
+    changed background video
+
+commit 4c79c513b7cafd07942cd042988446d0a7eda25c
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Sun Oct 14 13:30:02 2018 +1100
+
+    changed opening paragraph on home page
+
+commit f0069f85af28747449c88327f06d72ea68eccb0f
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Oct 14 12:33:05 2018 +1100
+
+    userprofile now shows food preferences and renders event description as html
+
+commit 368d9a3f6098a15beda2179b3855ca1faa987ee4
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Oct 14 12:24:36 2018 +1100
+
+    fixed template not found bug for org register
+
+commit 605895527aad9c8dde4fcbc584ad7b6c08c28bb6
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Tue Oct 9 14:38:28 2018 +1100
+
+    delete event partially done
+
+commit 3da45f6ec83b2289407ebf97c381942dcee83bad
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Tue Oct 9 13:54:30 2018 +1100
+
+    reintegrated update event
+
+commit 21afa2042c76db7eef2051273db8dc0e384bfd9c
+Merge: a8e3aaf dce6d5d
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Tue Oct 9 13:31:54 2018 +1100
+
+    fixed merge conflicts for google_map->master
+
+commit a8e3aaff4112751e1fd0c09a96fd07755917c0c7
+Merge: 4867f94 25f8beb
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Tue Oct 9 13:18:46 2018 +1100
+
+    merging
+
+commit 25f8bebaaba91fcc7ef4a1ce86a8148771e7f719
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Oct 8 22:19:23 2018 +1100
+
+    fix a bug in the update feature
+
+commit 103337d3b1e157bdb7c8537473c56f63ad791062
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Oct 8 22:12:21 2018 +1100
+
+    fix post feature with new method
+
+commit a3a43a3524cb6b7d3e0d87e666df26958691a424
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 5 19:30:27 2018 +1000
+
+    tweak profile page style, add like button
+
+commit 4e151e41ba6fc7b2d50840d7cb6ffc40e3e318c1
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 5 19:16:17 2018 +1000
+
+    update home page style
+
+commit 4867f94f7e66d36e12dfc4ece7d71673c2cd505d
+Merge: bca2b6b 3308058
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 5 17:00:06 2018 +1000
+
+    merge with forum for removing context
+
+commit bca2b6b31a20542acd06c9612d88e1264a3cf202
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 5 16:58:20 2018 +1000
+
+    basic user update form in progress
+
+commit 3308058ff0012cbdae26d4c973a4e375d68e8d9c
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 5 16:56:58 2018 +1000
+
+    fix
+
+commit dce6d5dd5f69bf491fdce7d613e7420a6b2cb176
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Fri Oct 5 16:39:00 2018 +1000
+
+    successfully add google map
+
+commit 19de37a8ee24925f69faa3aa7834e532e5bd5027
+Merge: 243bc0d 67227ff
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Fri Oct 5 16:12:26 2018 +1000
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 243bc0db8d351d0d7253e8843e609c7ca8535f43
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Fri Oct 5 16:12:01 2018 +1000
+
+    fix the bug of displaying the replies
+
+commit 67227ff569f0c12544661668eb0e2f6b0f0cb79f
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 5 15:58:21 2018 +1000
+
+    fix the bug cause by the merge
+
+commit deb4cd0b2c6b51479b5800c07a7884fefb4908f1
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Fri Oct 5 15:23:28 2018 +1000
+
+    add reply feature to the forum
+
+commit 271e3a93d822e6287cc7b323456829e81d6f9d4a
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 5 14:13:55 2018 +1000
+
+    fix the front-end things
+
+commit 1466e27733fdc6377ab74fa923951ba49c8bc2c9
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 5 13:58:05 2018 +1000
+
+    fix the button inside the profile
+
+commit f2549cddd659930a499e9f9eb2ea30d035c1c724
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 5 13:35:17 2018 +1000
+
+    fix the front-end stuff
+
+commit 0fab035037a511462667d49afd28605985b0acbd
+Merge: d878d6e 9114665
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 5 13:34:22 2018 +1000
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 9114665850a15949cfdefe7d89cdb6a94060c7bd
+Merge: 348d36b dd78408
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 5 13:31:10 2018 +1000
+
+    merged forum to master
+
+commit 348d36bbd3fe24ea6e18b2eff8c5f2384acdff3a
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 5 13:18:24 2018 +1000
+
+    added org profile page update
+
+commit d878d6e09d6afae7cd37893f7adaf81cc045ad79
+Author: tian <yuantian23@sina.com>
+Date:   Fri Oct 5 12:40:49 2018 +1000
+
+    fix the bug in the survey-create page
+
+commit dd7840808ce2775495937f02ebbb4f70b685ff2a
+Merge: c70e4e6 6e485f1
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Fri Oct 5 12:35:44 2018 +1000
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit c70e4e6b211c71fdc0ec6ba5b1f15f96d49ad8ef
+Merge: 9afc20f e4df959
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Fri Oct 5 12:34:17 2018 +1000
+
+    Merge branch 'newForums'
+
+commit 6e485f13cdff46b3800b720784cd4e62fe378cfe
+Merge: c092acb 9afc20f
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Fri Oct 5 12:11:22 2018 +1000
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+
+commit c092acbf5030fae291d83206b8a019d729a677a7
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Fri Oct 5 12:11:07 2018 +1000
+
+    add option constraint when adding survey
+
+commit f37cfa5b16c5b3c98616387ffa5de70874bbe22b
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 5 11:55:49 2018 +1000
+
+    updated mail server
+
+commit 9afc20fa75d24b7bae90c0a78ea7c9377a175a11
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 5 11:46:43 2018 +1000
+
+    merged branch user_profile
+
+commit 50b42173cec4a383cdc1882acb500396d9fc5d0c
+Merge: 9938e34 8f872c3
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 5 11:44:07 2018 +1000
+
+    merging user_profile branch
+
+commit 9938e3491a205e470e67049dbb79edde96f6268c
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Oct 5 11:39:20 2018 +1000
+
+    added ckeditor to requirments.txt
+
+commit f1bc331299311b53ef4e5414bbd2019961812cd8
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 4 23:42:23 2018 +1000
+
+    add ckeditor for event
+
+commit dde2123a9d2468d4aa37f49c78912bed281743d0
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 4 23:31:34 2018 +1000
+
+    give some useful tool for the toolbar
+
+commit 0611851a2134e9f682a8f37f44b9672813834b7c
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 4 13:57:19 2018 +1000
+
+    change gitinore to not allow image file
+
+commit 25de5a711eba5b8b9729dcd484c2bbdc909a2962
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 4 13:56:11 2018 +1000
+
+    change gitinore to not allow image file
+
+commit c6e3e2249961a4aa97b39ca6e056b871ae4952f0
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 4 13:51:01 2018 +1000
+
+    change gitinore to not allow image file
+
+commit b8c0b26481fb4c6503a1400bb2af51f1b6ce8d52
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 4 13:44:39 2018 +1000
+
+    finish the richtext editor for create survey
+
+commit f3cc9e79e239be988e1006322ae7276a942cf3af
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Oct 4 11:37:57 2018 +1000
+
+    prevent save if user enter empty choice name
+
+commit f0ae758d99b9760c14c03c4be2039c81b889d532
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Wed Oct 3 23:34:25 2018 +1000
+
+    auto survey the survey if it is not complete, ckeditor works fine now
+
+commit 7161472c9e3efa88e4b0406f6673829618b2f793
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Tue Oct 2 13:01:58 2018 +1000
+
+    a quick fix on the create view (date not taken as input), fix attanding list for index.html
+
+commit 64388743d6656187a6b9e28c59e405c393225deb
+Author: tian <yuantian23@sina.com>
+Date:   Tue Oct 2 12:51:25 2018 +1000
+
+    change button to font in event detail
+
+commit 662894ea7ed383139f28758a0e61dc52c76cb909
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Tue Oct 2 10:13:24 2018 +1000
+
+    finally get the ckeditor shown
+
+commit ec86f66d8c3f9a10e316d7006a33eb09f3eb0c5c
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Oct 1 23:32:25 2018 +1000
+
+    successfuly allow user to add pic to the survey using ajax
+
+commit 5061ed99ba1fb7b7f9de30168f16dae86feff668
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Oct 1 21:28:32 2018 +1000
+
+    using ajax to add option to a survey
+
+commit 8f872c3552622c1382a599e1d397e41c4f7ec6cc
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Oct 1 19:37:43 2018 +1000
+
+    example profile page
+
+commit f2ecce5c72d3de5148115cecbda2b20175e63982
+Merge: 54d2213 bb1d556
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Oct 1 19:11:41 2018 +1000
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+
+commit 54d2213e99aa0a3e101ca9cdf9d2afc68035664e
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Oct 1 19:11:17 2018 +1000
+
+    using ajax to add option to a survey
+
+commit bb1d5569d926122657f2e464a0de64d1e94941f5
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Oct 1 18:23:46 2018 +1000
+
+    fixes
+
+commit ccdc93d56dbf93f560f8432f0ceab0a1c4f5fa0d
+Merge: b9ba929 bed1a48
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Oct 1 17:14:28 2018 +1000
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit b9ba929839dda4bebd2a3bc352f3fb4791f9bdaf
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Oct 1 17:14:07 2018 +1000
+
+    fixed some account stuff. Logged out users can no longer create an event, etc
+
+commit 4516b2bede4a131a608e87caf820a4c5972307a8
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Oct 1 16:08:49 2018 +1000
+
+    org login now redirects to the org profile, not the users profile
+
+commit bed1a4828127a6af0902f3605b43b7f28d0898cc
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 24 21:37:42 2018 +1000
+
+    refactor the create event part
+
+commit f20bf90b1a62966838cb83c4816dd1119983abab
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 24 13:58:18 2018 +1000
+
+    fix the bugs for view survey result
+
+commit 0aa8fa24ef4a2edc0ad78494a169e09dfd8120cf
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Sep 24 13:31:36 2018 +1000
+
+    every page now has a title
+
+commit ddd3e50e044a91fcf52dcaec9a6d82bc146dd0d1
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Tue Sep 18 15:00:44 2018 +1000
+
+    fix the chart
+
+commit fdb42581dde3b2bb1677714bf3a4cde108908193
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 17 19:08:51 2018 +1000
+
+    auto close survey when event expire
+
+commit e4df959dcf5a62ff5c0b45aa945c40e87d69d947
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Sep 17 18:56:30 2018 +1000
+
+    posts can be shown properly
+
+commit 4cfb4867808805c55093b7cba47aec34424969ec
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Sep 17 18:45:58 2018 +1000
+
+    delete worls, but posts are not shown properly
+
+commit f85da0eb7924eec1d32fe93735b5e286b122c81b
+Merge: 3bec1a4 9504f27
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 17 18:42:15 2018 +1000
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+
+commit 3bec1a460aa03d1e51ce34028cd4b2d1fdf9daf1
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 17 18:41:50 2018 +1000
+
+    fix html for survey_response
+
+commit 9504f27f30c3882a693b8f24f24dd82fc51a4250
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Sep 17 18:40:00 2018 +1000
+
+    fixed food prefs
+
+commit 3e53a686b83110b4bb9348235a7d532474155416
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Sep 17 18:36:30 2018 +1000
+
+    try to fix update again
+
+commit cc101a15cbf66af06f4a87d2bc11e1365f094245
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 17 17:54:11 2018 +1000
+
+    fix the merge problem
+
+commit 291f77f6a51e8c6109b370eb10982e77fe8e0c10
+Merge: 0a6938a 867ef58
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 17 17:48:52 2018 +1000
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+
+commit 867ef582e0b3a8b025dcb285321ebb70fc2a3448
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Sep 17 17:47:05 2018 +1000
+
+    testing
+
+commit 0a6938ac223f02633d0835a1d2d1e97f8965d192
+Merge: 9e220f2 6ef1735
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 17 17:44:16 2018 +1000
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+
+commit 6ef1735cbc1611bb5c1a3b33ac0651097b6b32c8
+Merge: 95e80da 7664351
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Sep 17 17:39:59 2018 +1000
+
+    Merge branch 'survey'
+
+commit af360306134d0be410882b43f4f5d3a2d801993f
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Sep 17 17:39:46 2018 +1000
+
+    update fixed
+
+commit 9e220f279b1ec1703cebc15612871bbb89532774
+Merge: 95e80da 7664351
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 17 17:29:59 2018 +1000
+
+    Merge branch 'survey'
+
+commit 7664351148d78b6c38da407a975ff0e0ca43d9d3
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 17 17:26:23 2018 +1000
+
+    make piechart pretter
+
+commit 95e80da70ed6053da10e6bbfd28e3c42e02864b3
+Merge: 1e4aaed 1034d14
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Sep 17 17:13:21 2018 +1000
+
+    merge conflicts resolved
+
+commit 1034d14d50dc6e4d92feb5e651cc534adf6e0ab1
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 17 16:58:31 2018 +1000
+
+    fix bugs for submit survey
+
+commit 1e4aaedb3c6d337ab40cc340ee487b03fd2e42d6
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Mon Sep 17 16:54:37 2018 +1000
+
+    changed location of event_details.html
+
+commit bca5cc2e9474e5a2765ae926b07049cc8e69d7e4
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 17 13:55:00 2018 +1000
+
+    add response for create survey
+
+commit 1811ca350358ae8f734371892641611011ecfadd
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Sep 16 23:06:11 2018 +1000
+
+    survey form now saves and is loaded into the template
+
+commit 6b3c2126a6d25be4864dbf51a0ee8d13a965be4f
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 16 22:28:38 2018 +1000
+
+    fix the date bug occurs when create event
+
+commit 552caf2a7ca49fff262dc735cac65eb43f749c30
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sat Sep 15 23:48:59 2018 +1000
+
+    fix the bug for do survey
+
+commit 7eeadddc51b0394bedb58653b22f2a5be87b07ad
+Author: tian <yuantian23@sina.com>
+Date:   Sat Sep 15 17:25:06 2018 +1000
+
+    update navs
+
+commit 9b10bae69fdac27d0ea859548e17071d1042a88a
+Author: tian <yuantian23@sina.com>
+Date:   Sat Sep 15 17:21:37 2018 +1000
+
+    add style for forums
+
+commit 63d2c8b2f281cb417dcaf6168ee0f1807498a4dc
+Author: tian <yuantian23@sina.com>
+Date:   Sat Sep 15 16:15:24 2018 +1000
+
+    update styles for surveys and events
+
+commit 71c4a1b5f0951def7a645e6ed5d31e30bc83edfe
+Author: tian <yuantian23@sina.com>
+Date:   Thu Sep 13 20:15:14 2018 +1000
+
+    fix four button error
+
+commit fa412589bfdd849fb1b6c223a59300e8d7cbefcd
+Author: tian <yuantian23@sina.com>
+Date:   Thu Sep 13 19:03:00 2018 +1000
+
+    org register page
+
+commit 141bb821fca2c9d54d29f72aeaceefd9a5e4841b
+Author: tian <yuantian23@sina.com>
+Date:   Thu Sep 13 17:51:27 2018 +1000
+
+    fix user profile page
+
+commit 5b35f8e7bbef0e2e3caa0f510b33c6bf7af79db1
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Sep 13 17:10:57 2018 +1000
+
+    fix database
+
+commit d201b62a7a7f644f2f6a48619906e7a635ceb9ea
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Sep 13 15:06:55 2018 +1000
+
+    add data visualization
+
+commit 68afae8c892c271a6aebd616eedc5f2b49d65c12
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Sep 13 13:13:52 2018 +1000
+
+    staff can create survey, add choice , user can participate in the survey, staff can see the result
+
+commit 095bfc0267a1dc839b09912478384c2c9bbc706c
+Merge: a379bf0 c81da2b
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Sep 14 22:54:42 2018 +1000
+
+    fixed merge commits
+
+commit a379bf06d070956c8333d70f1a082a6fcf615954
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Fri Sep 14 22:52:45 2018 +1000
+
+    semi working food prefs
+
+commit 657c053f21f62dbca8a195e562fc514d9fa60ee6
+Merge: bf08cbb 5e96ff4
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Sep 13 20:13:10 2018 +1000
+
+    Merge branch 'newForums' of bitbucket.org:samscheding/4920-project into newForums
+
+commit bf08cbbe85e7db8c87838663406a2e2ba51c659d
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Sep 13 20:12:41 2018 +1000
+
+    tries to update, doesn't go to correct URL
+
+commit 5e96ff49ae7f02c048e0d661e6acbd74444c72f5
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Sep 13 19:43:23 2018 +1000
+
+    posts are displaied in chronological orger
+
+commit 18797ab01ec843daf996563064ad95ff9b1968b4
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Sep 13 19:02:45 2018 +1000
+
+    now we can see all the posts for a single event
+
+commit 9119214fc43d6b38e83e066e90b7c4f58929104f
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Sep 13 19:00:43 2018 +1000
+
+    now we can see all the posts for a single event
+
+commit 670417b75bcc228112f2415fd8250932fafd22b2
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Sep 13 18:38:01 2018 +1000
+
+    users can post noww
+
+commit 1758d24bd011ef79b5b158207b2e0f7ccb7ca5d1
+Merge: a6d638f 77110d5
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Sep 13 18:23:59 2018 +1000
+
+    Merge branch 'forums' of bitbucket.org:samscheding/4920-project into forums
+
+commit a6d638f48295f378caaad7092004499daba9234e
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Sep 13 18:23:17 2018 +1000
+
+    can write some posts now
+
+commit 77110d52fd6bbac49ec1d874bc3a4d3b39755049
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Sep 13 17:26:26 2018 +1000
+
+    forgot to add import Post
+
+commit d28afc3e0b82b91a81bc67b3473d382e71b91678
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Sep 13 17:25:20 2018 +1000
+
+    fixed PostCreationForm in forums.py
+
+commit c81da2b480411c0982176928d2d2fa7d9ece0dc4
+Merge: d627bde daac448
+Author: tian <yuantian23@sina.com>
+Date:   Thu Sep 13 17:22:36 2018 +1000
+
+    Merge branch 'attendeeJoinEvent'
+
+commit daac448941e152a582c9201de9b8ef44c3e354ea
+Author: tian <yuantian23@sina.com>
+Date:   Thu Sep 13 17:21:41 2018 +1000
+
+    fix user profile
+
+commit f867476b3e68cad7baaf6cb2f9b753f8e382be4b
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Sep 13 17:17:21 2018 +1000
+
+    PostCreationForm in forums.py
+
+commit 735eac2a220762f21081ca952b6ba6a698327005
+Author: tian <yuantian23@sina.com>
+Date:   Thu Sep 13 17:12:56 2018 +1000
+
+    fix button problem
+
+commit d627bdee551d55048d436be9293e4ec5a2215334
+Merge: ac41199 3bf9f06
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Thu Sep 13 17:12:06 2018 +1000
+
+    Merge branch 'master' of https://bitbucket.org/samscheding/4920-project
+
+commit ec2f0e2ab80a8a832f2782fae0e4b3edac8aae6a
+Merge: 0cdaba8 e152a54
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Sep 13 16:36:11 2018 +1000
+
+    Merge branch 'forums' of bitbucket.org:samscheding/4920-project into forums
+
+commit e152a5469528180ef9f92aceff15753e51f3618c
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Sep 13 16:33:34 2018 +1000
+
+    add tables for posts
+
+commit 0cdaba8fa85b96a305e7b8f2aeab7f809656e49b
+Merge: da621c7 3bf9f06
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Thu Sep 13 16:22:36 2018 +1000
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project into forums
+
+commit ac41199cfdea7b4eb07a9461334ac4bd9b13065b
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Wed Sep 12 19:01:31 2018 +1000
+
+    fix email confirmation
+
+commit 3bf9f06f712c67c7a98b227c86e9f1a6521561fe
+Merge: 7fe2bf5 a1ac05a
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Sun Sep 9 19:09:21 2018 +1000
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 7fe2bf5a1bdc8a99b0e08ac19c8422d79a5a1f0c
+Author: Michelle Leman <z5076202@ad.unsw.edu.au>
+Date:   Sun Sep 9 19:09:02 2018 +1000
+
+    tests written
+
+commit da621c731402632980ed08d30fa715ee5dd955f5
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sat Sep 8 22:56:06 2018 +1000
+
+    user can join and unjoin event, user can see their events in the profile
+
+commit 04b029ec7624dbb4a5ad81e38f456e7e58a20465
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sat Sep 8 20:39:35 2018 +1000
+
+    create branch
+
+commit 04894c22fe9fd8b8e96c2c47542f49d4a63e01f0
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sat Sep 8 12:31:59 2018 +1000
+
+    working at join event
+
+commit a1ac05a32f1b03d604ce69b1d004616e5e72f01f
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Sep 6 17:55:46 2018 +1000
+
+    fixed template error
+
+commit 04fd681f3808d077b91a48d1d297be1271c91528
+Merge: a0247db 8d8d3fe
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Tue Sep 4 19:22:03 2018 +1000
+
+    Merged createEvent branch with master. Merge conflicts resolved
+
+commit 8d8d3fe3306926fc8dc173c085def4ca4ca88980
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Tue Sep 4 19:12:13 2018 +1000
+
+    added proper logout urls in navbar
+
+commit 262b690f164bf25023d29cf0b178afeb44f02829
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Tue Sep 4 19:04:59 2018 +1000
+
+    register org now stores extra org details (not just email and password)
+
+commit b518cbf6b6bd82853a67bd61b4d153a81d1b334d
+Author: tian <yuantian23@sina.com>
+Date:   Mon Sep 3 14:50:34 2018 +1000
+
+    make event page looks better
+
+commit dc44bc2f5917b29bd4d3935936302230b91a8a28
+Merge: e80f2b4 fe18cee
+Author: tian <yuantian23@sina.com>
+Date:   Mon Sep 3 13:33:17 2018 +1000
+
+    make org page looks better
+
+commit e80f2b4e0664d2350029030f65a6d16cefb6aa88
+Author: tian <yuantian23@sina.com>
+Date:   Mon Sep 3 13:22:54 2018 +1000
+
+    make org page looks better
+
+commit fe18ceebfc247c051b1a1bdc1c8e07f62cac4cef
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Sep 3 11:34:47 2018 +1000
+
+    fix more update features
+
+commit bdbca2fb65e9db0b3953655ae8601f37b577571a
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Sep 3 11:06:09 2018 +1000
+
+    create event comes back
+
+commit 04ba4dbf744cc7695b0538f53235518aea2bc5b0
+Merge: 80cb9b8 517f3ff
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Sep 3 00:25:49 2018 +1000
+
+    Merge branch 'createEvent' of bitbucket.org:samscheding/4920-project into createEvent
+
+commit 80cb9b85f49f494cd152130e7b4cbc4623c50548
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Mon Sep 3 00:25:02 2018 +1000
+
+    fix modify feature, though it's really ulgy
+
+commit 517f3ffa79cfe7b0228be03c8f173c4cccdd1cd8
+Merge: 8a2a6df 90af866
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 23:32:09 2018 +1000
+
+    Merge branch 'createEvent' of https://bitbucket.org/samscheding/4920-project into createEvent
+
+commit 8a2a6df49b9a64f2cbea8d9cb0de7cf32cd4d685
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 23:31:34 2018 +1000
+
+    redirect to organisation/profile is the user is a staff
+
+commit 90af86668434d293de956dfcfff4ec328b7f517d
+Merge: 302f6ce 070fb63
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Sep 2 22:31:43 2018 +1000
+
+    Merge branch 'createEvent' of bitbucket.org:samscheding/4920-project into createEvent
+
+commit 302f6ceca4bb1cacd1d4fc09142c6965c11f7b34
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Sep 2 22:19:49 2018 +1000
+
+    Fixed event deletion
+
+commit 070fb63d6cbbfd32bd11c76333ae565ca796451a
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 21:59:45 2018 +1000
+
+    allow user to add image when creating event
+
+commit cd1b800ef89544d889cd9004822679b5f0116076
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 20:06:22 2018 +1000
+
+    create event finish
+
+commit 1a0398e49f28bdf55eb957058d5ac6403bf2df96
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 20:03:37 2018 +1000
+
+    create event finish
+
+commit 84c482f8b915fc39e3a382e357974872231224be
+Merge: 66a0a8b e6608b1
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 17:56:30 2018 +1000
+
+    Merge branch 'createEvent' of https://bitbucket.org/samscheding/4920-project into createEvent
+
+commit 66a0a8bc30c47ebb221cb6e1c39e9871cbf70b1a
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 17:56:23 2018 +1000
+
+    working in create event
+
+commit e6608b179eed036c46a5707e5d1cb8671a46b97a
+Merge: 427e6b1 2dfa4e6
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Sep 2 15:22:41 2018 +1000
+
+    Merge Conflicts
+
+commit 427e6b13817767c69c0f3693c66f401f5007213b
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Sep 2 15:19:45 2018 +1000
+
+    delete event finished
+
+commit 2dfa4e6b30aae04b5836cf387fb942aece38fe31
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 15:15:06 2018 +1000
+
+    create event save the model to db
+
+commit 92089a24a7a85c38b9eb75aaabc33b07d429c95e
+Merge: 26079f3 9d41353
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 14:31:14 2018 +1000
+
+    Merge branch 'createEvent' of https://bitbucket.org/samscheding/4920-project into createEvent
+
+commit 26079f300f63e08708f4f3e857b3a694d9932bc2
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 14:31:08 2018 +1000
+
+    add post request functio in event view.py
+
+commit 9d4135382ce39166131a3eb55c4a2ccdd175e27a
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Sep 2 14:29:50 2018 +1000
+
+    events list done
+
+commit 37853537f66b0130e375a0e6fe652532bea251f3
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 14:18:07 2018 +1000
+
+    making create event form
+
+commit b1c6c6add73bef50460226d89ac69abf49ea5e58
+Merge: f8d5234 7df111a
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 14:17:31 2018 +1000
+
+    making create event form
+
+commit f8d5234771ba4f383ef221817c6e607317a218fe
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 14:14:12 2018 +1000
+
+    making create event form
+
+commit a0247db68009677f485b22c0cca05fd7f955ed91
+Merge: 8d5f63a f1c1c3c
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Sep 2 13:05:07 2018 +1000
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit 8d5f63ac005d8718baa229d3808f1cc109915233
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sun Sep 2 13:04:43 2018 +1000
+
+    Created events are now listed on the user profile page
+
+commit 7df111a20843fbb1fdd9b6b8bde88ae660b68b9b
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Sun Sep 2 12:41:58 2018 +1000
+
+    add modify event
+
+commit f1c1c3ced01e6163db9f66f1d1187d6c4dbb0bba
+Author: tian <yuantian23@sina.com>
+Date:   Sun Sep 2 12:20:46 2018 +1000
+
+    add frontend creat event
+
+commit 5e9ab952c18925fd07bc21c4459ce5389b175185
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sun Sep 2 12:13:10 2018 +1000
+
+    add model for event
+
+commit 404254fdd6e36dbf2fdf7c5c562684fd63a52722
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sat Sep 1 02:09:05 2018 +1000
+
+    updata gitinore to ignore pycharm file
+
+commit 05a73b4be576655c53c968c0e53a140e241558df
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sat Sep 1 02:01:58 2018 +1000
+
+    allow users to expand the list of dishes when they create the event
+
+commit 154f259a28e2d81547bac3dcae5b233ab9bf7c3f
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Sat Sep 1 01:59:08 2018 +1000
+
+    allow users to expand the list of dishes when they create the event
+
+commit 9f0a98926074cc732b27bce3affc36bad6f78c11
+Author: tian <yuantian23@sina.com>
+Date:   Fri Aug 31 19:29:43 2018 +1000
+
+    add all frontend mockups
+
+commit cf6daf0e217760294ad19e72f507ed824f74b804
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Fri Aug 31 17:11:01 2018 +1000
+
+    added urls for email confirmation
+
+commit ffab4c9d1ebe16ca350b19f3962e723014bd890e
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Fri Aug 31 17:10:29 2018 +1000
+
+    added email confirmation
+
+commit 001faa319bd66e6c81349c7859fe73d8a6f18768
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Fri Aug 31 17:09:55 2018 +1000
+
+    added urls for email  confirmation
+
+commit 329a036f741947b65837d38c137f1c4716a94045
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Fri Aug 31 17:09:35 2018 +1000
+
+    added CONFIRMATIONS TABLE
+
+commit 01d0513f90fd52b41bb599d7f5a73df6efdf5f7c
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Fri Aug 31 17:09:00 2018 +1000
+
+    added CONFIRMATIONS TABLE
+
+commit 14caf354408ee2b46d2a6877055a54f63fb20243
+Author: Jingcheng Li <jingcheng.li@student.unsw.edu.au>
+Date:   Thu Aug 30 16:42:29 2018 +1000
+
+    add settings for emails
+
+commit 20bb2da9d5144a1e052e876221ba568444eb2dc3
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Thu Aug 30 15:52:57 2018 +1000
+
+    Redid email register/login stuff. We should now be able to use the admin panel again
+
+commit 444966f577da6a5683c3dc0a57091fc6925ed1e3
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Tue Aug 28 12:45:19 2018 +1000
+
+    added custom commands for easier testing
+
+commit 78672d10f72cee34d3951f3e462c47410153d289
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sat Aug 25 22:08:23 2018 +1000
+
+    Merge completed for branch: registration_and_login
+
+commit 1ee4f87a71e53ec4aa1615ecac16786934ea9ecd
+Merge: a1169df fe2d314
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sat Aug 25 21:36:42 2018 +1000
+
+    User reg/login working
+
+commit a1169dfb5ecd1943a02a7bb6cc0d74805858e051
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sat Aug 25 20:42:14 2018 +1000
+
+    Initial registration/login done
+
+commit d785d6cf2220219821d57f225d6d3be242cd3114
+Merge: 0b955e3 25c8550
+Author: SamTheNormalOne <samscheding@gmail.com>
+Date:   Sat Aug 25 20:39:54 2018 +1000
+
+    fixing merge conflicts
+
+commit 25c8550097817f0cfe9a2cba3a63ce78d4200cfd
+Author: SamTheNormalOne <SamTheNormalOne@Jae-Hees-MacBook-Air.local>
+Date:   Sat Aug 25 20:25:45 2018 +1000
+
+    Preliminary accounts done
+    ;
+
+commit fe2d314c675c0c2f09ee0ae098a4d13fd683eb36
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Fri Aug 24 23:10:42 2018 +1000
+
+    add styling sheet for sign up page
+
+commit af22b25677a8d3ca8283893a219afa170ba56557
+Author: tian <yuantian23@sina.com>
+Date:   Fri Aug 24 18:53:52 2018 +1000
+
+    add bootstrap styles, and style login/homepage/choosemeal pages
+
+commit 0b955e39309d7dbbcc374a229b9d001739ca29f4
+Merge: b8d7c19 983eb30
+Author: SamTheNormalOne <SamTheNormalOne@Jae-Hees-MacBook-Air.local>
+Date:   Thu Aug 23 16:31:16 2018 +1000
+
+    removed templates/.DS_Store
+
+commit b8d7c19e88796aa2a1f51a3891bb14e43571e531
+Author: SamTheNormalOne <SamTheNormalOne@Jae-Hees-MacBook-Air.local>
+Date:   Thu Aug 23 16:26:56 2018 +1000
+
+    Added .DS_Store to .gitignore
+
+commit 6948542a3dd59609bc6bef8dc5be2a0fef5396ae
+Merge: f73e664 0d4870b
+Author: SamTheNormalOne <SamTheNormalOne@Jae-Hees-MacBook-Air.local>
+Date:   Thu Aug 23 16:25:58 2018 +1000
+
+    Removed .DS_Store
+
+commit 983eb30555794f0d732b18697cae899fe55650b2
+Author: SamTheNormalOne <SamTheNormalOne@Jae-Hees-MacBook-Air.local>
+Date:   Thu Aug 23 16:22:41 2018 +1000
+
+    Merge Commit
+
+commit f73e664abd26db180ca24f24b0ed1d32b817ad1e
+Author: SamTheNormalOne <SamTheNormalOne@Jae-Hees-MacBook-Air.local>
+Date:   Tue Aug 21 14:02:21 2018 +1000
+
+    removed DS_Store
+
+commit 6adb9f99cd3c476da36653126f308f29b1c9cb08
+Author: SamTheNormalOne <SamTheNormalOne@Jae-Hees-Air.lan>
+Date:   Tue Aug 21 12:26:16 2018 +1000
+
+    user registration and login complete
+
+commit 0d4870b1bd910cbb489ab6d97e744af3fe40535c
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Tue Aug 21 11:24:48 2018 +1000
+
+    change the color of the home page
+
+commit af26cddb2d4cb550722727a2c82493977f696df8
+Author: my mac <turlyjohn@foxmail.com>
+Date:   Mon Aug 20 21:08:31 2018 +1000
+
+    draft about the home page
+
+commit 5d84b3a96aa99483e0b7a93f9e6bff26175d703e
+Merge: bbcc62b db0b475
+Author: SamTheNormalOne <SamTheNormalOne@Jae-Hees-MacBook-Air.local>
+Date:   Tue Aug 14 19:51:31 2018 +1000
+
+    Merge branch 'master' of bitbucket.org:samscheding/4920-project
+
+commit bbcc62b5089456142a871208a7df2fe86aa58f8d
+Author: SamTheNormalOne <SamTheNormalOne@Jae-Hees-MacBook-Air.local>
+Date:   Tue Aug 14 19:50:56 2018 +1000
+
+    Added a requirements.txt to make using the env easier
+
+commit db0b4753f401e239c240a36d6a78730626f1a418
+Author: Sam Scheding <samscheding@gmail.com>
+Date:   Tue Aug 14 09:32:00 2018 +0000
+
+    README.md edited online with Bitbucket
+
+commit a6015f08aa1ceffd72c0ab30515ac633de70010d
+Author: SamTheNormalOne <SamTheNormalOne@Jae-Hees-MacBook-Air.local>
+Date:   Tue Aug 14 19:25:22 2018 +1000
+
+    Initial Commit with template project
+
+commit 66ccc0f951d4c6867665ba399b1813856c261824
+Author: Sam Scheding <samscheding@gmail.com>
+Date:   Tue Aug 14 08:32:53 2018 +0000
+
+    Initial commit

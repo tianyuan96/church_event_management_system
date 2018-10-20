@@ -35,6 +35,14 @@ class OptionInSurvey (models.Model):
     description = RichTextField(max_length=100, blank=True, null=True)
     imageFile = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE) #many options to one survey
+    vegetarian = models.BooleanField(default=False)
+    vegan = models.BooleanField(default=False)
+    nut_allergy = models.BooleanField(default=False)
+    egg_allergy = models.BooleanField(default=False)
+    dairy_allergy = models.BooleanField(default=False)
+    soy_allergy = models.BooleanField(default=False)
+    shellfish_allergy = models.BooleanField(default=False)
+    fish_allergy = models.BooleanField(default=False)
 
 
 class UserChoose(models.Model):

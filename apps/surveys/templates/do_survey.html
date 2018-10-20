@@ -19,6 +19,7 @@
                     {% for option in options %}
                     <div class="col-12 col-md-6">
                         <div class="card btn btn-block btn-light mb-2">
+
                             <div class="card-body p-2">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -31,8 +32,67 @@
                                     <div class="col-md-6 text-left">
                                         <h5 class="card-title pt-3">{{option.name}}</h5>
                                         <div class="card-text text-muted">{{option.description|safe}}</div>
+
+
                                     </div>
+
+                                    <div class="container ml-2">
+                                        <br>
+                                    
+
+                                        <!--allgery-->
+                                        <div class="row ">
+
+                                            {%if option.vegetarian%}
+                                                <h3 class="badge badge-success ml-2" style="font-size:1em;"  >
+                                                    Vegetarian
+                                                </h3>
+
+                                            {%endif%}
+                                            {%if option.vegan%}
+                                                <h3 class="badge badge-success ml-2" style="font-size:1em">
+                                                    Vegan
+                                                </h3>
+
+                                            {%endif%}
+                                            {%if option.nut_allergy%}
+                                                <h3 class="badge badge-primary ml-2" style="font-size:1em">
+                                                    Nut Free
+                                                </h3>
+
+                                            {%endif%}
+                                            {%if option.egg_allergy%}
+                                                <h3 class="badge badge-success ml-2" style="font-size:1em">
+                                                    Egg Free
+                                                </h3>
+
+                                            {%endif%}
+                                            {%if option.dairy_allergy%}
+                                                <h3 class="badge badge-info ml-2" style="font-size:1em">
+                                                    Dairy Free
+                                                </h3>
+
+                                            {%endif%}
+                                            {%if option.shellfish_allergy%}
+                                                <h3 class="badge badge-warning ml-2" style="font-size:1em">
+                                                    Shellfish Free
+                                                </h3>
+
+                                            {%endif%}
+                                            {%if option.fish_allergy%}
+                                                <h3 class="badge badge-warning ml-2" style="font-size:1em">
+                                                    Fish Free
+                                                </h3>
+
+                                            {%endif%}
+
+                                        </div>
+                                        <!--end allergy-->
+                                    </div>
+
+
                                 </div>
+
                                 <input type="radio" name="option" style="display:none" autocomplete="off" value="{{ option.id }}">
                             </div>
                         </div>
