@@ -39,7 +39,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
     option_form_class = CreateOptionForm
     model = Survey
     success_url = '/thanks/'
-    title = 'Create Survey'
+    page_title = 'Create Survey!'
 
     def get(self, request, *args, **kwargs):
         eventId=kwargs["eventId"]
@@ -52,7 +52,14 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                 "optionForm":self.option_form_class(),
                 "survey":survey,
                 "options":OptionInSurvey.objects.filter(survey=survey),
-                "preferences":self.generateFoodPreferenceList(survey.event)
+                "preferences":self.generateFoodPreferenceList(survey.event),
+                "Npreferences":self.generateNumber(survey.event),
+                "view": {
+                    'title': self.page_title,
+                    'project_name': self.project_name,
+                    'profile_page': self.profile_page(),
+                    'logout_page': self.logout_page(),
+                },
             }
 
             return render(request, self.template_name, context=context)
@@ -65,7 +72,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
             return reverse_lazy('home')
         if user.is_staff:
             operation = request.POST.get("operation", "")
-            print("operation is ",operation)
+            #print("operation is ",operation)
             surveyId = request.POST.get("survey", "")
             survey = Survey.objects.get(id=surveyId)
             if operation == "add_option":
@@ -91,15 +98,29 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                             "survey": survey,
                             "options": OptionInSurvey.objects.filter(survey=survey),
                             "preferences": self.generateFoodPreferenceList(survey.event),
+                            "view": {
+                                'title': self.page_title,
+                                'project_name': self.project_name,
+                                'profile_page': self.profile_page(),
+                                'logout_page': self.logout_page(),
+                            },
+
                         }
                         return render(request, self.choice_card_template, context=context)
-                print(form.errors)
+                #print(form.errors)
                 # if user does not enter a name for the option
                 form.add_error("name","please enter name for the option or use picture recognition")
                 context = {
                     "optionForm": form,
                     "survey": survey,
-                    "options": OptionInSurvey.objects.filter(survey=survey)
+                    "options": OptionInSurvey.objects.filter(survey=survey),
+                    "view": {
+                        'title': self.page_title,
+                        'project_name': self.project_name,
+                        'profile_page': self.profile_page(),
+                        'logout_page': self.logout_page(),
+                    },
+
                 }
                 return render(request, self.choice_card_template, context=context)
 
@@ -111,11 +132,18 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                         "survey": survey,
                         "error":"More options are needed to form a survey",
                         "options": OptionInSurvey.objects.filter(survey=survey),
-                        "preferences": self.generateFoodPreferenceList(survey.event)
+                        "preferences": self.generateFoodPreferenceList(survey.event),
+                        "view": {
+                            'title': self.page_title,
+                            'project_name': self.project_name,
+                            'profile_page': self.profile_page(),
+                            'logout_page': self.logout_page(),
+                        },
+
                     }
                     return render(request, self.template_name, context=context)
                 form = self.survey_form_class(request.POST)
-                print("creating survey")
+                #print("creating survey")
                 if form.is_valid():
                     survey.title=request.POST.get("title", "")
                     survey.isFinalized=True
@@ -126,7 +154,14 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                     "optionForm": self.option_form_class(),
                     "survey": survey,
                     "options": OptionInSurvey.objects.filter(survey=survey),
-                    "preferences": self.generateFoodPreferenceList(survey.event)
+                    "preferences": self.generateFoodPreferenceList(survey.event),
+                    "view": {
+                        'title': self.page_title,
+                        'project_name': self.project_name,
+                        'profile_page': self.profile_page(),
+                        'logout_page': self.logout_page(),
+                    },
+
                 }
                 return render(request, self.template_name, context=context)
 
@@ -154,6 +189,32 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
         participants = [involment.participant for involment in InvolvedEvent.objects.filter(event=event)]
         foodPreferences = [FoodPreferences.objects.get(user=participant) for participant in participants
                            if FoodPreferences.objects.filter(user=participant).count()>0]
+        #print("search preference "+str(len(foodPreferences)))
+        result={
+        "vegetarian": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__vegetarian=True).count(),
+        "vegan": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__vegan=True).count(),
+        "nut allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__nut_allergy=True).count(),
+        "egg allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__egg_allergy=True).count(),
+        "dairy allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__dairy_allergy =True).count(),
+        "soy allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__soy_allergy=True).count(),
+        "shellfish allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__shellfish_allergy=True).count(),
+        "fish allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__fish_allergy=True).count(),
+        }
+        #print(result)
+        return result
+
+    def generateNumber(self,event):
+        participants = [involment.participant for involment in InvolvedEvent.objects.filter(event=event)]
+        foodPreferences = [FoodPreferences.objects.get(user=participant) for participant in participants
+                           if FoodPreferences.objects.filter(user=participant).count()>0]
         print("search preference "+str(len(foodPreferences)))
         result={
         "vegetarian": InvolvedEvent.objects.filter(event=event).
@@ -173,8 +234,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
         "fish allergy": InvolvedEvent.objects.filter(event=event).
             select_related('participant__foodpreferences').filter(participant__foodpreferences__fish_allergy=True).count(),
         }
-        print(result)
-        return result
+        return sum(result.values())
 
 
     def pictureRecognition(self,pic):
@@ -222,7 +282,10 @@ class DeleteOptionInSurvey(DeleteView):
         return reverse_lazy('add_option_for_survey',args=(self.object.survey.event.id,self.object.survey.id,))
 
 
-class SubmitSurveyView(generic.View):
+class SubmitSurveyView(generic.TemplateView, core_views.BaseView):
+
+    template_name = "survey_response.html"
+    page_title = "Submit"
     def post(self, request):
         optionId = self.request.POST.get("option", "")
         user=request.user
@@ -249,20 +312,26 @@ class SubmitSurveyView(generic.View):
                     #create new result record for the survey
                     self.createNewChoiceRecord(survey,option,user,participation)
                     context["message"]="successfully submit your choice"
-                    return render(request, "survey_response.html", context=context)
+                    return render(request, self.template_name, context=context)
 
             else:
                 #the user is not in this event
                 context["isSuccess"]=False
                 context["message"] = "you have not join this event yet"
-                return render(request, "survey_response.html", context=context)
+                context += { "view": {
+                            'title': self.page_title,
+                            'project_name': self.project_name,
+                            'profile_page': self.profile_page(),
+                            'logout_page': self.logout_page(),
+                        },}
+                return render(request, self.template_name, context=context)
 
 
         else:
             context["message"] = "you should login before submit a anything"
             if optionId == "":
                 context["message"] = "you should choose a option before submit"
-            return render(request, "survey_response.html", context=context)
+            return render(request, self.template_name, context=context)
 
     def createNewChoiceRecord(self,survey,option,user,participation):
         surveyParticipation = SurveyParticipation()
@@ -292,9 +361,10 @@ class SubmitSurveyView(generic.View):
         userchoose.save()
 
 
-class DoSurveyView(generic.View):
+class DoSurveyView(generic.View, core_views.BaseView):
     template_name = 'do_survey.html'
     success_template = 'survey_response.html'
+    page_title = "Fill out the survey"
     def get(self, request,surveyId):
         try:
             survey=Survey.objects.get(id=surveyId)
@@ -307,6 +377,12 @@ class DoSurveyView(generic.View):
             context={
                 "survey":survey,
                 "options":options,
+                "view": {
+                    'title': self.page_title,
+                    'project_name': self.project_name,
+                    'profile_page': self.profile_page(),
+                    'logout_page': self.logout_page(),
+                },
             }
             return render(request, self.template_name, context=context)
         except:
@@ -346,8 +422,10 @@ class CloseSurveyView(generic.View):
             pass
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-class SeeSurveyResultView(generic.View):
+class SeeSurveyResultView(generic.View, core_views.BaseView):
+
     template_name = 'view_survey_result.html'
+    page_title = "Results"
 
     def get(self, request,surveyId):
         print(surveyId)
@@ -366,6 +444,12 @@ class SeeSurveyResultView(generic.View):
                                   prevent_zero(InvolvedEvent.objects.filter(event=survey.event).count()),
             "survey_participant":SurveyParticipation.objects.filter(survey=survey).filter().count() ,
             "event_participant":InvolvedEvent.objects.filter(event=survey.event).count(),
+            "view": {
+                'title': self.page_title,
+                'project_name': self.project_name(),
+                'profile_page': self.profile_page(),
+                'logout_page': self.logout_page(),
+            },
         }
 
         return render(request, self.template_name, context=context)
@@ -407,10 +491,12 @@ class SeeSurveyResultView(generic.View):
         return sumOfChoosen
 
 
-class ProcessSurvey(generic.View):
+class ProcessSurvey(generic.View, core_views.BaseView):
     template_name = 'event_offer.html'
     success_template = 'survey_response.html'
     model = Survey
+    page_title = "Survey Response"
+
     def post(self,request):
         title = request.POST.get("title","")
         eventId = self.request.POST.get("event", "")
@@ -433,16 +519,35 @@ class ProcessSurvey(generic.View):
                             option.save()
                         except:
 
+                            context = {
+                                'error': error,
+                                "isSuccess": False,
+                                "event": Event.objects.get(id=int(eventId)),
+                                "view": {
+                                    'title': self.page_title,
+                                    'project_name': self.project_name,
+                                    'profile_page': self.profile_page(),
+                                    'logout_page': self.logout_page(),
+                                },
+                            }
                             # not a valid option
                             error = "please add some choice to a survey"
-                            return render(request, self.template_name,
-                                          {'error': error, "isSuccess": False, "event": Event.objects.get(
-                                              id=int(eventId)), })
+                            return render(request, self.template_name, context)
             return render(request, self.success_template, self._define_success_context(error,eventId))
         except:
             error = "invalid input"
-            return render(request, self.template_name, {'error': error, "isSuccess": False, "event": Event.objects.get(
-            id=int(eventId)), })
+            context = {
+                'error': error,
+                "isSuccess": False,
+                "event": Event.objects.get(id=int(eventId)),
+                "view": {
+                    'title': self.page_title,
+                    'project_name': self.project_name,
+                    'profile_page': self.profile_page(),
+                    'logout_page': self.logout_page(),
+                },
+            }
+            return render(request, self.template_name, context)
 
     def _define_success_context(self,error,eventId):
         return {'error': error,
@@ -475,8 +580,6 @@ class ProcessSurvey(generic.View):
 
 
 
-class SuccessView(generic.TemplateView):
+class SuccessView(generic.TemplateView, core_views.BaseView):
     template_name = 'survey_response.html'
-
-    def get(self, request, context):
-        return render(request, self.template_name, context=context)
+    page_title = "Success"
