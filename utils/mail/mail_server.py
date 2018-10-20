@@ -57,3 +57,27 @@ class ForumReplyEmail():
         msg = EmailMultiAlternatives(self.subject, text_content, self.sender, [to_email])
         msg.attach_alternative(html_content, "text/html")
         msg.send()
+
+
+class PostUpdateEmail():
+
+    def __init__(self):
+        self.host_name = settings.HOSTNAME  # The domain name of the website. In development this would be 127.0.0.1:8000
+        self.template_name = "post_update_email.html"
+        self.subject = "A post you are following has been updated!"
+        self.sender = settings.EMAIL_HOST_USER
+
+    @multitasking.task  # This is a decorator that turns send() into a non-blocking method
+    def send(self, email_list, post_id):
+
+        forum_link = '{}/event/discussion/{}'.format(self.host_name, post_id)
+        context = {
+            'forum_link': forum_link,
+        }
+
+        # Supply both html and plaintext content, in case the user's email client doesn't support html
+        text_content = "Visit the following url to see the new forum reply. \n{}".format(forum_link)
+        html_content = render_to_string(self.template_name, context)
+        msg = EmailMultiAlternatives(self.subject, text_content, self.sender, email_list)
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
