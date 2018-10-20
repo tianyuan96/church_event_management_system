@@ -25,8 +25,8 @@
                            {{form.date}}
                        </div>
                    </div>
-                    {{ form.lan.as_hidden }}
-                    {{ form.lng.as_hidden }}
+                    {{ form.lan}}
+                    {{ form.lng}}
                    <div class="form-group row">
                        <label name="event" class="col-sm-2 col-form-label">Venue</label>
                        <div class="col-sm-10">
@@ -52,8 +52,8 @@
                                        document.getElementById('map').style.display = "block";
                                        var location = searchBar.getPlace();
                                        initMap(location.geometry.location.lat(), location.geometry.location.lng());
-                                       document.getElementById("lan").value = location.geometry.location.lat();
-                                       document.getElementById("lng").value = location.geometry.location.lng();
+                                       $("#lan").val(location.geometry.location.lat());
+                                        $("#lng").val(location.geometry.location.lng());
 
                                    });
                                 });

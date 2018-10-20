@@ -34,8 +34,8 @@ class EventUpdateForm(forms.ModelForm):
 
     date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control',
                                                          'type': 'date'}))
-    lan = forms.DecimalField(widget=forms.TextInput(attrs={'class': 'form-control',  'id': "lan"}))
-    lng = forms.DecimalField(widget=forms.TextInput(attrs={'class': 'form-control', 'id': "lng"}))
+    lan = forms.DecimalField(widget=forms.TextInput(attrs={'class': 'form-control',  'type':'hidden','id': "lan"}))
+    lng = forms.DecimalField(widget=forms.TextInput(attrs={'class': 'form-control', 'type':'hidden','id': "lng"}))
 
     class Meta:
 
