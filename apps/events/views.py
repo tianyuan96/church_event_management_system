@@ -14,8 +14,10 @@ from apps.core import views as core_views
 from django.contrib.auth.decorators import login_required
 import datetime
 from django.contrib.auth.models import User
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
-from utils.mail.mail_server import ForumReplyEmail
+from utils.mail.mail_server import ForumReplyEmail, PostUpdateEmail
 
 class JoinEvent(generic.View):
     #success_url =
@@ -141,15 +143,37 @@ class DeletePostView(generic.DeleteView):
 
         return reverse_lazy("event_forums", args=(self.object.eventID.id,))
 
-
 class UpdatePostView(generic.UpdateView, core_views.BaseView):
+
     model = Post
     template_name = "post_update_form.html"
     form_class = PostUpdateForm
+
     def get_success_url(self, **kwargs):
 
-
         return reverse_lazy("event_forums", args=(self.object.eventID.id,))
+
+    """
+        This function runs whenever a post is created, updated, or deleted
+    """
+    @receiver(pre_save, sender=Post)
+    def on_update(**kwargs):
+        # print(kwargs)
+        post = kwargs['instance']
+        if not post.id:  # If the post is being created, it will be none here (I don't know why)
+            # print('Post Created')
+            return
+
+        print("Just updated Post: {}".format(post))
+        likes = PostLike.objects.filter(postID=post)
+
+        email_list = []
+        for like in likes:
+            email_list += [like.author.email]
+
+        post_update_email = PostUpdateEmail()
+        post_update_email.send(email_list, post.id)
+
 
 # Sets up the posts in the database
 class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateView, core_views.BaseView):
@@ -160,22 +184,6 @@ class PostCreationView(LoginRequiredMixin, generic.DetailView, generic.CreateVie
     context_object_name = "event"
 
     login_url = reverse_lazy("user_accounts:login")
-
-#    def get(self, request, *args, **kwargs):
-#        user = request.user
-#       # event = Event.objects.get(id=eventID)
-#        if user is not None:
-#            if user.is_active:
-#                form = self.form_class
-
-#                return render(request, self.template_name, {"form": form})
- #       return HttpResponseRedirect('/')
-
-
-    # def event(self):
-    #     event = self.object
-    #     return event
-        # return Event.objects.get(id=self.request.GET['eventID'])
 
     def form(self):
         form = self.form_class()
@@ -309,10 +317,6 @@ class ReplyToCommentView(generic.CreateView):
     form_class = ReplyCreationForm
     model = Post
 
-
-
-
-
     def get(self, request, eventID, postID):
         user = request.user
         #eventID = request.POST.get("event", "")
@@ -375,45 +379,6 @@ class ReplyToCommentView(generic.CreateView):
                     return HttpResponseRedirect(request.path_info)
 
         return HttpResponseRedirect('/')
-
-
-
-
-
-
-
-#
-# class ReplyLikeView(generic.View):
-#     template_name = "create_post.html"
-#     model = ReplyLike
-#
-#     form_class = PostCreationForm
-#     #success_url = reverse_lazy('/event/discussion/'+eventID)
-#     def get(self, request, eventID, postID, replyID):
-#         user = request.user
-#         #eventID = request.POST.get("event", "")
-#         event = Event.objects.get(id=eventID)
-#         post = Post.objects.get(id=postID)
-#         form = PostCreationForm
-#         if user is not None:
-#             if user.is_active:
-#                 reply = Reply.objects.get(id=replyID)
-#                 event = Event.objects.get(id=eventID)
-#
-#                 reply_like = ReplyLike.objects.filter(eventID=event, replyID=reply, author=user).count()
-#                 if reply_like == 0:
-#                     self.object = ReplyLike()
-#                     self.object.author = user
-#
-#                     reply = Reply.objects.get(id=replyID)
-#                     reply.likes += 1
-#                     reply.save()
-#                     self.object.replyID = reply
-#                     self.object.eventID = event
-#                     self.object.save()
-#                 return HttpResponseRedirect('/event/discussion/'+eventID)
-#         return HttpResponseRedirect('/')
-
 
 class PostLikeView(generic.View):
     template_name = "create_post.html"
