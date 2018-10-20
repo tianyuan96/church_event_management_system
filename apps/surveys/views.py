@@ -52,7 +52,8 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                 "optionForm":self.option_form_class(),
                 "survey":survey,
                 "options":OptionInSurvey.objects.filter(survey=survey),
-                "preferences":self.generateFoodPreferenceList(survey.event)
+                "preferences":self.generateFoodPreferenceList(survey.event),
+                "Npreferences":self.generateNumber(survey.event),
             }
 
             return render(request, self.template_name, context=context)
@@ -65,7 +66,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
             return reverse_lazy('home')
         if user.is_staff:
             operation = request.POST.get("operation", "")
-            print("operation is ",operation)
+            #print("operation is ",operation)
             surveyId = request.POST.get("survey", "")
             survey = Survey.objects.get(id=surveyId)
             if operation == "add_option":
@@ -93,7 +94,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                             "preferences": self.generateFoodPreferenceList(survey.event),
                         }
                         return render(request, self.choice_card_template, context=context)
-                print(form.errors)
+                #print(form.errors)
                 # if user does not enter a name for the option
                 form.add_error("name","please enter name for the option or use picture recognition")
                 context = {
@@ -115,7 +116,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                     }
                     return render(request, self.template_name, context=context)
                 form = self.survey_form_class(request.POST)
-                print("creating survey")
+                #print("creating survey")
                 if form.is_valid():
                     survey.title=request.POST.get("title", "")
                     survey.isFinalized=True
@@ -154,6 +155,32 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
         participants = [involment.participant for involment in InvolvedEvent.objects.filter(event=event)]
         foodPreferences = [FoodPreferences.objects.get(user=participant) for participant in participants
                            if FoodPreferences.objects.filter(user=participant).count()>0]
+        #print("search preference "+str(len(foodPreferences)))
+        result={
+        "vegetarian": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__vegetarian=True).count(),
+        "vegan": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__vegan=True).count(),
+        "nut allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__nut_allergy=True).count(),
+        "egg allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__egg_allergy=True).count(),
+        "dairy allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__dairy_allergy =True).count(),
+        "soy allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__soy_allergy=True).count(),
+        "shellfish allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__shellfish_allergy=True).count(),
+        "fish allergy": InvolvedEvent.objects.filter(event=event).
+            select_related('participant__foodpreferences').filter(participant__foodpreferences__fish_allergy=True).count(),
+        }
+        #print(result)
+        return result
+
+    def generateNumber(self,event):
+        participants = [involment.participant for involment in InvolvedEvent.objects.filter(event=event)]
+        foodPreferences = [FoodPreferences.objects.get(user=participant) for participant in participants
+                           if FoodPreferences.objects.filter(user=participant).count()>0]
         print("search preference "+str(len(foodPreferences)))
         result={
         "vegetarian": InvolvedEvent.objects.filter(event=event).
@@ -173,8 +200,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
         "fish allergy": InvolvedEvent.objects.filter(event=event).
             select_related('participant__foodpreferences').filter(participant__foodpreferences__fish_allergy=True).count(),
         }
-        print(result)
-        return result
+        return sum(result.values())
 
 
     def pictureRecognition(self,pic):

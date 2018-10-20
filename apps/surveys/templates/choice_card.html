@@ -57,13 +57,28 @@
 
         <div class="card-body">
             <div class="row ml-2">
-                    {%  for preference, counter in preferences.items %}
-                        {% if counter > 0 %}
-                            <h3 class="badge badge-secondary ml-2" style="font-size:1em">
-                                {{ preference }} : {{ counter }}
-                            </h3>
-                        {% endif %}
-                    {% endfor %}
+
+                    {% if Npreferences > 0 %}
+
+                        <h4 class="text-danger ">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Warning Allergy
+
+                        </h4>
+
+                    {% endif %}
+
+
+            </div>
+            <div class="row ml-2">
+                {%  for preference, counter in preferences.items %}
+                    {% if counter > 0 %}
+                        <h3 class="badge badge-danger ml-2" style="font-size:1em">
+                            {{ preference }} : {{ counter }}
+                        </h3>
+                    {% endif %}
+                {% endfor %}
+
             </div>
             <form  method="POST" action="/survey/create/{{ survey.event_id }}/{{ survey.id }}/"  enctype="multipart/form-data" id="survey_form">
                 {% csrf_token %}
