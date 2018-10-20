@@ -117,6 +117,7 @@ class LoginOrganisationView(generic.FormView, core_views.BaseView):
                 else:
                     form.errors[""] = " You aren't allowed to log in here"
             else:
+                
                 form.errors["password"] = ' Wrong email or password'
 
         # This is very ugly, please never do this
