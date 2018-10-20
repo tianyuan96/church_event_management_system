@@ -150,7 +150,10 @@ class UpdateUserView(generic.View):
 
         # Update user details as well
         display_name = user_form.cleaned_data['display_name']
+        print(display_name)
         models.OrganisationDetails.objects.filter(user=request.user).delete()
-        obj, created = models.OrganisationDetails.objects.update_or_create(user=request.user, display_name=display_name)
+        objcreated = models.OrganisationDetails.objects.create(user=request.user, display_name=display_name)
         messages.add_message(request, messages.INFO, 'User details updated!', extra_tags='success profile_update')
+        print("HHHHHHHHHHHHHHHHHHHHHHHHHH")
+
         return redirect(self.success_url)

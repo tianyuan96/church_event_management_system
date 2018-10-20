@@ -10,5 +10,5 @@ class Confirmations(models.Model):
 
 class UserDetails(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_detail")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="org_detail")
     display_name = models.CharField(max_length=40)
