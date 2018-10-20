@@ -285,6 +285,7 @@ class DeleteOptionInSurvey(DeleteView):
 class SubmitSurveyView(generic.TemplateView, core_views.BaseView):
 
     template_name = "survey_response.html"
+    page_title = "Submit"
     def post(self, request):
         optionId = self.request.POST.get("option", "")
         user=request.user
@@ -322,7 +323,7 @@ class SubmitSurveyView(generic.TemplateView, core_views.BaseView):
                             'project_name': self.project_name,
                             'profile_page': self.profile_page(),
                             'logout_page': self.logout_page(),
-                        }}
+                        },}
                 return render(request, self.template_name, context=context)
 
 
@@ -360,9 +361,10 @@ class SubmitSurveyView(generic.TemplateView, core_views.BaseView):
         userchoose.save()
 
 
-class DoSurveyView(generic.View):
+class DoSurveyView(generic.View, core_views.BaseView):
     template_name = 'do_survey.html'
     success_template = 'survey_response.html'
+    page_title = "Fill out the survey"
     def get(self, request,surveyId):
         try:
             survey=Survey.objects.get(id=surveyId)
@@ -375,6 +377,12 @@ class DoSurveyView(generic.View):
             context={
                 "survey":survey,
                 "options":options,
+                "view": {
+                    'title': self.page_title,
+                    'project_name': self.project_name,
+                    'profile_page': self.profile_page(),
+                    'logout_page': self.logout_page(),
+                },
             }
             return render(request, self.template_name, context=context)
         except:
@@ -414,8 +422,10 @@ class CloseSurveyView(generic.View):
             pass
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-class SeeSurveyResultView(generic.View):
+class SeeSurveyResultView(generic.View, core_views.BaseView):
+
     template_name = 'view_survey_result.html'
+    page_title = "Results"
 
     def get(self, request,surveyId):
         print(surveyId)
@@ -434,6 +444,12 @@ class SeeSurveyResultView(generic.View):
                                   prevent_zero(InvolvedEvent.objects.filter(event=survey.event).count()),
             "survey_participant":SurveyParticipation.objects.filter(survey=survey).filter().count() ,
             "event_participant":InvolvedEvent.objects.filter(event=survey.event).count(),
+            "view": {
+                'title': self.page_title,
+                'project_name': self.project_name(),
+                'profile_page': self.profile_page(),
+                'logout_page': self.logout_page(),
+            },
         }
 
         return render(request, self.template_name, context=context)
@@ -475,10 +491,12 @@ class SeeSurveyResultView(generic.View):
         return sumOfChoosen
 
 
-class ProcessSurvey(generic.View):
+class ProcessSurvey(generic.View, core_views.BaseView):
     template_name = 'event_offer.html'
     success_template = 'survey_response.html'
     model = Survey
+    page_title = "Survey Response"
+
     def post(self,request):
         title = request.POST.get("title","")
         eventId = self.request.POST.get("event", "")
@@ -562,8 +580,6 @@ class ProcessSurvey(generic.View):
 
 
 
-class SuccessView(generic.TemplateView):
+class SuccessView(generic.TemplateView, core_views.BaseView):
     template_name = 'survey_response.html'
-
-    def get(self, request, context):
-        return render(request, self.template_name, context=context)
+    page_title = "Success"
