@@ -51,13 +51,16 @@
                 <!-- upload image here-->
                 <div class="form-group row">
                     <label name="post" class="col-sm-2 col-form-label">Post Images</label>
-                        <div class="col-6 ">
-                            {{view.form.imageFile}}
-                        </div>
+                        <div class="col-sm-10">
+                            <div class="custom-file">
+                                {{form.imageFile }}
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
                 </div>
                 <!-- end upload image -->
                 <div id="image_container" class="d-flex justify-content-center" style="display:none">
                     <img id="post_image_content" id="imageFileToBeUpload" class="img-thumbnail" style="display:none" src="">
+                </div>
                 </div>
                 <script type="text/javascript">
                     $('#id_imageFile').change(function(e){
@@ -77,10 +80,10 @@
 
                 <br>
                 <br>
-
-                <div class="text-center">
+                <div class="text-center ">
                     <button class="btn btn-primary">Post</button>
                 </div>
+
             </form>
         </div>
     </div>
