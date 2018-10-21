@@ -39,7 +39,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
     option_form_class = CreateOptionForm
     model = Survey
     success_url = '/thanks/'
-    page_title = 'Create Survey!'
+    page_title = 'Create A Menu!'
 
     def get(self, request, *args, **kwargs):
         eventId=kwargs["eventId"]
@@ -145,7 +145,7 @@ class CreateSurveyView(edit.CreateView, core_views.BaseView):
                 form = self.survey_form_class(request.POST)
                 #print("creating survey")
                 if form.is_valid():
-                    survey.title=request.POST.get("title", "")
+                    survey.title = "Menu"
                     survey.isFinalized=True
                     survey.save()
                     return render(request, self.success_template, context=self.generateSuccessContext(survey))
@@ -296,7 +296,7 @@ class SubmitSurveyView(generic.TemplateView, core_views.BaseView):
            # try:
             option=OptionInSurvey.objects.get(id=int(optionId))
             survey=Survey.objects.get(id=option.survey.id)
-            context["title"]= survey.title
+            context["title"]= "Menu"
             context["isSuccess"] = True
 
 
@@ -366,7 +366,7 @@ class SubmitSurveyView(generic.TemplateView, core_views.BaseView):
 class DoSurveyView(generic.View, core_views.BaseView):
     template_name = 'do_survey.html'
     success_template = 'survey_response.html'
-    page_title = "Fill out the survey"
+    page_title = "Menu"
     def get(self, request,surveyId):
         try:
             survey=Survey.objects.get(id=surveyId)
@@ -497,13 +497,13 @@ class ProcessSurvey(generic.View, core_views.BaseView):
     template_name = 'event_offer.html'
     success_template = 'survey_response.html'
     model = Survey
-    page_title = "Survey Response"
+    page_title = "Menu Response"
 
     def post(self,request):
         title = request.POST.get("title","")
         eventId = self.request.POST.get("event", "")
         survey = self.model()
-        survey.title = title
+        survey.title = "Menu"
         survey.event = Event.objects.get(id=int(eventId))
         survey.owner = self.request.user
         error=""

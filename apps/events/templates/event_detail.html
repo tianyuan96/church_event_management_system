@@ -57,6 +57,7 @@
 
             <div class="text-secondary">
                 {{ event.description|safe}}
+
             </div>
             <hr>
             <br>
@@ -64,7 +65,7 @@
             {% if view.surveys %}
                 <div >
                     <h3>
-                        <span>Relevant survey</span>
+                        <span>Menu</span>
                     {% if user.is_staff %}
                         <a href="/survey/create/{{ event.id }}"><i class="fas fa-plus-circle" style="font-size: 26px;"></i></a>
 
@@ -88,7 +89,7 @@
                             {% if  survey.title %}
                                 {{ survey.title }}
                             {% else %}
-                                Unnamed Event
+                                Menu
                             {% endif %}
                             <div class="d-flex">
                                 {% if survey.isClose %}
@@ -125,7 +126,7 @@
                                             <button type="submit" class="btn btn-danger mr-2">Delete</button>
                                         </form>
                                         <a href="{% url 'add_option_for_survey' event.id survey.id%}"  class="btn btn-info mr-2">
-                                            Edit Survey
+                                            Edit
                                         </a>
                                     {% endif %}
                                 {% endif %}
@@ -138,8 +139,10 @@
             {% else%}
                 {% if user.is_staff %}
                     <div>
-                     <h3>Relevant survey
-                        <a href="/survey/create/{{ event.id }}" class="btn btn-primary"> Add survey</a>
+                     <h3>Menu
+                       <br>
+                       <br>
+                        <a href="/survey/create/{{ event.id }}" class="btn btn-primary"> Add Menu</a>
                         <span class="float-right text-muted">
                             {%  if view.number_of_participant > 1 %}
                                 {{ view.number_of_participant}} participants

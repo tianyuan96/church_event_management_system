@@ -1,12 +1,12 @@
-{% extends 'base.html' %} {% block title %}Create Meal Survey{% endblock %} {% block content %}
+{% extends 'base.html' %}
+
+ {% block content %}
 <div class="container mt-3" >
     <!-- title of the survey -->
-    <h1>What's the title for the survey?</h1>
-
 
     <form  method="POST" action="/survey/create/{{ survey.event_id }}/{{ survey.id }}/"  enctype="multipart/form-data" id="survey_form1">
         {% csrf_token %}
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -14,23 +14,18 @@
                     </div>
                     <div class="col-md-8">
 
-                            <input class="form-control" type="text" name="title" placeholder="Title of the event">
+                            <input class="form-control" type="text" name="title" value="Menu">
                             {% if  surveyForm.title.errors %}
                                 <div class="alert alert-warning">
                                 {{ surveyForm.title.errors }}
                                 </div>
                             {% endif %}
-                    <input type="hidden" name="event" value={{ event.id }}>
-                        <input type="hidden" name="survey" value={{ survey.id }}>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <input type="hidden" name="operation" value="create_survey" />
+          -->
+      <input type="hidden" name="event" value={{ event.id }}>
+      <input type="hidden" name="survey" value={{ survey.id }}>
+      <input type="hidden" name="operation" value="create_survey" />
     </form>
     <br>
-
     {% if error %}
         <div class="alert alert-warning">
             {{ error }}
@@ -61,7 +56,7 @@
         });
         </script>
     </div>
-        
+
     <!-- end submit survey button -->
 
 
