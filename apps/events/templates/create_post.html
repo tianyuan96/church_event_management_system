@@ -134,11 +134,21 @@
                                 </div>
                             </div>
                             <span>
-                                {% if every_post.author.user_detail.display_name %}
-                                    <h5 class="pt-1 mb-1">{{ every_post.author.user_detail.display_name }}</h5>
+                                <h5 class="pt-1 mb-1">
+                                 {% if  every_post.author.is_staff%}
+                                    {% if every_post.author.user_detail.display_name %}
+                                       {{ every_post.author.user_detail.display_name }}
+                                    {% else %}
+                                     {{ every_post.author}}
+                                    {% endif %}
                                 {% else %}
-                                    <h5 class="pt-1 mb-1">{{ every_post.author}}</h5>
+                                    {% if every_post.author.org_detail.display_name %}
+                                       {{ every_post.author.org_detail.display_name }}
+                                    {% else %}
+                                     {{ every_post.author}}
+                                    {% endif %}
                                 {% endif %}
+                                </h5>
                             </span>
                             <span>
                                 {{ every_post.date }}
@@ -198,17 +208,55 @@
                                                 <div class="comment-msg ">
                                                     {% if every_record.author.type == 0 %}
                                                         <span><i>
-                                                            {% if every_reply.author.user_detail.display_name %}
-                                                               {{ every_reply.author.user_detail.display_name }}
+                                                            {% if  every_reply.author.is_staff%}
+                                                                {% if every_reply.author.user_detail.display_name %}
+                                                                   {{ every_reply.author.user_detail.display_name }}
+                                                                {% else %}
+                                                                 {{ every_reply.author}}
+                                                                {% endif %}
                                                             {% else %}
-                                                             {{ every_reply.author}}
+                                                                {% if every_reply.author.org_detail.display_name %}
+                                                                   {{ every_reply.author.org_detail.display_name }}
+                                                                {% else %}
+                                                                 {{ every_reply.author}}
+                                                                {% endif %}
                                                             {% endif %}
                                                             <b>:</b> </i></span>
 
                                                     {% endif %}
 
                                                     {% if every_record.author.type == 1 %}
-                                                        <span><i>{{ every_reply.author.user_detail.display_name }} <b>to</b> {{ every_record.author.author.user_detail.display_name }}<b>:</b> </i></span>
+                                                        <span><i>
+                                                        {% if  every_reply.author.is_staff%}
+                                                                {% if every_reply.author.user_detail.display_name %}
+                                                                   {{ every_reply.author.user_detail.display_name }}
+                                                                {% else %}
+                                                                 {{ every_reply.author.author}}
+                                                                {% endif %}
+                                                            {% else %}
+                                                                {% if every_reply.author.org_detail.display_name %}
+                                                                   {{ every_reply.author.org_detail.display_name }}
+                                                                {% else %}
+                                                                 {{ every_reply.author.author}}
+                                                                {% endif %}
+                                                        {% endif %}
+                                                            <b>
+                                                            to</b>
+                                                            {% if  every_record.author.is_staff%}
+                                                                {% if every_record.author.author.user_detail.display_name %}
+                                                                   {{ every_record.author.author.user_detail.display_name }}
+                                                                {% else %}
+                                                                 {{ every_record.author.author}}
+                                                                {% endif %}
+                                                            {% else %}
+                                                                {% if every_record.author.author.org_detail.display_name %}
+                                                                   {{ every_record.author.author.org_detail.display_name }}
+                                                                {% else %}
+                                                                 {{ every_record.author.author}}
+                                                                {% endif %}
+                                                            {% endif %}
+
+                                                            <b>:</b> </i></span>
 
                                                     {% endif %}
                                                     <span>{{ every_reply.message |safe}}</span>
@@ -298,10 +346,19 @@
                                             </div>
                                         </span>
                                         <span>
-                                            {% if every_post.author.user_detail.display_name %}
-                                               {{ every_post.author.user_detail.display_name }}:
+
+                                            {% if  user.is_staff%}
+                                                {% if user.user_detail.display_name %}
+                                                   {{ user.user_detail.display_name }}
+                                                {% else %}
+                                                 {{ user.email}}
+                                                {% endif %}
                                             {% else %}
-                                             {{ every_post.author}}:
+                                                {% if user.org_detail.display_name %}
+                                                   {{ user.org_detail.display_name }}:
+                                                {% else %}
+                                                 {{ every_record.author.author}}:
+                                                {% endif %}
                                             {% endif %}
                                         </span>
                                     </div>
