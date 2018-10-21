@@ -1,8 +1,4 @@
 import os
-from urllib.request import urlretrieve
-from django.core.files import File
-from io import BytesIO
-from PIL import Image
 from datetime import datetime, timedelta
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
@@ -35,11 +31,8 @@ class Command(BaseCommand):
         for i in range(0, 12):
             name = "Auto Generated Event {}".format(i)
             date = datetime.now() + timedelta(days=i)
+
             description = ''.join(loremipsum.get_sentences(15))
-            # pic = "https://picsum.photos/200/300/?random"
-            # pic_path = os.path.join('image', 'None', 'event_{}.jpg'.format(i))
-            # full_pic_path = os.path.join(settings.BASE_DIR, 'media', pic_path)
-            # urlretrieve(pic, full_pic_path)
             event = Event(name=name, description=description, location="UNSW", host=host, date=date)
             event.save()
 
