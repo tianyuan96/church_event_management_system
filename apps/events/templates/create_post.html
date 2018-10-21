@@ -197,11 +197,11 @@
                                     <div class="comment-item">
                                         <div class="row col-12">
 
-                                            <div>
-                                                <div class="comment-user-img center">
-                                                    <i class="far fa-user"></i>
+                                                <div>
+                                                    <div class="comment-user-img center">
+                                                        <i class="far fa-user"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
 
                                             <span class="col-11">
                                             <div>
@@ -221,8 +221,7 @@
                                                                  {{ every_reply.author}}
                                                                 {% endif %}
                                                             {% endif %}
-                                                            <b>:</b>
-                                                        </i></span>
+                                                            <b>:</b> </i></span>
 
                                                     {% endif %}
 
@@ -242,8 +241,7 @@
                                                                 {% endif %}
                                                         {% endif %}
                                                             <b>
-                                                            to
-                                                            </b>
+                                                            to</b>
                                                             {% if  every_record.author.is_staff%}
                                                                 {% if every_record.author.author.user_detail.display_name %}
                                                                    {{ every_record.author.author.user_detail.display_name }}
@@ -305,29 +303,26 @@
 
                                                          <!-- end reply edit tool-->
                                                     </div>
-                                                    <!-- replay box-->
-                                                        <div id="{{ every_reply.id }}" style="display:none">
 
-                                                            <form method="POST" action="/event/discussion/replytocomment/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}/" enctype="multipart/form-data">
-                                                                {%csrf_token%}
-                                                                <div class="comment-item">
-                                                                    <div class="comment-post" style="margin-left: 4.5rem; width: 60%;">
-                                                                        <form method class="form-group">
-                                                                            <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">
-                                                                        </form>
-                                                                    </div>
+                                                    <div id="{{ every_reply.id }}" style="display:none">
+
+                                                        <form method="POST" action="/event/discussion/replytocomment/{{ event.id}}/{{ every_post.id }}/{{ every_reply.id }}/" enctype="multipart/form-data">
+                                                            {%csrf_token%}
+                                                            <div class="comment-item">
+                                                                <div class="comment-post" style="margin-left: 4.5rem; width: 60%;">
+                                                                    <form method class="form-group">
+                                                                        <input class="form-control" name="message" maxlength="140" placeholder="Press Enter to post">
+                                                                    </form>
                                                                 </div>
-                                                            </form>
-                                                        </div>
-                                                    <!-- end replay box-->
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
 
-                                                <!--end reply-->
 
                                             </div>
                                             </span>
                                         </div>
-                                    </div>
 
 
 
