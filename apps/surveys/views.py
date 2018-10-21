@@ -318,12 +318,14 @@ class SubmitSurveyView(generic.TemplateView, core_views.BaseView):
                 #the user is not in this event
                 context["isSuccess"]=False
                 context["message"] = "you have not join this event yet"
-                context += { "view": {
+                context[ "view"]= {
                             'title': self.page_title,
                             'project_name': self.project_name,
                             'profile_page': self.profile_page(),
                             'logout_page': self.logout_page(),
-                        },}
+                        }
+
+
                 return render(request, self.template_name, context=context)
 
 
