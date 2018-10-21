@@ -147,7 +147,9 @@
                                   {% if  event.imageFile %}
                                       <img class="img-thumbnail" src="{{ event.imageFile.url }}">
                                   {% else %}
-                                      <img class="img-thumbnail" src="https://d2mekbzx20fc11.cloudfront.net/uploads/Morroccan_Lamb_UC_500x333-rei2.png">
+                                  <div class="item-cover">
+                                    <div class="item-bg-img" style="background-image:url(https://picsum.photos/1200/40{{ event.id }})"></div>
+                                  </div>
                                   {% endif %}
                                </a>
                               </div>
@@ -160,7 +162,7 @@
                                     <!-- <a href="/event/details/{{ event.id }}" style="height:40px; width:120px ;position: relative; top: -16px;" class="btn btn-primary">Detail</a> -->
                                     <a href="/event/details/{{ event.id }}" class="btn btn-primary" data-toggle="tooltip" title="Detail"><i
                                       class="fas fa-info-circle"></i></a>
-                  
+
                                   <!--join and unjoin-->
                                   <form action="/event/join/" method="POST" class="d-inline-block">
                                       {% csrf_token %}
@@ -196,7 +198,7 @@
                             </div>
                             {%else%}
                             <div class="item-cover">
-                              <div class="item-bg-img" style="background-image:url(http://itjobsnepal.com/public/clients/images/noimage.png)"></div>
+                              <div class="item-bg-img" style="background-image:url(https://picsum.photos/1200/40{{ event.id }})"></div>
                             </div>
                             {% endif %}
                           </a>
