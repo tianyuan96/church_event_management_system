@@ -242,7 +242,7 @@
                                                         {% endif %}
                                                             <b>
                                                             to</b>
-                                                            {% if  every_record.author.is_staff%}
+                                                            {% if  every_record.author.author.is_staff%}
                                                                 {% if every_record.author.author.user_detail.display_name %}
                                                                    {{ every_record.author.author.user_detail.display_name }}
                                                                 {% else %}
@@ -323,7 +323,7 @@
                                             </div>
                                             </span>
                                         </div>
-
+                                    </div>
 
 
 
